@@ -10,7 +10,7 @@ module com.javaprojekt.finalversionjavaproject {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
-    requires kotlin.stdlib;
+    requires java.desktop;
 
     opens com.javaprojekt.finalversionjavaproject to javafx.fxml;
     exports com.javaprojekt.finalversionjavaproject;
