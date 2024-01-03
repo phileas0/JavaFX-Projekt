@@ -1,6 +1,7 @@
 package com.javaprojekt.finalversionjavaproject.main;
 
 import com.javaprojekt.finalversionjavaproject.entity.Player;
+import com.javaprojekt.finalversionjavaproject.tile.TileManager;
 
 import javax.swing.JPanel;
 import java.awt.*;
@@ -10,15 +11,20 @@ public class GamePanel extends JPanel implements Runnable{
     final int originalTileSize = 32; // 32x32
     final int scale = 3;
     public final int tileSize = originalTileSize * scale; // 96x96
-    final int maxScreenCol = 20;
-    final int maxScreenRow = 12;
-    final int screenWidth = tileSize * maxScreenCol; //1920
-    final int screenHeight = tileSize * maxScreenRow; // 1080
+    public final int maxScreenCol = 20;
+    public final int maxScreenRow = 12;
+    public final int screenWidth = tileSize * maxScreenCol; //1920
+    public final int screenHeight = tileSize * maxScreenRow; // 1080
     int FPS = 60;
 
+    TileManager tileManager = new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
-    Player player = new Player(this, keyHandler);
+    public CollisionDetection cDetecter = new CollisionDetection(this);
+    //public ObjectSetter oSetter = new ObjectSetter(this);
+    //public HUD hud = new HUD(this);
+    public Player player = new Player(this, keyHandler);
+    //public SuperObject[] obj = new SuperObject[10];
 
     // Set players default position
     int playerX = 100;
@@ -33,6 +39,9 @@ public class GamePanel extends JPanel implements Runnable{
         this.setFocusable(true);
     }
 
+    /*public void setupGame() {
+        oSetter.setObject();
+    }*/
     public void startGameThread(){
         gameThread = new Thread (this);
         gameThread.start();
@@ -88,11 +97,30 @@ public class GamePanel extends JPanel implements Runnable{
     public void update() {
         player.update();
     }
+
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
+
         Graphics2D graphics2D = (Graphics2D) graphics;
+
+        //TILE
+        tileManager.draw(graphics2D);
+
+        //OBJECTS
+        /*for(int i = 0; i < obj.length; i++){
+            if(obj[i] != null){
+                obj[i].draw(graphics2D, this);
+            }
+        }*/
+
+        //PLAYER
         player.draw(graphics2D);
+
+        //UI
+        //hud.draw(graphics2D);
+
         graphics2D.dispose();
     }
+
 
 }

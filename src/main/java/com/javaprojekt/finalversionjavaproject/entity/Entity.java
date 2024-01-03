@@ -1,5 +1,6 @@
 package com.javaprojekt.finalversionjavaproject.entity;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity {
@@ -9,5 +10,7 @@ public class Entity {
     public String direction;
     public int spriteCounter = 0;
     public int spriteNum = 1;
+    public Rectangle solid;
+    public boolean collision = false;
 
 }

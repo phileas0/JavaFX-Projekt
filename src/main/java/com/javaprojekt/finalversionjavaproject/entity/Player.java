@@ -2,19 +2,23 @@ package com.javaprojekt.finalversionjavaproject.entity;
 import com.javaprojekt.finalversionjavaproject.main.GamePanel;
 import com.javaprojekt.finalversionjavaproject.main.KeyHandler;
 
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Objects;
 
 public class Player extends Entity{
 
     GamePanel gamePanel;
     KeyHandler keyHandler;
+    public int hasKey = 0;
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
+
+        solid = new Rectangle(8,16,32,32);
+
         setDefaultValues();
         getPlayerImage();
     }
@@ -45,19 +49,19 @@ public class Player extends Entity{
         if (keyHandler.upPressed || keyHandler.downPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
             if (keyHandler.upPressed) {
                 direction = "up";
-                y -= speed;
+
             }
             if (keyHandler.downPressed) {
                 direction = "down";
-                y += speed;
+
             }
             if (keyHandler.leftPressed) {
                 direction = "left";
-                x -= speed;
+
             }
             if (keyHandler.rightPressed) {
                 direction = "right";
-                x += speed;
+
             }
             spriteCounter++;
             if (spriteCounter > 10) {
@@ -67,6 +71,25 @@ public class Player extends Entity{
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
+            }
+
+            //CHECK TILE COLLISION
+            collision = false;
+            gamePanel.cDetecter.checkTile(this);
+            //IF COLLISION IS FALSE PLAYER CAN MOVE
+            if (!collision) {
+                if (keyHandler.upPressed) {
+                    y -= speed;
+                }
+                if (keyHandler.downPressed) {
+                    y += speed;
+                }
+                if (keyHandler.leftPressed) {
+                    x -= speed;
+                }
+                if (keyHandler.rightPressed) {
+                    x += speed;
+                }
             }
         }
         else direction = "idle";
