@@ -19,6 +19,6 @@ public class Background {
     }
 
     public void drawMap(Graphics2D g2) {
-        g2.drawImage(map, 0, 0, 1280, 720, null);
+        g2.drawImage(map, 0, 0, 1280, 768, null);
     }
 }
