@@ -17,15 +17,15 @@ public class Player extends Entity{
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
 
-        solid = new Rectangle(8,16,32,32);
+        solid = new Rectangle(16,38,30,16);
 
         setDefaultValues();
         getPlayerImage();
     }
     public void setDefaultValues() {
-        x = 350;
+        x = 640;
         y = 100;
-        speed = 4;
+        speed = 3;
         direction = "down";
     }
 

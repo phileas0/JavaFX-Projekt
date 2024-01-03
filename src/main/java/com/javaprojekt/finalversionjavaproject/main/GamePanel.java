@@ -3,13 +3,16 @@ package com.javaprojekt.finalversionjavaproject.main;
 import com.javaprojekt.finalversionjavaproject.entity.Player;
 import com.javaprojekt.finalversionjavaproject.tile.TileManager;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable{
     //SCREEN SETTINGS
     final int originalTileSize = 32; // 32x32
-    final int scale = 3;
+    final int scale = 2;
     public final int tileSize = originalTileSize * scale; // 96x96
     public final int maxScreenCol = 20;
     public final int maxScreenRow = 12;
@@ -20,6 +23,7 @@ public class GamePanel extends JPanel implements Runnable{
     TileManager tileManager = new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
+    Background background = new Background(this);
     public CollisionDetection cDetecter = new CollisionDetection(this);
     //public ObjectSetter oSetter = new ObjectSetter(this);
     //public HUD hud = new HUD(this);
@@ -105,6 +109,11 @@ public class GamePanel extends JPanel implements Runnable{
 
         //TILE
         tileManager.draw(graphics2D);
+
+
+        //Map
+        background.drawMap(graphics2D);
+
 
         //OBJECTS
         /*for(int i = 0; i < obj.length; i++){
