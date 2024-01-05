@@ -18,6 +18,8 @@ public class Player extends Entity{
         this.keyHandler = keyHandler;
 
         solid = new Rectangle(16,38,30,16);
+        solidAreaDefaultX = 16;
+        solidAreaDefaultY = 38;
 
         setDefaultValues();
         getPlayerImage();
@@ -76,6 +78,11 @@ public class Player extends Entity{
             //CHECK TILE COLLISION
             collision = false;
             gamePanel.cDetecter.checkTile(this);
+
+            //CHECK OBJECT COLLISION
+            int objIndex = gamePanel.cDetecter.checkObject(this, true);
+            pickUpObject(objIndex);
+
             //IF COLLISION IS FALSE PLAYER CAN MOVE
             if (!collision) {
                 if (keyHandler.upPressed) {
@@ -93,6 +100,25 @@ public class Player extends Entity{
             }
         }
         else direction = "idle";
+    }
+
+    public void pickUpObject(int index) {
+        if (index != 999){
+            String objName = gamePanel.obj[index].getClass().getSimpleName();
+
+            switch (objName) {
+                case "KeyObject":
+                    hasKey++;
+                    gamePanel.obj[index] = null;
+                    break;
+                case "DoorObject":
+                    if (hasKey > 0) {
+                        hasKey--;
+                        gamePanel.obj[index] = null;
+                    }
+                    break;
+            }
+        }
     }
     public void draw(Graphics2D graphics2D) {
         BufferedImage image = null;

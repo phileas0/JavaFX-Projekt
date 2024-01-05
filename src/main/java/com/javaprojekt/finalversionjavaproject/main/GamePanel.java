@@ -1,6 +1,7 @@
 package com.javaprojekt.finalversionjavaproject.main;
 
 import com.javaprojekt.finalversionjavaproject.entity.Player;
+import com.javaprojekt.finalversionjavaproject.object.SuperClassObject;
 import com.javaprojekt.finalversionjavaproject.tile.TileManager;
 
 import javax.imageio.ImageIO;
@@ -25,10 +26,10 @@ public class GamePanel extends JPanel implements Runnable{
     Thread gameThread;
     Background background = new Background(this);
     public CollisionDetection cDetecter = new CollisionDetection(this);
-    //public ObjectSetter oSetter = new ObjectSetter(this);
+    public ObjectSetter oSetter = new ObjectSetter(this);
     //public HUD hud = new HUD(this);
     public Player player = new Player(this, keyHandler);
-    //public SuperObject[] obj = new SuperObject[10];
+    public SuperClassObject[] obj = new SuperClassObject[10];
 
     // Set players default position
     int playerX = 100;
@@ -43,9 +44,9 @@ public class GamePanel extends JPanel implements Runnable{
         this.setFocusable(true);
     }
 
-    /*public void setupGame() {
+    public void setupGame() {
         oSetter.setObject();
-    }*/
+    }
     public void startGameThread(){
         gameThread = new Thread (this);
         gameThread.start();
@@ -116,11 +117,11 @@ public class GamePanel extends JPanel implements Runnable{
 
 
         //OBJECTS
-        /*for(int i = 0; i < obj.length; i++){
+        for(int i = 0; i < obj.length; i++){
             if(obj[i] != null){
                 obj[i].draw(graphics2D, this);
             }
-        }*/
+        }
 
         //PLAYER
         player.draw(graphics2D);
