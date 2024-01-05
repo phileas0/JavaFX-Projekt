@@ -17,8 +17,8 @@ public class GamePanel extends JPanel implements Runnable{
     public final int tileSize = originalTileSize * scale; // 96x96
     public final int maxScreenCol = 20;
     public final int maxScreenRow = 12;
-    public final int screenWidth = tileSize * maxScreenCol; //1920
-    public final int screenHeight = tileSize * maxScreenRow; // 1080
+    public final int screenWidth = tileSize * maxScreenCol; // 1280
+    public final int screenHeight = tileSize * maxScreenRow; // 720
     int FPS = 60;
 
     TileManager tileManager = new TileManager(this);
@@ -27,7 +27,7 @@ public class GamePanel extends JPanel implements Runnable{
     Background background = new Background(this);
     public CollisionDetection cDetecter = new CollisionDetection(this);
     public ObjectSetter oSetter = new ObjectSetter(this);
-    //public HUD hud = new HUD(this);
+    public HUD hud = new HUD(this);
     public Player player = new Player(this, keyHandler);
     public SuperClassObject[] obj = new SuperClassObject[10];
 
@@ -127,7 +127,7 @@ public class GamePanel extends JPanel implements Runnable{
         player.draw(graphics2D);
 
         //UI
-        //hud.draw(graphics2D);
+        hud.draw(graphics2D);
 
         graphics2D.dispose();
     }

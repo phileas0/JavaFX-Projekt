@@ -11,7 +11,7 @@ public class SuperClassObject {
     public String name;
     public boolean collision= false;
     public int worldX,worldY;
-    public Rectangle solid = new Rectangle(0,0,32,32);
+    public Rectangle solid = new Rectangle(0,0,64,64);
     public int solidAreaDefaultX = 0, solidAreaDefaultY = 0;
 
     public void draw(Graphics2D g2, GamePanel gamePanel) {

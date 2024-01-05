@@ -110,11 +110,15 @@ public class Player extends Entity{
                 case "KeyObject":
                     hasKey++;
                     gamePanel.obj[index] = null;
+                    gamePanel.hud.showMessage("You picked up a key!");
                     break;
                 case "DoorObject":
                     if (hasKey > 0) {
                         hasKey--;
                         gamePanel.obj[index] = null;
+                        gamePanel.hud.showMessage("You opened the door!");
+                    } else{
+                        gamePanel.hud.showMessage("You need a key!");
                     }
                     break;
             }
