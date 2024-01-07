@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(true);
+        window.setResizable(false);
         window.setExtendedState(Frame.MAXIMIZED_BOTH);
         window.setTitle("2D Game Test");
 

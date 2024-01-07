@@ -14,6 +14,9 @@ public class TileManager {
     public Tile[] tile;
     public int mapTileNumber[][];
 
+    public String startingMap = "/res/maps/Starting.txt";
+    public String level1 = "/res/maps/Level1.txt";
+
     public TileManager(GamePanel gamePanel){
         this.gamePanel = gamePanel;
 
@@ -22,7 +25,7 @@ public class TileManager {
 
 
         getTileImages();
-        loadMap();
+        loadMap(startingMap);
     }
 
     public void getTileImages() {
@@ -33,6 +36,9 @@ public class TileManager {
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/black.png"));
             tile[1].collision = true;
+
+            tile[2] = new Tile();
+            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/gruen.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,9 +69,10 @@ public class TileManager {
 
     }
 
-    public void loadMap(){
+
+    public void loadMap(String map){
         try {
-            InputStream stream = getClass().getResourceAsStream("/res/maps/Starting.txt");
+            InputStream stream = getClass().getResourceAsStream(map);
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 
             int col = 0;
