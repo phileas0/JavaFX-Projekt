@@ -3,7 +3,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
-    public boolean upPressed, downPressed, leftPressed, rightPressed, interacted, pauseGame;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, interacted, pauseGame, pressed1, pressed2, pressed3, space;
     boolean showDebugText = false;
 
 
@@ -41,6 +41,18 @@ public class KeyHandler implements KeyListener {
                 showDebugText = false;
             }
         }
+        if (code == KeyEvent.VK_1){
+            pressed1 = true;
+        }
+        if (code == KeyEvent.VK_2){
+            pressed2 = true;
+        }
+        if (code == KeyEvent.VK_3){
+            pressed3 = true;
+        }
+        if (code == KeyEvent.VK_SPACE){
+            space = true;
+        }
     }
 
     @Override
@@ -63,6 +75,18 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_Q) {
             pauseGame = false;
+        }
+        if (code == KeyEvent.VK_1){
+            pressed1 = false;
+        }
+        if (code == KeyEvent.VK_2){
+            pressed2 = false;
+        }
+        if (code == KeyEvent.VK_3){
+            pressed3 = false;
+        }
+        if (code == KeyEvent.VK_SPACE){
+            space = false;
         }
     }
 }

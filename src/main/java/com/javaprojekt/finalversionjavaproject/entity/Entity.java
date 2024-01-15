@@ -23,5 +23,4 @@ public class Entity {
         return thisHitbox.intersects(otherHitbox);
     }
 
-
 }

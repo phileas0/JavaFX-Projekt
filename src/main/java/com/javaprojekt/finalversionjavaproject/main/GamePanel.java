@@ -1,5 +1,6 @@
 package com.javaprojekt.finalversionjavaproject.main;
 
+import com.javaprojekt.finalversionjavaproject.combat.Combat;
 import com.javaprojekt.finalversionjavaproject.entity.Enemy;
 import com.javaprojekt.finalversionjavaproject.entity.Player;
 import com.javaprojekt.finalversionjavaproject.object.SuperClassObject;
@@ -9,7 +10,7 @@ import javax.swing.JPanel;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable {
     //SCREEN SETTINGS
     final int originalTileSize = 32; // 32x32
     final int scale = 2;
@@ -33,7 +34,12 @@ public class GamePanel extends JPanel implements Runnable{
     public SuperClassObject[][] obj = new SuperClassObject[maxMap][10];
     public ArrayList<Enemy> listOfEnemies;
     private EnemySetter enemySetter;
-    private GameState currentGameState = GameState.PLAYING;
+    private Enemy enemy;
+    private GameState currentGameState;
+    private Combat combat;
+    private final int combatCooldownTime = 60; // Cooldown time in frames (1 second if 60 FPS)
+    private int combatCooldown = 0;
+
 
     // Set players default position
     int playerX = 100;
@@ -48,17 +54,20 @@ public class GamePanel extends JPanel implements Runnable{
         this.setFocusable(true);
         listOfEnemies = new ArrayList<>();
         enemySetter = new EnemySetter(this);
-        GameState currentGameState = GameState.PLAYING;
+        currentGameState = GameState.PLAYING;
+        player = new Player(this, keyHandler);
     }
 
     public void setupGame() {
         oSetter.setObject();
         enemySetter.setEnemies();
     }
-    public void startGameThread(){
-        gameThread = new Thread (this);
+
+    public void startGameThread() {
+        gameThread = new Thread(this);
         gameThread.start();
     }
+
     @Override
     /*
     public void run() {
@@ -100,24 +109,37 @@ public class GamePanel extends JPanel implements Runnable{
                 drawCount++;
             }
             if (timer >= 1000000000) {
-                System.out.println("FPS: " + drawCount);
+                //System.out.println("FPS: " + drawCount);
                 drawCount = 0;
                 timer = 0;
             }
         }
     }
 
+    public void startCombat(Enemy encounteredEnemy) {
+        if (player != null && encounteredEnemy != null && !encounteredEnemy.isInCombat()) {
+            encounteredEnemy.setInCombat(true);
+            enemy = encounteredEnemy; // Set the current enemy
+            combat = new Combat(player, enemy, keyHandler);
+            currentGameState = GameState.IN_COMBAT;
+            combatCooldown = combatCooldownTime; // Set the cooldown
+        }
+    }
 
     public void update() {
-        player.update();
-
         switch (currentGameState) {
             case PLAYING:
                 player.update();
-                for (Enemy enemy : listOfEnemies) {
-                    if (player.collidesWith(enemy)) {
-                        System.out.println("Collision between Player and Entity!");
-                        currentGameState = GameState.IN_COMBAT;
+                listOfEnemies.removeIf(Enemy::isMarkedForRemoval);
+                if (combatCooldown > 0) { // Only checks for collision if cooldown is zero
+                    combatCooldown--;
+                } else {
+                    for (Enemy enemy : listOfEnemies) {
+                        if (player.collidesWith(enemy) && !enemy.isInCombat()) {
+                            startCombat(enemy);
+                            combatCooldown = combatCooldownTime; // Reset the cooldown
+                            break;
+                        }
                     }
                 }
                 //System.out.println("Number of enemies: " + listOfEnemies.size());
@@ -133,7 +155,21 @@ public class GamePanel extends JPanel implements Runnable{
                 }
                 break;
             case IN_COMBAT:
-
+                combat.processTurn();
+                if (combat.enemyDead) {
+                    combat.enemyDead = true;
+                    currentGameState = GameState.EXP_MENU;
+                }
+                if (combat.playerDead) {
+                    currentGameState = GameState.GAMEOVER;
+                }
+                break;
+            case EXP_MENU:
+                if (keyHandler.interacted) {
+                    currentGameState = GameState.PLAYING;
+                }
+                break;
+            case GAMEOVER:
                 break;
         }
     }
@@ -141,60 +177,84 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
-
         Graphics2D graphics2D = (Graphics2D) graphics;
 
-
-
-        //TILE
         switch (currentGameState) {
             case PLAYING:
-                //TILE
-                tileManager.draw(graphics2D);
-
-
-                //Map
-                background.drawMap(graphics2D);
-
-
-                //OBJECTS
-                for (int i = 0; i < obj[currentMap].length; i++) {
-                    if (obj[currentMap][i] != null) {
-                        obj[currentMap][i].draw(graphics2D, this);
-                    }
-                }
-
-                //PLAYER
-                player.draw(graphics2D);
-
-                //ENEMY
-                for (Enemy enemy : listOfEnemies) {
-                    enemy.draw(graphics2D);
-                }
-
-                //UI
-                hud.draw(graphics2D);
+                drawOverworld(graphics2D);
                 break;
-
             case PAUSED:
                 drawPauseScreen(graphics2D);
+                break;
+            case IN_COMBAT:
+                drawCombatUI(graphics2D);
+                break;
+            case EXP_MENU:
+                drawExpMenu(graphics2D);
+                break;
+            case GAMEOVER:
+                drawGameover(graphics2D);
+                break;
         }
 
-        //DEBUG
+        graphics2D.dispose();
+
+
+    }
+
+    private void drawExpMenu(Graphics2D g2) {
+        g2.setColor(Color.BLACK);
+        g2.setFont(new Font("Arial", Font.BOLD, 20));
+
+        String expText = "Experience Points: " + player.exp + " / " + player.expToNextLevel;
+        int expTextWidth = g2.getFontMetrics().stringWidth(expText);
+        g2.drawString(expText, screenWidth / 2 - expTextWidth / 2, screenHeight / 2 - 20);
+
+        String levelUpText = "Level Up! New stats: [Insert new stats here]";
+        // Display level up text only if the player leveled up
+        if (player.hasLeveledUp) {
+            int levelUpTextWidth = g2.getFontMetrics().stringWidth(levelUpText);
+            g2.drawString(levelUpText, screenWidth / 2 - levelUpTextWidth / 2, screenHeight / 2 + 20);
+        }
+
+        // Add any other relevant information or options
+    }
+    private void drawGameover(Graphics2D g2) {
+        background.drawGameover(g2);
+    }
+
+    private void drawOverworld(Graphics2D g2) {
+        //TILE
+        tileManager.draw(g2);
+        //Map
+        background.drawMap(g2);
+        //OBJECTS
+        for (int i = 0; i < obj[currentMap].length; i++) {
+            if (obj[currentMap][i] != null) {
+                obj[currentMap][i].draw(g2, this);
+            }
+        }
+        //PLAYER
+        player.draw(g2);
+        //ENEMY
+        for (Enemy enemy : listOfEnemies) {
+            enemy.draw(g2);
+        }
+        //UI
+        hud.draw(g2);
+
         if (keyHandler.showDebugText == true) {
-            graphics2D.setFont(new Font("Arial", Font.PLAIN, 20));
+            g2.setFont(new Font("Arial", Font.PLAIN, 20));
             int x = 10;
             int y = 400;
             int lineHeight = 20;
 
-            graphics2D.drawString("WorldX: " + player.x, x, y); y += lineHeight;
-            graphics2D.drawString("WorldY: " + player.y, x, y); y += lineHeight;
-            graphics2D.drawString("Col: " + (player.x + player.solidAreaDefaultX) / tileSize, x, y); y += lineHeight;
-            graphics2D.drawString("Row: " + (player.y + player.solidAreaDefaultY) / tileSize, x, y); y += lineHeight;
+            g2.drawString("WorldX: " + player.x, x, y); y += lineHeight;
+            g2.drawString("WorldY: " + player.y, x, y); y += lineHeight;
+            g2.drawString("Col: " + (player.x + player.solidAreaDefaultX) / tileSize, x, y); y += lineHeight;
+            g2.drawString("Row: " + (player.y + player.solidAreaDefaultY) / tileSize, x, y); y += lineHeight;
 
         }
-
-        graphics2D.dispose();
     }
     private void drawPauseScreen(Graphics2D g2) {
         // Set the color for the pause screen
@@ -214,5 +274,17 @@ public class GamePanel extends JPanel implements Runnable{
         int y = getHeight() / 2;
 
         g2.drawString(pausedText, x, y);
+    }
+    public void drawCombatUI(Graphics2D g2) {
+        // Draw the action menu
+        g2.drawString("1. Shoot  2. Use Hacks  3. Repair", 10, screenHeight - 30);
+
+        // Display player and enemy stats
+        g2.drawString("Player HP: " + combat.currentPlayerHealth, 10, 20);
+        if (enemy != null) {
+            g2.drawString("Enemy HP: " + enemy.health, screenWidth - 100, 20);
+        }
+        else System.out.println("Enemy null");
+        // Any other UI elements...
     }
 }

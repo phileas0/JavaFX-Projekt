@@ -13,7 +13,21 @@ public class Player extends Entity{
 
     GamePanel gamePanel;
     KeyHandler keyHandler;
-    public int hasKey = 0;
+    public int hasKey = 0; // will need 2 to enter final boss room
+
+    public int maxHealth = 10; // +3 per Level
+    public int currentHealth = 10; // only used in Battle
+    public int damage = 4; // +2 per Level
+    public int energy = 100; // + 10 per Level
+    public int energyRecovery = 15; // +5 per Level
+    public int stimpaks = 1; // +1 per Level;
+    public int healing = 3; // +2 per Level
+    public int exp = 0;
+    public int expToNextLevel = 10; // +5 per Level
+    public boolean hasLeveledUp = false;
+
+
+
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
@@ -58,19 +72,15 @@ public class Player extends Entity{
         if (keyHandler.upPressed || keyHandler.downPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
             if (keyHandler.upPressed) {
                 direction = "up";
-                
             }
             if (keyHandler.downPressed) {
                 direction = "down";
-
             }
             if (keyHandler.leftPressed) {
                 direction = "left";
-
             }
             if (keyHandler.rightPressed) {
                 direction = "right";
-
             }
             spriteCounter++;
             if (spriteCounter > 10) {
@@ -80,6 +90,11 @@ public class Player extends Entity{
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
+            }
+
+            //MAXHEALTH
+            if (currentHealth > getMaxHealth()) {
+                currentHealth = getMaxHealth();
             }
 
             //CHECK TILE COLLISION
@@ -159,5 +174,53 @@ public class Player extends Entity{
                 image = idle;
         }
         graphics2D.drawImage(image, x, y, gamePanel.tileSize, gamePanel.tileSize, null);
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth += maxHealth;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage += damage;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(int energy) {
+        this.energy += energy;
+    }
+
+    public int getEnergyRecovery() {
+        return energyRecovery;
+    }
+
+    public void setEnergyRecovery(int energyRecovery) {
+        this.energyRecovery += energyRecovery;
+    }
+
+    public int getStimpaks() {
+        return stimpaks;
+    }
+
+    public void setStimpaks(int stimpaks) {
+        this.stimpaks += stimpaks;
+    }
+
+    public int getHealing() {
+        return healing;
+    }
+
+    public void setHealing(int healing) {
+        this.healing += healing;
     }
 }

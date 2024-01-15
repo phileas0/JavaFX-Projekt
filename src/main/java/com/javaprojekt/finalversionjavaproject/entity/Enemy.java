@@ -10,10 +10,37 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Enemy extends Entity {
-    public Enemy() {
-        int health = 10;
-        int damage = 2;
+    public boolean markForRemoval = false;
+    public boolean isInCombat = false;
+    public int health;
+    public int damage;
+    public boolean isMarkedForRemoval() {
+        return markForRemoval;
+    }
+
+    public Enemy(int health, int damage) {
+        this.health = health;
+        this.damage = damage;
         getEnemyImage();
+    }
+    public void setInCombat(boolean inCombat) {
+        this.isInCombat = inCombat;
+    }
+
+    public boolean isInCombat() {
+        return isInCombat;
+    }
+    public void takeDamage(int amount) {
+        health -= amount;
+        if (health < 0) health = 0;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int getDamage() {
+        return damage;
     }
     public void getEnemyImage() {
         try {

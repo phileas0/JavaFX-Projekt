@@ -8,9 +8,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class Background{
+public class Background {
     public GamePanel gamePanel;
-    public BufferedImage map;
+    private BufferedImage map, gameover;
     public BufferedImage map2;
     public BufferedImage map3;
     private Player player;
@@ -21,6 +21,7 @@ public class Background{
         this.gamePanel = gamePanel;
         try {
             map = ImageIO.read(getClass().getResourceAsStream("/res/maps/Scene_1_bg.png"));
+            gameover = ImageIO.read(getClass().getResourceAsStream("/res/player/Gameover.png"));
             map2 = ImageIO.read(getClass().getResourceAsStream("/res/maps/Scene1part2.png"));
             map3 = ImageIO.read(getClass().getResourceAsStream("/res/maps/StreetbackgroundSzene4.gif"));
         } catch (IOException e) {
@@ -43,5 +44,7 @@ public class Background{
     public void drawMap(Graphics2D g2) {
         g2.drawImage(map, 0, 0, 1280, 720, null);
     }
+    public void drawGameover(Graphics2D g2) {
+        g2.drawImage(gameover, 0, 0, 1280, 768, null);
+    }
 }
-
