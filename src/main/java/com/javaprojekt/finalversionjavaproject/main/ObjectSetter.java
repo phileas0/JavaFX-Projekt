@@ -11,24 +11,22 @@ public class ObjectSetter {
             this.gamePanel = gamePanel;
         }
         public void setObject() {
-            gamePanel.obj[0] = new KeyObject();
-            gamePanel.obj[0].worldX = 10 * gamePanel.tileSize;
-            gamePanel.obj[0].worldY = 6 * gamePanel.tileSize;
+            int mapNumber = 0;
+            gamePanel.obj[mapNumber][0] = new KeyObject();
+            gamePanel.obj[mapNumber][0].worldX = 10 * gamePanel.tileSize;
+            gamePanel.obj[mapNumber][0].worldY = 6 * gamePanel.tileSize;
 
-            gamePanel.obj[1] = new KeyObject();
-            gamePanel.obj[1].worldX = 19 * gamePanel.tileSize;
-            gamePanel.obj[1].worldY = 6 * gamePanel.tileSize;
+            gamePanel.obj[mapNumber][1] = new KeyObject();
+            gamePanel.obj[mapNumber][1].worldX = 17 * gamePanel.tileSize;
+            gamePanel.obj[mapNumber][1].worldY = 6 * gamePanel.tileSize;
 
-            gamePanel.obj[2] = new ShelfObject();
-            gamePanel.obj[2].worldX = 10 * gamePanel.tileSize;
-            gamePanel.obj[2].worldY = 9 * gamePanel.tileSize;
+            gamePanel.obj[mapNumber][2] = new ShelfObject();
+            gamePanel.obj[mapNumber][2].worldX = 10 * gamePanel.tileSize;
+            gamePanel.obj[mapNumber][2].worldY = 9 * gamePanel.tileSize;
 
-            gamePanel.obj[3] = new DoorObject();
-            gamePanel.obj[3].worldX = 10 * gamePanel.tileSize;
-            gamePanel.obj[3].worldY = 3 * gamePanel.tileSize;
-
-
-
+            gamePanel.obj[mapNumber][3] = new DoorObject();
+            gamePanel.obj[mapNumber][3].worldX = 10 * gamePanel.tileSize;
+            gamePanel.obj[mapNumber][3].worldY = 3 * gamePanel.tileSize;
 
         }
 }

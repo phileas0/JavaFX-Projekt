@@ -9,7 +9,7 @@ import java.nio.Buffer;
 public class SuperClassObject {
     public BufferedImage image;
     public String name;
-    public boolean collision= false;
+    public boolean collision = false;
     public int worldX,worldY;
     public Rectangle solid = new Rectangle(0,0,64,64);
     public int solidAreaDefaultX = 0, solidAreaDefaultY = 0;

@@ -9,7 +9,7 @@ public class EnemySetter {
         this.gamePanel = gamePanel;
     }
 
-    public void setEnemies() {
+   public void setEnemies() {
         // Example of setting an enemy at a specific location
         Enemy enemy1 = new Enemy();
         enemy1.x = 7 * gamePanel.tileSize; // X position of the enemy

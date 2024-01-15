@@ -1,4 +1,5 @@
 package com.javaprojekt.finalversionjavaproject.entity;
+import com.javaprojekt.finalversionjavaproject.main.Background;
 import com.javaprojekt.finalversionjavaproject.main.GamePanel;
 import com.javaprojekt.finalversionjavaproject.main.KeyHandler;
 
@@ -13,11 +14,17 @@ public class Player extends Entity{
     GamePanel gamePanel;
     KeyHandler keyHandler;
     public int hasKey = 0;
+
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
 
-        solid = new Rectangle(16,38,30,16);
+        int positionX = 16;
+        int positionY = 38;
+        int width = 30;
+        int height = 16;
+
+        solid = new Rectangle(positionX, positionY, width, height);
         solidAreaDefaultX = 16;
         solidAreaDefaultY = 38;
 
@@ -26,8 +33,8 @@ public class Player extends Entity{
     }
     public void setDefaultValues() {
         x = 640;
-        y = 100;
-        speed = 3;
+        y = 450;
+        speed = 2;
         direction = "down";
     }
 
@@ -97,25 +104,30 @@ public class Player extends Entity{
                 if (keyHandler.rightPressed) {
                     x += speed;
                 }
+
             }
         }
         else direction = "idle";
+
+
+
     }
+
 
     public void pickUpObject(int index) {
         if (index != 999){
-            String objName = gamePanel.obj[index].getClass().getSimpleName();
+            String objName = gamePanel.obj[gamePanel.currentMap][index].getClass().getSimpleName();
 
             switch (objName) {
                 case "KeyObject":
                     hasKey++;
-                    gamePanel.obj[index] = null;
+                    gamePanel.obj[gamePanel.currentMap][index] = null;
                     gamePanel.hud.showMessage("You picked up a key!");
                     break;
                 case "DoorObject":
                     if (hasKey > 0) {
                         hasKey--;
-                        gamePanel.obj[index] = null;
+                        gamePanel.obj[gamePanel.currentMap][index] = null;
                         gamePanel.hud.showMessage("You opened the door!");
                     } else{
                         gamePanel.hud.showMessage("You need a key!");

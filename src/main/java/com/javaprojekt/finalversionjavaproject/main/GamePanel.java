@@ -5,20 +5,19 @@ import com.javaprojekt.finalversionjavaproject.entity.Player;
 import com.javaprojekt.finalversionjavaproject.object.SuperClassObject;
 import com.javaprojekt.finalversionjavaproject.tile.TileManager;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 
-public class GamePanel extends JPanel implements Runnable {
+public class GamePanel extends JPanel implements Runnable{
     //SCREEN SETTINGS
     final int originalTileSize = 32; // 32x32
     final int scale = 2;
     public final int tileSize = originalTileSize * scale; // 96x96
     public final int maxScreenCol = 20;
     public final int maxScreenRow = 12;
+    public final int maxMap = 10;
+    public int currentMap = 0;
     public final int screenWidth = tileSize * maxScreenCol; // 1280
     public final int screenHeight = tileSize * maxScreenRow; // 720
     int FPS = 60;
@@ -26,15 +25,15 @@ public class GamePanel extends JPanel implements Runnable {
     TileManager tileManager = new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
-    Background background = new Background(this);
+    public Background background = new Background(this);
     public CollisionDetection cDetecter = new CollisionDetection(this);
     public ObjectSetter oSetter = new ObjectSetter(this);
     public HUD hud = new HUD(this);
     public Player player = new Player(this, keyHandler);
-    public SuperClassObject[] obj = new SuperClassObject[10];
+    public SuperClassObject[][] obj = new SuperClassObject[maxMap][10];
     public ArrayList<Enemy> listOfEnemies;
     private EnemySetter enemySetter;
-    private GameState currentGameState;
+    private GameState currentGameState = GameState.PLAYING;
 
     // Set players default position
     int playerX = 100;
@@ -49,20 +48,17 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
         listOfEnemies = new ArrayList<>();
         enemySetter = new EnemySetter(this);
-        currentGameState = GameState.PLAYING;
+        GameState currentGameState = GameState.PLAYING;
     }
 
     public void setupGame() {
         oSetter.setObject();
         enemySetter.setEnemies();
-
     }
-
-    public void startGameThread() {
-        gameThread = new Thread(this);
+    public void startGameThread(){
+        gameThread = new Thread (this);
         gameThread.start();
     }
-
     @Override
     /*
     public void run() {
@@ -104,14 +100,17 @@ public class GamePanel extends JPanel implements Runnable {
                 drawCount++;
             }
             if (timer >= 1000000000) {
-                //System.out.println("FPS: " + drawCount);
+                System.out.println("FPS: " + drawCount);
                 drawCount = 0;
                 timer = 0;
             }
         }
     }
 
+
     public void update() {
+        player.update();
+
         switch (currentGameState) {
             case PLAYING:
                 player.update();
@@ -142,8 +141,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
+
         Graphics2D graphics2D = (Graphics2D) graphics;
 
+
+
+        //TILE
         switch (currentGameState) {
             case PLAYING:
                 //TILE
@@ -155,17 +158,20 @@ public class GamePanel extends JPanel implements Runnable {
 
 
                 //OBJECTS
-                for (int i = 0; i < obj.length; i++) {
-                    if (obj[i] != null) {
-                        obj[i].draw(graphics2D, this);
+                for (int i = 0; i < obj[currentMap].length; i++) {
+                    if (obj[currentMap][i] != null) {
+                        obj[currentMap][i].draw(graphics2D, this);
                     }
                 }
+
                 //PLAYER
                 player.draw(graphics2D);
+
                 //ENEMY
                 for (Enemy enemy : listOfEnemies) {
                     enemy.draw(graphics2D);
                 }
+
                 //UI
                 hud.draw(graphics2D);
                 break;
@@ -174,9 +180,21 @@ public class GamePanel extends JPanel implements Runnable {
                 drawPauseScreen(graphics2D);
         }
 
+        //DEBUG
+        if (keyHandler.showDebugText == true) {
+            graphics2D.setFont(new Font("Arial", Font.PLAIN, 20));
+            int x = 10;
+            int y = 400;
+            int lineHeight = 20;
+
+            graphics2D.drawString("WorldX: " + player.x, x, y); y += lineHeight;
+            graphics2D.drawString("WorldY: " + player.y, x, y); y += lineHeight;
+            graphics2D.drawString("Col: " + (player.x + player.solidAreaDefaultX) / tileSize, x, y); y += lineHeight;
+            graphics2D.drawString("Row: " + (player.y + player.solidAreaDefaultY) / tileSize, x, y); y += lineHeight;
+
+        }
+
         graphics2D.dispose();
-
-
     }
     private void drawPauseScreen(Graphics2D g2) {
         // Set the color for the pause screen

@@ -12,20 +12,22 @@ import java.io.InputStreamReader;
 public class TileManager {
     GamePanel gamePanel;
     public Tile[] tile;
-    public int mapTileNumber[][];
+    public int mapTileNumber[][][];
 
-    public String startingMap = "/res/maps/Starting.txt";
+    public String startingMap = "/res/maps/Starting0.txt";
+    public String startingMap1 = "/res/maps/Starting1.txt";
     public String level1 = "/res/maps/Level1.txt";
 
     public TileManager(GamePanel gamePanel){
         this.gamePanel = gamePanel;
 
         tile = new Tile[10];
-        mapTileNumber = new int[gamePanel.maxScreenCol][gamePanel.maxScreenRow];
+        mapTileNumber = new int[gamePanel.maxMap][gamePanel.maxScreenCol][gamePanel.maxScreenRow];
 
 
         getTileImages();
-        loadMap(startingMap);
+        loadMap(startingMap, 0);
+        loadMap(startingMap1, 1);
     }
 
     public void getTileImages() {
@@ -51,7 +53,7 @@ public class TileManager {
 
         while (col < gamePanel.maxScreenCol&& row < gamePanel.maxScreenRow){
 
-            int tileNum = mapTileNumber[col][row];
+            int tileNum = mapTileNumber[gamePanel.currentMap][col][row];
 
             g2.drawImage(tile[tileNum].image, x, y, gamePanel.tileSize, gamePanel.tileSize, null);
             col++;
@@ -70,7 +72,7 @@ public class TileManager {
     }
 
 
-    public void loadMap(String map){
+    public void loadMap(String map, int mapNumber){
         try {
             InputStream stream = getClass().getResourceAsStream(map);
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
@@ -84,7 +86,7 @@ public class TileManager {
                 while(col < gamePanel.maxScreenCol){
                     String numbers[] = line.split(" ");
                     int num = Integer.parseInt(numbers[col]);
-                    mapTileNumber[col][row] = num;
+                    mapTileNumber[mapNumber][col][row] = num;
                     col++;
                 }
                 if(col == gamePanel.maxScreenCol){
@@ -97,5 +99,7 @@ public class TileManager {
         }catch (IOException e){
             e.printStackTrace();
         }
+
+
     }
 }
