@@ -8,13 +8,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.Buffer;
 
 public class Background {
     public GamePanel gamePanel;
-    private Image map;
-    private Image gameover;
-    public Image map2;
-    public Image map3;
+    private BufferedImage map;
+    private BufferedImage gameover;
+    public BufferedImage map2;
+    public BufferedImage map3;
     private Player player;
     int currentMap;
 
@@ -25,8 +26,7 @@ public class Background {
             map = ImageIO.read(getClass().getResourceAsStream("/res/maps/Scene_1_bg.png"));
             gameover = ImageIO.read(getClass().getResourceAsStream("/res/player/Gameover.png"));
             map2 = ImageIO.read(getClass().getResourceAsStream("/res/maps/Scene1part2.png"));
-            ImageIcon icon = new ImageIcon(getClass().getResource("/res/maps/StreetbackgroundSzene4.gif"));
-            map3 = icon.getImage();
+            map3 = ImageIO.read(getClass().getResourceAsStream("/res/maps/StreetbackgroundSzene4.gif"));
 
         } catch (IOException e) {
             throw new RuntimeException(e);

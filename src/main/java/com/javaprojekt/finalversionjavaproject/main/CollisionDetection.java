@@ -7,11 +7,13 @@ import java.awt.*;
 
 public class CollisionDetection {
     GamePanel gamePanel;
+    KeyHandler keyHandler;
     Rectangle rect;
     Player player;
 
     public CollisionDetection(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
+        this.keyHandler = gamePanel.keyHandler;
     }
 
     public void checkTile(Entity entity) {
@@ -67,29 +69,33 @@ public class CollisionDetection {
         int playerLeftCol = (entity.x + entity.solidAreaDefaultX) / gamePanel.tileSize;
         int playerRightCol = (entity.x + entity.solidAreaDefaultX + entity.solid.width) / gamePanel.tileSize;
 
-        // Spieler kollidiert mit den obersten zwei Reihen der Karte
-        if (gamePanel.currentMap == 0) {
-            if ((playerTopRow == 0 || playerTopRow == 1) ||
-                    (gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow] == 1 ||
-                            gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerRightCol][playerTopRow] == 1 ||
-                            gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow + 1] == 1 ||
-                            gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerRightCol][playerTopRow + 1] == 1)) {
-                gamePanel.background.switchLevel();
-                entity.y = 660;
+        if(keyHandler.interacted){
+            // Spieler kollidiert mit den obersten zwei Reihen der Karte
+            if (gamePanel.currentMap == 0) {
+                if ((playerTopRow == 0 || playerTopRow == 1) ||
+                        (gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow] == 1 ||
+                                gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerRightCol][playerTopRow] == 1 ||
+                                gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow + 1] == 1 ||
+                                gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerRightCol][playerTopRow + 1] == 1)) {
+                    gamePanel.background.switchLevel();
+                    entity.y = 660;
+                }
             }
+            //Spieler kollidiert mit den zwei rechtesten Columns und changed zu map3
+            else if (gamePanel.currentMap == 1) {
+                // Überprüfen, ob der Spieler die äußerste rechte Spalte der Karte berührt, wenn currentMap == 1
+                if (gamePanel.currentMap == 1 &&
+                        (playerRightCol == gamePanel.maxScreenCol - 1 ||
+                                playerRightCol + 1 == gamePanel.maxScreenCol - 1)) {
+                    // Hier können Sie den Code hinzufügen, der ausgeführt werden soll, wenn die Bedingung erfüllt ist
+                    // Zum Beispiel: gamePanel.background.switchLevel();
+                    gamePanel.background.switchLevel();
+                    entity.x = 64;
+                    entity.y = 360;
+                }
         }
-        //Spieler kollidiert mit den zwei rechtesten Columns und changed zu map3
-        else if (gamePanel.currentMap == 1) {
-            // Überprüfen, ob der Spieler die äußerste rechte Spalte der Karte berührt, wenn currentMap == 1
-            if (gamePanel.currentMap == 1 &&
-                    (playerRightCol == gamePanel.maxScreenCol - 1 ||
-                            playerRightCol + 1 == gamePanel.maxScreenCol - 1)) {
-                // Hier können Sie den Code hinzufügen, der ausgeführt werden soll, wenn die Bedingung erfüllt ist
-                // Zum Beispiel: gamePanel.background.switchLevel();
-                gamePanel.background.switchLevel();
-                entity.x = 64;
-                entity.y = 360;
-            }
+
+
 
 
         }
