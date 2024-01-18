@@ -78,6 +78,7 @@ public class CollisionDetection {
                 entity.y = 660;
             }
         }
+        //Spieler kollidiert mit den zwei rechtesten Columns und changed zu map3
         else if (gamePanel.currentMap == 1) {
             // Überprüfen, ob der Spieler die äußerste rechte Spalte der Karte berührt, wenn currentMap == 1
             if (gamePanel.currentMap == 1 &&
