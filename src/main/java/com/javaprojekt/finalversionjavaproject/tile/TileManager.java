@@ -16,7 +16,7 @@ public class TileManager {
 
     public String startingMap = "/res/maps/Starting0.txt";
     public String startingMap1 = "/res/maps/Starting1.txt";
-    public String level1 = "/res/maps/Level1.txt";
+    public String weaponEntrance = "/res/maps/weaponEntrance.txt";
 
     public TileManager(GamePanel gamePanel){
         this.gamePanel = gamePanel;
@@ -28,6 +28,7 @@ public class TileManager {
         getTileImages();
         loadMap(startingMap, 0);
         loadMap(startingMap1, 1);
+        loadMap(weaponEntrance, 2);
     }
 
     public void getTileImages() {
