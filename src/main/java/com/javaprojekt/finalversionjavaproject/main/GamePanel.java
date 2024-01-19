@@ -26,25 +26,25 @@ public class GamePanel extends JPanel implements Runnable {
     TileManager tileManager = new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
-    public Background background = new Background(this);
+
+    public EnemySetter enemySetter;
     public CollisionDetection cDetecter = new CollisionDetection(this);
+    public Background background = new Background(this);
     public ObjectSetter oSetter = new ObjectSetter(this);
     public HUD hud = new HUD(this);
     public Player player = new Player(this, keyHandler);
     public SuperClassObject[][] obj = new SuperClassObject[maxMap][10];
-    public ArrayList<Enemy> listOfEnemies;
-    private EnemySetter enemySetter;
+    public ArrayList<ArrayList<Enemy>> listOfEnemies;
+    public ArrayList<ArrayList<Enemy>> getListOfEnemies() {
+        return listOfEnemies;
+    }
+
     private Enemy enemy;
     private GameState currentGameState;
     private Combat combat;
     private final int combatCooldownTime = 60; // Cooldown time in frames (1 second if 60 FPS)
     private int combatCooldown = 0;
 
-
-    // Set players default position
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 4;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -53,6 +53,9 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
         listOfEnemies = new ArrayList<>();
+        for(int i = 0; i <maxMap; i++){
+            listOfEnemies.add(new ArrayList<>());
+        }
         enemySetter = new EnemySetter(this);
         currentGameState = GameState.PLAYING;
         player = new Player(this, keyHandler);
@@ -60,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
         oSetter.setObject();
-        enemySetter.setEnemies();
+        enemySetter.setEnemies(0);
     }
 
     public void startGameThread() {
@@ -130,17 +133,23 @@ public class GamePanel extends JPanel implements Runnable {
         switch (currentGameState) {
             case PLAYING:
                 player.update();
-                listOfEnemies.removeIf(Enemy::isMarkedForRemoval);
+                for (ArrayList<Enemy> enemies : listOfEnemies) {
+                    enemies.removeIf(Enemy::isMarkedForRemoval);
+                }
+
                 if (combatCooldown > 0) { // Only checks for collision if cooldown is zero
                     combatCooldown--;
                 } else {
-                    for (Enemy enemy : listOfEnemies) {
-                        if (player.collidesWith(enemy) && !enemy.isInCombat()) {
-                            startCombat(enemy);
-                            combatCooldown = combatCooldownTime; // Reset the cooldown
-                            break;
+                    for (ArrayList<Enemy> enemies : listOfEnemies) {
+                        for (Enemy enemy : enemies) {
+                            if (player.collidesWith(enemy) && !enemy.isInCombat()) {
+                                startCombat(enemy);
+                                combatCooldown = combatCooldownTime; // Reset the cooldown
+                                break;
+                            }
                         }
                     }
+
                 }
                 //System.out.println("Number of enemies: " + listOfEnemies.size());
                 if (keyHandler.pauseGame) {
@@ -237,9 +246,13 @@ public class GamePanel extends JPanel implements Runnable {
         //PLAYER
         player.draw(g2);
         //ENEMY
-        for (Enemy enemy : listOfEnemies) {
-            enemy.draw(g2);
+        for (ArrayList<Enemy> enemies : listOfEnemies) {
+            for (Enemy enemy : enemies) {
+                enemy.draw(g2);
+            }
         }
+
+
         //UI
         hud.draw(g2);
 
@@ -287,4 +300,5 @@ public class GamePanel extends JPanel implements Runnable {
         else System.out.println("Enemy null");
         // Any other UI elements...
     }
+
 }

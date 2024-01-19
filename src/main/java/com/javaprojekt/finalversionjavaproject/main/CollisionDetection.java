@@ -1,5 +1,6 @@
 package com.javaprojekt.finalversionjavaproject.main;
 
+import com.javaprojekt.finalversionjavaproject.entity.Enemy;
 import com.javaprojekt.finalversionjavaproject.entity.Entity;
 import com.javaprojekt.finalversionjavaproject.entity.Player;
 
@@ -8,12 +9,15 @@ import java.awt.*;
 public class CollisionDetection {
     GamePanel gamePanel;
     KeyHandler keyHandler;
+    EnemySetter enemySetter;
     Rectangle rect;
     Player player;
 
     public CollisionDetection(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         this.keyHandler = gamePanel.keyHandler;
+        this.enemySetter = gamePanel.enemySetter;
+
     }
 
     public void checkTile(Entity entity) {
@@ -69,36 +73,32 @@ public class CollisionDetection {
         int playerLeftCol = (entity.x + entity.solidAreaDefaultX) / gamePanel.tileSize;
         int playerRightCol = (entity.x + entity.solidAreaDefaultX + entity.solid.width) / gamePanel.tileSize;
 
-        if(keyHandler.interacted){
-            // Spieler kollidiert mit den obersten zwei Reihen der Karte
-            if (gamePanel.currentMap == 0) {
-                if ((playerTopRow == 0 || playerTopRow == 1) ||
-                        (gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow] == 1 ||
-                                gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerRightCol][playerTopRow] == 1 ||
-                                gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow + 1] == 1 ||
-                                gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerRightCol][playerTopRow + 1] == 1)) {
-                    gamePanel.background.switchLevel();
-                    entity.y = 660;
-                }
+        if(keyHandler.interacted) {
+            // make a switch with argument gamepanel.currentmap, and in each case check if the player is in a tile[3] (red tile)
+            switch (gamePanel.currentMap) {
+                case 0:
+                    if (gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow] == 3) {
+                        // Vor dem Kartenwechsel die Feinde auf der aktuellen Karte entfernen
+                        gamePanel.getListOfEnemies().get(0).clear();
+                        gamePanel.background.switchLevel();
+                        //enemySetter.setEnemies(1);
+                        entity.y = 660;
+
+                    } break;
+
+                case 1:
+                    if (gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow] == 3) {
+                        // Vor dem Kartenwechsel die Feinde auf der aktuellen Karte entfernen
+                        gamePanel.getListOfEnemies().get(1).clear();
+                        gamePanel.background.switchLevel();
+                        //enemySetter.setEnemies(2);
+                        entity.x = 64;
+
+                    } break;
+
             }
-            //Spieler kollidiert mit den zwei rechtesten Columns und changed zu map3
-            else if (gamePanel.currentMap == 1) {
-                // Überprüfen, ob der Spieler die äußerste rechte Spalte der Karte berührt, wenn currentMap == 1
-                if (gamePanel.currentMap == 1 &&
-                        (playerRightCol == gamePanel.maxScreenCol - 1 ||
-                                playerRightCol + 1 == gamePanel.maxScreenCol - 1)) {
-                    // Hier können Sie den Code hinzufügen, der ausgeführt werden soll, wenn die Bedingung erfüllt ist
-                    // Zum Beispiel: gamePanel.background.switchLevel();
-                    gamePanel.background.switchLevel();
-                    entity.x = 64;
-                    entity.y = 360;
-                }
         }
 
-
-
-
-        }
 
 
     }

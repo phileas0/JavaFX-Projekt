@@ -1,17 +1,15 @@
 package com.javaprojekt.finalversionjavaproject.main;
 
-import com.javaprojekt.finalversionjavaproject.entity.Entity;
 import com.javaprojekt.finalversionjavaproject.entity.Player;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.nio.Buffer;
 
 public class Background {
     public GamePanel gamePanel;
+    public EnemySetter enemySetter;
     private BufferedImage map;
     private BufferedImage gameover;
     public BufferedImage map2;
@@ -22,6 +20,7 @@ public class Background {
 
     public Background(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
+        this.enemySetter = new EnemySetter(gamePanel);
         try {
             map = ImageIO.read(getClass().getResourceAsStream("/res/maps/Scene_1_bg.png"));
             gameover = ImageIO.read(getClass().getResourceAsStream("/res/player/Gameover.png"));
@@ -36,11 +35,13 @@ public class Background {
     public void switchLevel() {
         if (gamePanel.currentMap == 0) {
             gamePanel.currentMap = 1;
-            map = map2; // Change the map to the second level
+            map = map2;// Change the map to the second level
+            enemySetter.setEnemies(gamePanel.currentMap);
         }
         else if(gamePanel.currentMap==1) {
             gamePanel.currentMap = 2;
             map = map3;
+            enemySetter.setEnemies(gamePanel.currentMap);
         }
 
             /*else if (gamePanel.currentMap == 1) {
