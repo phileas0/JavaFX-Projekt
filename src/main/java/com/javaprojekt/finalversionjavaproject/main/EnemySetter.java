@@ -31,8 +31,8 @@ public class EnemySetter {
 
     private void setEnemiesForMap2() {// Neue Enemies auf Map 2
             Enemy newEnemy1Map2 = new Enemy(10, 2);
-            newEnemy1Map2.x = 2 * gamePanel.tileSize;
-            newEnemy1Map2.y = 3 * gamePanel.tileSize;
+            newEnemy1Map2.x = 15 * gamePanel.tileSize;
+            newEnemy1Map2.y = 7 * gamePanel.tileSize;
             addEnemyToCurrentMap(newEnemy1Map2);
 
             // Füge hier weitere Enemies für Map 2 hinzu

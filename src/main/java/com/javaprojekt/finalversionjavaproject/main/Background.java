@@ -25,7 +25,7 @@ public class Background {
             map = ImageIO.read(getClass().getResourceAsStream("/res/maps/Scene_1_bg.png"));
             gameover = ImageIO.read(getClass().getResourceAsStream("/res/player/Gameover.png"));
             map2 = ImageIO.read(getClass().getResourceAsStream("/res/maps/Scene1part2.png"));
-            map3 = ImageIO.read(getClass().getResourceAsStream("/res/maps/StreetbackgroundSzene4.gif"));
+            map3 = ImageIO.read(getClass().getResourceAsStream("/res/maps/waffenlagerfront.png"));
 
         } catch (IOException e) {
             throw new RuntimeException(e);
