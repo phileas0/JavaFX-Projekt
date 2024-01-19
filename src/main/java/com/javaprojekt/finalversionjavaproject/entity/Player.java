@@ -13,6 +13,8 @@ public class Player extends Entity{
     GamePanel gamePanel;
     KeyHandler keyHandler;
     public int hasKey = 0; // will need 2 to enter final boss room
+    public int hasKey2 = 0;
+
     public BufferedImage idleCombat, shoot, hack, dmg1, dmg2;
 
     public int currentLevel = 1;
@@ -149,17 +151,35 @@ public class Player extends Entity{
                 case "KeyObject":
                     hasKey++;
                     gamePanel.obj[gamePanel.currentMap][index] = null;
-                    gamePanel.hud.showMessage("You picked up a key!");
+                    gamePanel.hud.showMessage("You picked up key 1!");
+                    break;
+                case "KeyObject2":
+                    hasKey2++;
+                    gamePanel.obj[gamePanel.currentMap][index] = null;
+                    gamePanel.hud.showMessage("You picked up key 2!");
                     break;
                 case "DoorObject":
-                    if (hasKey > 0) {
+                    if (hasKey >= 1) {
                         hasKey--;
                         gamePanel.obj[gamePanel.currentMap][index] = null;
                         gamePanel.hud.showMessage("You opened the door!");
-                    } else{
+                    } else if (hasKey2 >= 1){
+                        gamePanel.hud.showMessage("You need key 1!");
+                    } else {
                         gamePanel.hud.showMessage("You need a key!");
                     }
                     break;
+                case "DoorObject2":
+                    if (hasKey2 >= 1) {
+                        hasKey2--;
+                        gamePanel.obj[gamePanel.currentMap][index] = null;
+                        gamePanel.hud.showMessage("You opened the door!");
+                    } else if (hasKey >= 1){
+                        gamePanel.hud.showMessage("You need key 2!");
+                    } else {
+                        gamePanel.hud.showMessage("You need a key!");
+                    }
+
             }
         }
     }

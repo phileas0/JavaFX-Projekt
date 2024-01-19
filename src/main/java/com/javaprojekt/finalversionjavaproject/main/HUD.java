@@ -1,6 +1,7 @@
 package com.javaprojekt.finalversionjavaproject.main;
 
 import com.javaprojekt.finalversionjavaproject.object.KeyObject;
+import com.javaprojekt.finalversionjavaproject.object.KeyObject2;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -9,7 +10,8 @@ public class HUD {
     GamePanel gamePanel;
     Font arial40;
     BufferedImage keyImage;
-    public boolean messageboolean = false;
+    BufferedImage keyImage2;
+    public boolean messageBoolean = false;
     public String messageString = "";
     String messageStringBefore = "";
     int messageTimer = 0;
@@ -19,7 +21,9 @@ public class HUD {
 
         arial40 = new Font("Arial", Font.BOLD, 40);
         KeyObject key = new KeyObject();
+        KeyObject2 key2 = new KeyObject2();
         keyImage = key.image;
+        keyImage2 = key2.image;
     }
 
 
@@ -27,9 +31,11 @@ public class HUD {
         g2.setColor(Color.WHITE);
         g2.setFont(arial40);
         g2.drawImage(keyImage, 16, 16, 64, 64, null);
+        g2.drawImage(keyImage2, 16, 65, 64, 64, null);
         g2.drawString(" : " + gamePanel.player.hasKey, 60, 60);
+        g2.drawString(" : " + gamePanel.player.hasKey2, 60, 110);
 
-        if(messageboolean){
+        if(messageBoolean){
             g2.setFont(g2.getFont().deriveFont(30F));
             g2.drawString(messageString, 500, 720);
 
@@ -41,7 +47,7 @@ public class HUD {
 
             messageTimer++;
             if (messageTimer > 150){
-                messageboolean = false;
+                messageBoolean = false;
                 messageTimer = 0;
             }
 
@@ -50,7 +56,7 @@ public class HUD {
 
     }
     public void showMessage(String message) {
-        messageboolean = true;
+        messageBoolean = true;
         messageString = message;
     }
 }
