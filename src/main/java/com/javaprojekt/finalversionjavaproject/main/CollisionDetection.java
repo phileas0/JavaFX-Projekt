@@ -40,6 +40,7 @@ public class CollisionDetection {
                 if (gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
                     entity.collision = true;
                 }
+                checkTile3(entity);
                 break;
             case "down":
                 entityBottomRow = (entityBottomWorldY + entity.speed) / gamePanel.tileSize;
@@ -48,6 +49,7 @@ public class CollisionDetection {
                 if (gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
                     entity.collision = true;
                 }
+                checkTile3(entity);
                 break;
             case "left":
                 entityLeftCol = (entityLeftWorldX - entity.speed) / gamePanel.tileSize;
@@ -56,6 +58,7 @@ public class CollisionDetection {
                 if (gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
                     entity.collision = true;
                 }
+                checkTile3(entity);
                 break;
             case "right":
                 entityRightCol = (entityRightWorldX + entity.speed) / gamePanel.tileSize;
@@ -64,15 +67,24 @@ public class CollisionDetection {
                 if (gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
                     entity.collision = true;
                 }
+                checkTile3(entity);
                 break;
 
         }
 
-        int playerTopRow = (entity.y + entity.solidAreaDefaultY) / gamePanel.tileSize;
-        int playerLeftCol = (entity.x + entity.solidAreaDefaultX) / gamePanel.tileSize;
-        int playerRightCol = (entity.x + entity.solidAreaDefaultX + entity.solid.width) / gamePanel.tileSize;
 
-        if(keyHandler.interacted) {
+
+
+
+
+
+    }
+
+    public void checkTile3(Entity entity){//check if player is on a tile[3] (red tile)
+        //if(keyHandler.interacted) {
+            int playerTopRow = (entity.y + entity.solidAreaDefaultY) / gamePanel.tileSize;
+            int playerLeftCol = (entity.x + entity.solidAreaDefaultX) / gamePanel.tileSize;
+            int playerRightCol = (entity.x + entity.solidAreaDefaultX + entity.solid.width) / gamePanel.tileSize;
             // make a switch with argument gamepanel.currentmap, and in each case check if the player is in a tile[3] (red tile)
             switch (gamePanel.currentMap) {
                 case 0:
@@ -96,10 +108,7 @@ public class CollisionDetection {
                     } break;
 
             }
-        }
-
-
-
+        //}
     }
 
     public int checkObject(Entity entity, boolean p) {

@@ -65,7 +65,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setupGame() {
-        oSetter.setObject();
+        oSetter.setObject(0);
         enemySetter.setEnemies(0);
     }
 
