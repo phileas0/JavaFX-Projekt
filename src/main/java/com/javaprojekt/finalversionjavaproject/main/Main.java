@@ -8,7 +8,7 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setExtendedState(Frame.MAXIMIZED_BOTH);
-        window.setTitle("2D Game Test");
+        window.setTitle("HoloHunter");
 
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);

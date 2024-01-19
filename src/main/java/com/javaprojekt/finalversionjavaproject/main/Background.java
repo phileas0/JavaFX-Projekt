@@ -6,14 +6,14 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Background {
     public GamePanel gamePanel;
     public EnemySetter enemySetter;
-    private BufferedImage map;
-    private BufferedImage gameover;
-    public BufferedImage map2;
-    public BufferedImage map3;
+    public BufferedImage map, map2, map3;
+    public BufferedImage gameover, pauseScreen, expMenu;
+    public BufferedImage firstBatte;
     private Player player;
     int currentMap;
 
@@ -22,11 +22,13 @@ public class Background {
         this.gamePanel = gamePanel;
         this.enemySetter = new EnemySetter(gamePanel);
         try {
-            map = ImageIO.read(getClass().getResourceAsStream("/res/maps/Scene_1_bg.png"));
-            gameover = ImageIO.read(getClass().getResourceAsStream("/res/player/Gameover.png"));
-            map2 = ImageIO.read(getClass().getResourceAsStream("/res/maps/Scene1part2.png"));
-            map3 = ImageIO.read(getClass().getResourceAsStream("/res/maps/waffenlagerfront.png"));
-
+            map = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/Scene_1_bg.png")));
+            gameover = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Gameover.png")));
+            pauseScreen = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/pauseScreen.png")));
+            expMenu = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/expMenu.png")));
+            map2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/Scene1part2.png")));
+            map3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/waffenlagerfront.png")));
+            firstBatte = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/FirstBattle.png")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -58,5 +60,14 @@ public class Background {
     }
     public void drawGameover(Graphics2D g2) {
         g2.drawImage(gameover, 0, 0, 1280, 768, null);
+    }
+    public void drawPauseScreen(Graphics2D g2) {
+        g2.drawImage(pauseScreen, 0, 0, 1280, 768, null);
+    }
+    public void drawExpMenu(Graphics2D g2) {
+        g2.drawImage(expMenu, 0, 0, 1280, 768, null);
+    }
+    public void drawFirstBattle(Graphics2D g2) {
+        g2.drawImage(firstBatte, 0, 0, 1280, 768, null);
     }
 }

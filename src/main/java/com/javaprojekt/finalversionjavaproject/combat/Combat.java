@@ -24,7 +24,7 @@ public class Combat {
         if (player != null) {
             currentPlayerHealth = player.getMaxHealth();
             currentEnergy = player.getEnergy();
-            currentStimpaks = player.getStimpaks();
+            currentStimpaks = player.getMaxStimpaks();
         }
         isPlayerTurn = true;
     }
@@ -45,7 +45,6 @@ public class Combat {
         } else {
             handleEnemyTurn();
         }
-
         // Check for end of combat conditions after each turn
         checkCombatEndConditions();
     }
@@ -55,8 +54,8 @@ public class Combat {
             shoot(player.getDamage());
             isPlayerTurn = false; // End player's turn
         } else if (keyHandler.pressed2) {
-            hack(10); // Example energy cost
-            isPlayerTurn = false;
+            hack(75); //  Energy cost
+            isPlayerTurn = true;
         } else if (keyHandler.pressed3) {
             repair(); // Repair player
             isPlayerTurn = true;
@@ -71,7 +70,6 @@ public class Combat {
         if (currentEnergy >= player.getEnergy()) {
             currentEnergy = player.getEnergy();
         }
-        System.out.println("Enemy turn: " + enemy.getDamage());
         isPlayerTurn = true; // Switch back to player's turn
     }
 
@@ -82,7 +80,9 @@ public class Combat {
         }
         if (enemy.getHealth() <= 0) {
             enemyDead = true;
+            player.setExp(enemy.getGivesExp());
             enemy.markForRemoval = true;
+            // Handle enemy defeat
         }
     }
 
@@ -93,18 +93,22 @@ public class Combat {
     }
 
     private void hack(int energyCost) {
-        currentEnergy -= energyCost;
-        System.out.println("Used " + energyCost + " energy. Energy remaining: " + currentEnergy);
+        if (energyCost < currentEnergy) {
+            currentEnergy -= energyCost;
+            System.out.println("Used " + energyCost + " energy. Energy remaining: " + currentEnergy);
+        } else System.out.println("Not enough energy");
     }
 
     private void repair() {
-        currentPlayerHealth += player.getHealing(); //  Healing
-        if(currentPlayerHealth > player.getMaxHealth()) {
-            currentPlayerHealth = player.getMaxHealth();
-        }
-        --currentStimpaks; // Reduces the count of stimpaks
-        System.out.println("Repaired! Player Health: " + currentPlayerHealth);
-        System.out.println("Stimpaks remaining: " + currentStimpaks);
+        if (currentStimpaks > 0) {
+            currentPlayerHealth += player.getHealing(); //  Healing
+            if(currentPlayerHealth > player.getMaxHealth()) {
+                currentPlayerHealth = player.getMaxHealth();
+            }
+            --currentStimpaks; // Reduces the count of stimpaks
+            System.out.println("Repaired! Player Health: " + currentPlayerHealth);
+            System.out.println("Stimpaks remaining: " + currentStimpaks);
+        } else System.out.println("No stimpaks remaining");
     }
 
     private void takeDamage(int damage) {
@@ -116,5 +120,11 @@ public class Combat {
         keyHandler.pressed1 = false;
         keyHandler.pressed2 = false;
         keyHandler.pressed3 = false;
+    }
+    public int getCurrentStimpaks() {
+        return currentStimpaks;
+    }
+    public int getCurrentEnergy() {
+        return currentEnergy;
     }
 }

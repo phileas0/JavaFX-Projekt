@@ -1,6 +1,5 @@
 package com.javaprojekt.finalversionjavaproject.main;
 
-import com.javaprojekt.finalversionjavaproject.entity.Enemy;
 import com.javaprojekt.finalversionjavaproject.entity.Entity;
 import com.javaprojekt.finalversionjavaproject.entity.Player;
 

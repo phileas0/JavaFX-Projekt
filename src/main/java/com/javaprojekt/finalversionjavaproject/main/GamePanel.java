@@ -1,6 +1,7 @@
 package com.javaprojekt.finalversionjavaproject.main;
 
 import com.javaprojekt.finalversionjavaproject.combat.Combat;
+import com.javaprojekt.finalversionjavaproject.combat.LevelUp;
 import com.javaprojekt.finalversionjavaproject.entity.Enemy;
 import com.javaprojekt.finalversionjavaproject.entity.Player;
 import com.javaprojekt.finalversionjavaproject.object.SuperClassObject;
@@ -44,6 +45,8 @@ public class GamePanel extends JPanel implements Runnable {
     private Combat combat;
     private final int combatCooldownTime = 60; // Cooldown time in frames (1 second if 60 FPS)
     private int combatCooldown = 0;
+    private boolean newEnemy;
+    private int helpHealth;
 
 
     public GamePanel() {
@@ -144,6 +147,7 @@ public class GamePanel extends JPanel implements Runnable {
                         for (Enemy enemy : enemies) {
                             if (player.collidesWith(enemy) && !enemy.isInCombat()) {
                                 startCombat(enemy);
+                                newEnemy = true;
                                 combatCooldown = combatCooldownTime; // Reset the cooldown
                                 break;
                             }
@@ -167,6 +171,11 @@ public class GamePanel extends JPanel implements Runnable {
                 combat.processTurn();
                 if (combat.enemyDead) {
                     combat.enemyDead = true;
+                    if (player.exp >= player.expToNextLevel) {
+                        player.hasLeveledUp = true;
+                        LevelUp levelUp = new LevelUp(player);
+                        levelUp.applyLevelUp();
+                    }
                     currentGameState = GameState.EXP_MENU;
                 }
                 if (combat.playerDead) {
@@ -174,7 +183,11 @@ public class GamePanel extends JPanel implements Runnable {
                 }
                 break;
             case EXP_MENU:
+                if (keyHandler.pressed1) {
+                    player.setMaxHealth();
+                }
                 if (keyHandler.interacted) {
+                    player.hasLeveledUp = false;
                     currentGameState = GameState.PLAYING;
                 }
                 break;
@@ -212,21 +225,56 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void drawExpMenu(Graphics2D g2) {
+        background.drawExpMenu(g2);
+
+        //Create EXP bar
+        int barWidth = 300;
+        int barHeight = 25;
+        int edgeThickness = 2; // Thickness of the edge
+        int barX = screenWidth / 2 - barWidth / 2;
+        int barY = screenHeight / 2 - 10;
+
+        // Draw the background/edge of the EXP bar
+        g2.setColor(Color.BLACK); // Color for the edge
+        g2.fillRect(barX - edgeThickness, barY - edgeThickness, barWidth + 2 * edgeThickness, barHeight + 2 * edgeThickness);
+
+        // Draw the empty part of the EXP bar
+        g2.setColor(Color.GRAY);
+        g2.fillRect(barX, barY, barWidth, barHeight);
+
+        // Draw the filled portion of the EXP bar
+        float expPercentage = (float) player.exp / player.expToNextLevel;
+        g2.setColor(Color.GREEN);
+        g2.fillRect(barX, barY, (int) (barWidth * expPercentage), barHeight);
+
+        // Extra text if leveled up
         g2.setColor(Color.BLACK);
-        g2.setFont(new Font("Arial", Font.BOLD, 20));
-
-        String expText = "Experience Points: " + player.exp + " / " + player.expToNextLevel;
-        int expTextWidth = g2.getFontMetrics().stringWidth(expText);
-        g2.drawString(expText, screenWidth / 2 - expTextWidth / 2, screenHeight / 2 - 20);
-
-        String levelUpText = "Level Up! New stats: [Insert new stats here]";
-        // Display level up text only if the player leveled up
+        g2.setFont(new Font("Consolas", Font.PLAIN, 20));
         if (player.hasLeveledUp) {
-            int levelUpTextWidth = g2.getFontMetrics().stringWidth(levelUpText);
-            g2.drawString(levelUpText, screenWidth / 2 - levelUpTextWidth / 2, screenHeight / 2 + 20);
-        }
+            String lvlUp = "Level Up! New Level: " + player.getCurrentLevel();
+            String health = "Health + 5: " + player.getMaxHealth();
+            String energy = "Energy + 10: " + player.getEnergy();
+            String damage = "Damage + 2: " + player.getDamage();
+            String energyRecovery = "Speed + 3: " + player.getEnergyRecovery();
+            String stimpaks = "Stimpaks + 1: " + player.getMaxStimpaks();
+            String stimpakStrength = "Arcane + 2: " + player.getHealing();
+            // Drawing new stats
+            g2.drawString(lvlUp, screenWidth / 2 - g2.getFontMetrics().stringWidth(lvlUp) / 2, screenHeight / 2 + 10);
 
-        // Add any other relevant information or options
+            g2.setColor(Color.WHITE);
+            g2.drawString(health, screenWidth / 2 - g2.getFontMetrics().stringWidth(health) / 2, screenHeight / 2 + 40);
+            g2.drawString(energy, screenWidth / 2 - g2.getFontMetrics().stringWidth(energy) / 2, screenHeight / 2 + 70);
+            g2.drawString(damage, screenWidth / 2 - g2.getFontMetrics().stringWidth(damage) / 2, screenHeight / 2 + 100);
+            g2.drawString(energyRecovery, screenWidth / 2 - g2.getFontMetrics().stringWidth(energyRecovery) / 2, screenHeight / 2 + 130);
+            g2.drawString(stimpaks, screenWidth / 2 - g2.getFontMetrics().stringWidth(stimpaks) / 2, screenHeight / 2 + 160);
+            g2.drawString(stimpakStrength, screenWidth / 2 - g2.getFontMetrics().stringWidth(stimpakStrength) / 2, screenHeight / 2 + 190);
+        } else {
+            String lvlUp = "Gained EXP: " + enemy.givesExp;
+            String remaining = "EXP: " + player.getExp() + " / " + player.getExpToNextLevel();
+            g2.drawString(lvlUp, screenWidth / 2 - g2.getFontMetrics().stringWidth(lvlUp) / 2, screenHeight / 2 + 10);
+            g2.setColor(Color.WHITE);
+            g2.drawString(remaining, screenWidth / 2 - g2.getFontMetrics().stringWidth(remaining) / 2, screenHeight / 2 + 40);
+        }
     }
     private void drawGameover(Graphics2D g2) {
         background.drawGameover(g2);
@@ -270,35 +318,78 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
     private void drawPauseScreen(Graphics2D g2) {
-        // Set the color for the pause screen
-        g2.setColor(new Color(0, 0, 0, 123)); // Semi-transparent black
-
+        // Set the background
+        background.drawPauseScreen(g2);
+        // Set color of font
+        g2.setColor(new Color(255, 0, 255, 255)); // Semi-transparent yellow
         // Draw a rectangle over the whole screen
-        g2.fillRect(0, 0, getWidth(), getHeight());
+        g2.setFont(new Font("Consolas", Font.PLAIN, 40));
 
-        // Set the color and font for the text
-        g2.setColor(Color.WHITE);
-        g2.setFont(new Font("Arial", Font.BOLD, 40));
-
-        // Draw the paused text
-        String pausedText = "Game Paused";
+        // Draw the "Stats:" text
+        String pausedText = "Stats:";
         int textWidth = g2.getFontMetrics().stringWidth(pausedText);
         int x = getWidth() / 2 - textWidth / 2;
-        int y = getHeight() / 2;
-
+        int y = getHeight() / 3 - 20;
         g2.drawString(pausedText, x, y);
+
+        g2.setFont(new Font("Consolas", Font.PLAIN, 20));  // Smaller font for details
+
+        // Display player stats
+        String levelText = "Level: " + player.getCurrentLevel();
+        String expText = "EXP: " + player.getExp() + " / " + player.getExpToNextLevel();
+        String healthText = "Health: " + player.getMaxHealth();
+        String energy = "Energy: " + player.getEnergy() + "%";
+        String damage = "Damage: " + player.getDamage();
+        String energyRecovery = "Speed: " + player.getEnergyRecovery();
+        String stimpaks = "Stimpaks: " + player.getMaxStimpaks();
+        String healing = "Arcane: " + player.getHealing();
+
+        // Calculate positions and draw the stats
+        g2.drawString(levelText, getWidth() / 2 - 100, screenHeight / 3 + 30);
+        g2.drawString(expText, getWidth() / 2 - 100, screenHeight / 3 + 60);
+        g2.drawString(healthText, getWidth() / 2 - 100, screenHeight / 3 + 120);
+        g2.drawString(energy, getWidth() / 2 - 100, screenHeight / 3 + 150);
+        g2.drawString(damage, getWidth() / 2 - 100, screenHeight / 3 + 180);
+        g2.drawString(energyRecovery, getWidth() / 2 - 100, screenHeight / 3 + 210);
+        g2.drawString(stimpaks, getWidth() / 2 - 100, screenHeight / 3 + 240);
+        g2.drawString(healing, getWidth() / 2 - 100, screenHeight / 3 + 270);
+
+    }
+
+    private void drawHealthBar(Graphics2D g2, int x, int y, int currentHealth, int maxHealth) {
+        // Calculate health bar width based on health ratio
+        int barWidth = 100; // Total width of the health bar
+        int healthWidth = (int) ((currentHealth / (float) maxHealth) * barWidth);
+        g2.setColor(Color.BLUE);
+        g2.fillRect(x, y, healthWidth, 10);
+        g2.setColor(Color.YELLOW);
+        g2.drawRect(x, y, barWidth, 10);
     }
     public void drawCombatUI(Graphics2D g2) {
+        background.drawFirstBattle(g2);
+        player.drawPlayerPortrait(g2);
+        enemy.drawEnemyPortrait(g2);
         // Draw the action menu
         g2.drawString("1. Shoot  2. Use Hacks  3. Repair", 10, screenHeight - 30);
 
-        // Display player and enemy stats
-        g2.drawString("Player HP: " + combat.currentPlayerHealth, 10, 20);
+        drawHealthBar(g2, 10, 5, combat.currentPlayerHealth, player.getMaxHealth());
         if (enemy != null) {
-            g2.drawString("Enemy HP: " + enemy.health, screenWidth - 100, 20);
+            if (newEnemy) {
+                helpHealth = enemy.health;
+                newEnemy = false;
+            }
+            drawHealthBar(g2, screenWidth - 110, 5, enemy.health, helpHealth);
+        }
+        else System.out.println("Enemy null");
+
+        // Display player and enemy stats
+        g2.drawString("Player HP: " + combat.currentPlayerHealth + " / " + player.maxHealth, 10, 30);
+        g2.drawString("Energy: " + combat.getCurrentEnergy(), 10, 50);
+        g2.drawString("Stimpaks: " + combat.getCurrentStimpaks(), 10, 70);
+        if (enemy != null) {
+            g2.drawString("Enemy HP: " + enemy.health + " / " + helpHealth, screenWidth - 110, 30);
         }
         else System.out.println("Enemy null");
         // Any other UI elements...
     }
-
 }

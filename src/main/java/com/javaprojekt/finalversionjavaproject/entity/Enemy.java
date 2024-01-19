@@ -12,15 +12,23 @@ import java.util.Objects;
 public class Enemy extends Entity {
     public boolean markForRemoval = false;
     public boolean isInCombat = false;
+    public BufferedImage idleCombat;
     public int health;
     public int damage;
+
+    public int getGivesExp() {
+        return givesExp;
+    }
+
+    public int givesExp;
     public boolean isMarkedForRemoval() {
         return markForRemoval;
     }
 
-    public Enemy(int health, int damage) {
+    public Enemy(int health, int damage, int givesExp) {
         this.health = health;
         this.damage = damage;
+        this.givesExp = givesExp;
         getEnemyImage();
     }
     public void setInCombat(boolean inCombat) {
@@ -45,9 +53,13 @@ public class Enemy extends Entity {
     public void getEnemyImage() {
         try {
             idle = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/playerTest_0.png")));
+            idleCombat = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/firstEnemy.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void drawEnemyPortrait(Graphics2D g2) {
+        g2.drawImage(idleCombat, 650, 350, 256, 256, null);
     }
 
     public void draw(Graphics2D graphics2D) {

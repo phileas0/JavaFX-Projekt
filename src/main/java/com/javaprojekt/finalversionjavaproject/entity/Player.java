@@ -1,5 +1,4 @@
 package com.javaprojekt.finalversionjavaproject.entity;
-import com.javaprojekt.finalversionjavaproject.main.Background;
 import com.javaprojekt.finalversionjavaproject.main.GamePanel;
 import com.javaprojekt.finalversionjavaproject.main.KeyHandler;
 
@@ -14,13 +13,15 @@ public class Player extends Entity{
     GamePanel gamePanel;
     KeyHandler keyHandler;
     public int hasKey = 0; // will need 2 to enter final boss room
+    public BufferedImage idleCombat, shoot, hack, dmg1, dmg2;
 
-    public int maxHealth = 10; // +3 per Level
+    public int currentLevel = 1;
+    public int maxHealth = 10; // +5 per Level
     public int currentHealth = 10; // only used in Battle
     public int damage = 4; // +2 per Level
     public int energy = 100; // + 10 per Level
-    public int energyRecovery = 15; // +5 per Level
-    public int stimpaks = 1; // +1 per Level;
+    public int energyRecovery = 15; // +3 per Level
+    public int maxStimpaks = 1; // +1 per Level;
     public int healing = 3; // +2 per Level
     public int exp = 0;
     public int expToNextLevel = 10; // +5 per Level
@@ -44,6 +45,7 @@ public class Player extends Entity{
 
         setDefaultValues();
         getPlayerImage();
+        getPlayerCombatImage();
     }
     public void setDefaultValues() {
         x = 640;
@@ -66,6 +68,20 @@ public class Player extends Entity{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void getPlayerCombatImage() {
+        try {
+            idleCombat = ImageIO.read(getClass().getResourceAsStream("/res/player/sprite_0.png"));
+            dmg1 = ImageIO.read(getClass().getResourceAsStream("/res/player/sprite_1.png"));
+            dmg2 = ImageIO.read(getClass().getResourceAsStream("/res/player/sprite_2.png"));
+            hack = ImageIO.read(getClass().getResourceAsStream("/res/player/sprite_3.png"));
+            shoot = ImageIO.read(getClass().getResourceAsStream("/res/player/sprite_4.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void drawPlayerPortrait(Graphics2D g2) {
+        g2.drawImage(idleCombat, 350, 350, 256, 256, null);
     }
     public void update() {
 
@@ -119,13 +135,9 @@ public class Player extends Entity{
                 if (keyHandler.rightPressed) {
                     x += speed;
                 }
-
             }
         }
         else direction = "idle";
-
-
-
     }
 
 
@@ -180,47 +192,54 @@ public class Player extends Entity{
         return maxHealth;
     }
 
-    public void setMaxHealth(int maxHealth) {
-        this.maxHealth += maxHealth;
+    public void setMaxHealth() {
+        this.maxHealth += 5;
     }
 
     public int getDamage() {
         return damage;
     }
 
-    public void setDamage(int damage) {
-        this.damage += damage;
+    public void setDamage() {
+        this.damage += 2;
     }
 
     public int getEnergy() {
         return energy;
     }
 
-    public void setEnergy(int energy) {
-        this.energy += energy;
+    public void setEnergy() {
+        this.energy += 10;
     }
 
     public int getEnergyRecovery() {
         return energyRecovery;
     }
 
-    public void setEnergyRecovery(int energyRecovery) {
-        this.energyRecovery += energyRecovery;
+    public void setEnergyRecovery() {
+        this.energyRecovery += 3;
     }
 
-    public int getStimpaks() {
-        return stimpaks;
+    public int getMaxStimpaks() {
+        return maxStimpaks;
     }
-
-    public void setStimpaks(int stimpaks) {
-        this.stimpaks += stimpaks;
-    }
+    public void setMaxStimpaks() { this.maxStimpaks += 1;}
 
     public int getHealing() {
         return healing;
     }
+    public void setHealing() {
+        this.healing += 2;
+    }
 
-    public void setHealing(int healing) {
-        this.healing += healing;
+    public void setExp(int exp) {
+        this.exp += exp;
+    }
+    public int getExp() {return exp;}
+    public int getExpToNextLevel() {return expToNextLevel;}
+    public int getCurrentLevel() {return currentLevel;}
+    public void setLevelUp() {
+        this.expToNextLevel += 5;
+        this.currentLevel++;
     }
 }
