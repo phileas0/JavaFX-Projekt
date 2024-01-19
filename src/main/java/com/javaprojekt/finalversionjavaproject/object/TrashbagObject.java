@@ -9,6 +9,7 @@ public class TrashbagObject extends SuperClassObject {
     public TrashbagObject() {
         name = "trashbag";
         collision = true;
+        super.solid = new Rectangle(0,0,48,64);
 
 
         try {

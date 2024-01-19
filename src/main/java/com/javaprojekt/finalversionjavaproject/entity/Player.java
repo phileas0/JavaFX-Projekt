@@ -125,21 +125,61 @@ public class Player extends Entity{
 
             //IF COLLISION IS FALSE PLAYER CAN MOVE
             if (!collision) {
-                if (keyHandler.upPressed) {
-                    y -= speed;
-                }
-                if (keyHandler.downPressed) {
-                    y += speed;
-                }
-                if (keyHandler.leftPressed) {
-                    x -= speed;
-                }
-                if (keyHandler.rightPressed) {
-                    x += speed;
-                }
+                processLeftKey();
+                processRightKey();
+                processUpKey();
+                processDownKey();
             }
         }
         else direction = "idle";
+    }
+
+    // Process 'up' key
+    public void processUpKey() {
+        if (keyHandler.upPressed) {
+            direction = "up";
+            collision = false;
+            gamePanel.cDetecter.checkTile(this);
+            if (!collision) {
+                y -= speed;
+            }
+        }
+    }
+
+    // Process 'down' key
+    public void processDownKey() {
+        if (keyHandler.downPressed) {
+            direction = "down";
+            collision = false;
+            gamePanel.cDetecter.checkTile(this);
+            if (!collision) {
+                y += speed;
+            }
+        }
+    }
+
+    // Process 'left' key
+    public void processLeftKey() {
+        if (keyHandler.leftPressed) {
+            direction = "left";
+            collision = false;
+            gamePanel.cDetecter.checkTile(this);
+            if (!collision) {
+                x -= speed;
+            }
+        }
+    }
+
+    // Process 'right' key
+    public void processRightKey() {
+        if (keyHandler.rightPressed) {
+            direction = "right";
+            collision = false;
+            gamePanel.cDetecter.checkTile(this);
+            if (!collision) {
+                x += speed;
+            }
+        }
     }
 
 

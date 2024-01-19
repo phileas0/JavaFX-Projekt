@@ -34,6 +34,7 @@ public class CollisionDetection {
 
         switch (entity.direction) {
             case "up":
+                entity.collision = false; // Reset collision flag
                 entityTopRow = (entityTopWorldY - entity.speed) / gamePanel.tileSize;
                 tileNum1 = gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][entityLeftCol][entityTopRow];
                 tileNum2 = gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][entityRightCol][entityTopRow];
@@ -43,6 +44,7 @@ public class CollisionDetection {
                 checkTile3(entity);
                 break;
             case "down":
+                entity.collision = false; // Reset collision flag
                 entityBottomRow = (entityBottomWorldY + entity.speed) / gamePanel.tileSize;
                 tileNum1 = gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][entityLeftCol][entityBottomRow];
                 tileNum2 = gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][entityRightCol][entityBottomRow];
@@ -52,6 +54,7 @@ public class CollisionDetection {
                 checkTile3(entity);
                 break;
             case "left":
+                entity.collision = false; // Reset collision flag
                 entityLeftCol = (entityLeftWorldX - entity.speed) / gamePanel.tileSize;
                 tileNum1 = gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][entityLeftCol][entityTopRow];
                 tileNum2 = gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][entityLeftCol][entityBottomRow];
@@ -61,6 +64,7 @@ public class CollisionDetection {
                 checkTile3(entity);
                 break;
             case "right":
+                entity.collision = false; // Reset collision flag
                 entityRightCol = (entityRightWorldX + entity.speed) / gamePanel.tileSize;
                 tileNum1 = gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][entityRightCol][entityTopRow];
                 tileNum2 = gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][entityRightCol][entityBottomRow];
@@ -72,13 +76,9 @@ public class CollisionDetection {
 
         }
 
-
-
-
-
-
-
     }
+
+
 
     public void checkTile3(Entity entity){//check if player is on a tile[3] (red tile)
         //if(keyHandler.interacted) {
