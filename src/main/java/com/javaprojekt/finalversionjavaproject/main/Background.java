@@ -12,7 +12,7 @@ public class Background {
     private ObjectSetter objectSetter;
     public GamePanel gamePanel;
     public EnemySetter enemySetter;
-    public BufferedImage map, map2, map3, map4, map5, map6, map7, map8, map9, map10, map11;
+    public BufferedImage map, map2, map3, map4, map5, map6, map7, map8, map9, map10, map11, map12;
     public BufferedImage gameover, pauseScreen, expMenu;
     public BufferedImage firstBatte, streetFights, theFactory, meetingRoom, kitchenRoom, finalBoss;
     private Player player;
@@ -40,6 +40,8 @@ public class Background {
             map6 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/StreetbackgroundSzene4.gif")));
             map7 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/hqFront.png")));
             map8 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/Lobby.png")));
+            map11 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/Lobby2.png")));
+            map12 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/FinalBossRoom.png")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -79,6 +81,16 @@ public class Background {
         } else if (gamePanel.currentMap == 6) {
             gamePanel.currentMap = 7;
             map = map8;
+            enemySetter.setEnemies(gamePanel.currentMap);
+            objectSetter.setObject(gamePanel.currentMap);
+        } else if (gamePanel.currentMap == 7) {
+            gamePanel.currentMap = 10;
+            map = map11;
+            enemySetter.setEnemies(gamePanel.currentMap);
+            objectSetter.setObject(gamePanel.currentMap);
+        } else if (gamePanel.currentMap == 10) {
+            gamePanel.currentMap = 11;
+            map = map12;
             enemySetter.setEnemies(gamePanel.currentMap);
             objectSetter.setObject(gamePanel.currentMap);
         }

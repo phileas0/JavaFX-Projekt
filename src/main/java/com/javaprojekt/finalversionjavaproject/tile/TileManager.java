@@ -22,6 +22,8 @@ public class TileManager {
     public String street = "/res/maps/street.txt";
     public String hqFront = "/res/maps/hqFront.txt";
     public String lobby = "/res/maps/lobby.txt";
+    public String lobby2 = "/res/maps/lobby2.txt";
+    public String finalBossRoom = "/res/maps/finalBossRoom.txt";
 
     public TileManager(GamePanel gamePanel){
         this.gamePanel = gamePanel;
@@ -39,6 +41,8 @@ public class TileManager {
         loadMap(street, 5);
         loadMap(hqFront, 6);
         loadMap(lobby, 7);
+        loadMap(lobby2, 10);
+        loadMap(finalBossRoom, 11);
     }
 
     public void getTileImages() {

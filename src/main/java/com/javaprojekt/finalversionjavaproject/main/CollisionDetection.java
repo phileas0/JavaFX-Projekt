@@ -100,8 +100,8 @@ public class CollisionDetection {
                     if (gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow] == 3) {
                         gamePanel.getListOfEnemies().get(1).clear();
                         gamePanel.background.switchLevel();
-                        entity.x = 80;
-                        entity.y = 350;
+                        entity.x = 600;
+                        entity.y = 640;
 
                     } break;
                 case 2:
@@ -135,6 +135,20 @@ public class CollisionDetection {
                 case 6:
                     if (gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow] == 3) {
                         gamePanel.getListOfEnemies().get(6).clear();
+                        gamePanel.background.switchLevel();
+                        entity.x = 600;
+                        entity.y = 640;
+                    } break;
+                case 7:
+                    if (gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow] == 3) {
+                        gamePanel.getListOfEnemies().get(7).clear();
+                        gamePanel.background.switchLevel();
+                        entity.x = 600;
+                        entity.y = 640;
+                    } break;
+                case 10:
+                    if (gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow] == 3) {
+                        gamePanel.getListOfEnemies().get(10).clear();
                         gamePanel.background.switchLevel();
                         entity.x = 600;
                         entity.y = 640;
