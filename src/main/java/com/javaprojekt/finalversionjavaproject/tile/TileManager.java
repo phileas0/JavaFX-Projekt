@@ -17,6 +17,11 @@ public class TileManager {
     public String startingMap = "/res/maps/Starting0.txt";
     public String startingMap1 = "/res/maps/Starting1.txt";
     public String weaponEntrance = "/res/maps/weaponEntrance.txt";
+    public String weaponFactory = "/res/maps/weaponFactory.txt";
+    public String weaponOffice = "/res/maps/weaponOffice.txt";
+    public String street = "/res/maps/street.txt";
+    public String hqFront = "/res/maps/hqFront.txt";
+    public String lobby = "/res/maps/lobby.txt";
 
     public TileManager(GamePanel gamePanel){
         this.gamePanel = gamePanel;
@@ -29,6 +34,11 @@ public class TileManager {
         loadMap(startingMap, 0);
         loadMap(startingMap1, 1);
         loadMap(weaponEntrance, 2);
+        loadMap(weaponFactory, 3);
+        loadMap(weaponOffice, 4);
+        loadMap(street, 5);
+        loadMap(hqFront, 6);
+        loadMap(lobby, 7);
     }
 
     public void getTileImages() {

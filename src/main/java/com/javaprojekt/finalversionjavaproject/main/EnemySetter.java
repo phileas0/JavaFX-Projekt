@@ -19,6 +19,8 @@ public class EnemySetter {
             setEnemiesForMap1();
         } else if(mapNumber == 2) {
             setEnemiesForMap2();
+        } else if (mapNumber == 3) {
+            setEnemiesForMap3();
         }
         System.out.println("Setting enemies for Map " + gamePanel.currentMap);
         // ... (dein bestehender Code)
@@ -27,6 +29,22 @@ public class EnemySetter {
         for (ArrayList<Enemy> enemies : gamePanel.getListOfEnemies()) {
             System.out.println("Number of enemies on current map: " + enemies.size());
         }
+    }
+
+    private void setEnemiesForMap3() {// Neue Enemies auf Map 3
+        Enemy newEnemy1Map3 = new Enemy(10, 2, 10);
+        newEnemy1Map3.x = 13 * gamePanel.tileSize;
+        newEnemy1Map3.y = 8 * gamePanel.tileSize;
+        addEnemyToCurrentMap(newEnemy1Map3);
+
+        // Füge hier weitere Enemies für Map 3 hinzu
+
+        Enemy newEnemy2Map3 = new Enemy(10, 2, 10);
+        newEnemy2Map3.x = 4 * gamePanel.tileSize;
+        newEnemy2Map3.y = 10 * gamePanel.tileSize;
+        addEnemyToCurrentMap(newEnemy2Map3);
+
+        // Füge hier weitere Enemies für Map 3 hinzu
     }
 
     private void setEnemiesForMap2() {// Neue Enemies auf Map 2

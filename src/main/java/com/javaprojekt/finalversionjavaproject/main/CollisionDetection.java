@@ -98,14 +98,47 @@ public class CollisionDetection {
 
                 case 1:
                     if (gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow] == 3) {
-                        // Vor dem Kartenwechsel die Feinde auf der aktuellen Karte entfernen
                         gamePanel.getListOfEnemies().get(1).clear();
                         gamePanel.background.switchLevel();
-                        //enemySetter.setEnemies(2);
-                        entity.x = 64;
+                        entity.x = 80;
+                        entity.y = 350;
 
                     } break;
-
+                case 2:
+                    if (gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow] == 3) {
+                        gamePanel.getListOfEnemies().get(2).clear();
+                        gamePanel.background.switchLevel();
+                        entity.x = 1150;
+                        entity.y = 550;
+                    } break;
+                case 3:
+                    if (gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow] == 3) {
+                        gamePanel.getListOfEnemies().get(3).clear();
+                        gamePanel.background.switchLevel();
+                        entity.x = 1150;
+                        entity.y = 550;
+                    } break;
+                case 4:
+                    if (gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow] == 3) {
+                        gamePanel.getListOfEnemies().get(4).clear();
+                        gamePanel.background.switchLevel();
+                        entity.x = 100;
+                        entity.y = 550;
+                    } break;
+                case 5:
+                    if (gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow] == 3) {
+                        gamePanel.getListOfEnemies().get(5).clear();
+                        gamePanel.background.switchLevel();
+                        entity.x = 600;
+                        entity.y = 640;
+                    } break;
+                case 6:
+                    if (gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow] == 3) {
+                        gamePanel.getListOfEnemies().get(6).clear();
+                        gamePanel.background.switchLevel();
+                        entity.x = 600;
+                        entity.y = 640;
+                    } break;
             }
         //}
     }
