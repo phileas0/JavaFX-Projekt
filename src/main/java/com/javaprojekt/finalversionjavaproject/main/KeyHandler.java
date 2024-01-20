@@ -3,7 +3,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
-    public boolean upPressed, downPressed, leftPressed, rightPressed, interacted, pauseGame, space;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, interacted, pauseGame, space, escPressed;
     public boolean pressed1, pressed2, pressed3, pressed4, pressed5, pressed6;
     boolean showDebugText = false;
 
@@ -33,6 +33,10 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_Q){
             pauseGame = true;
         }
+        if(code == KeyEvent.VK_ESCAPE){
+            escPressed = true;
+        }
+
 
         //DEBUG
         if (code == KeyEvent.VK_T) {
@@ -107,6 +111,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_SPACE){
             space = false;
+        }
+        if(code == KeyEvent.VK_ESCAPE){
+            escPressed = false;
         }
     }
 }

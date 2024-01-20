@@ -1,6 +1,7 @@
 package com.javaprojekt.finalversionjavaproject.entity;
 import com.javaprojekt.finalversionjavaproject.main.GamePanel;
 import com.javaprojekt.finalversionjavaproject.main.KeyHandler;
+import com.javaprojekt.finalversionjavaproject.main.Tutorial;
 
 
 import javax.imageio.ImageIO;
@@ -86,7 +87,6 @@ public class Player extends Entity{
         g2.drawImage(idleCombat, 350, 350, 256, 256, null);
     }
     public void update() {
-
         if (keyHandler.upPressed || keyHandler.downPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
             if (keyHandler.upPressed) {
                 direction = "up";

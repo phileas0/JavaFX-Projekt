@@ -73,7 +73,6 @@ public class CollisionDetection {
                 }
                 checkTile3(entity);
                 break;
-
         }
 
     }

@@ -28,6 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
 
+    public Tutorial tutorial = new Tutorial(this);
     public EnemySetter enemySetter;
     public CollisionDetection cDetecter = new CollisionDetection(this);
     public Background background = new Background(this);
@@ -135,6 +136,10 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         switch (currentGameState) {
             case PLAYING:
+                // If the tutorial is active, don't update the game state
+                if(tutorial.isTutorialActive) {
+                    return;
+                }
                 player.update();
                 for (ArrayList<Enemy> enemies : listOfEnemies) {
                     enemies.removeIf(Enemy::isMarkedForRemoval);
@@ -163,6 +168,8 @@ public class GamePanel extends JPanel implements Runnable {
                 break;
             case PAUSED:
                 if (keyHandler.pauseGame) {
+                    tutorial.isTutorialActive1 = false;
+                    tutorial.isTutorialActive2 = true;
                     currentGameState = GameState.PLAYING;
                     keyHandler.pauseGame = false; // Reset the flag
                 }
@@ -218,10 +225,7 @@ public class GamePanel extends JPanel implements Runnable {
                 drawGameover(graphics2D);
                 break;
         }
-
         graphics2D.dispose();
-
-
     }
 
     private void drawExpMenu(Graphics2D g2) {
@@ -291,6 +295,8 @@ public class GamePanel extends JPanel implements Runnable {
                 obj[currentMap][i].draw(g2, this);
             }
         }
+
+
         //PLAYER
         player.draw(g2);
         //ENEMY
@@ -303,6 +309,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         //UI
         hud.draw(g2);
+        if(currentMap == 0)tutorial.draw(g2);
+
+
 
         if (keyHandler.showDebugText == true) {
             g2.setFont(new Font("Arial", Font.PLAIN, 20));
