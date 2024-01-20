@@ -4,10 +4,14 @@ import com.javaprojekt.finalversionjavaproject.entity.Player;
 import com.javaprojekt.finalversionjavaproject.entity.Enemy;
 import com.javaprojekt.finalversionjavaproject.main.KeyHandler;
 
+import java.awt.*;
+import java.util.Random;
+
 public class Combat {
     private Player player;
     private Enemy enemy;
     private KeyHandler keyHandler;
+    private TextField textField;
 
     //Track the State of Combat
     private boolean isPlayerTurn;
@@ -16,11 +20,17 @@ public class Combat {
     public int currentPlayerHealth;
     private int currentEnergy;
     private int currentStimpaks;
+    private boolean shieldUp = false;
+    private boolean trojanSent = false;
+    private boolean eaglesEyeActivated = false;
+    public boolean scanned = false;
+    Random random = new Random();
 
-    public Combat(Player player, Enemy enemy, KeyHandler keyHandler) {
+    public Combat(Player player, Enemy enemy, KeyHandler keyHandler, TextField textField) {
         this.player = player;
         this.enemy = enemy;
         this.keyHandler = keyHandler;
+        this.textField = textField;
         if (player != null) {
             currentPlayerHealth = player.getMaxHealth();
             currentEnergy = player.getEnergy();
@@ -54,10 +64,19 @@ public class Combat {
             shoot(player.getDamage());
             isPlayerTurn = false; // End player's turn
         } else if (keyHandler.pressed2) {
-            hack(75); //  Energy cost
+            shield(70); //  Shields the player from the next attack
             isPlayerTurn = true;
         } else if (keyHandler.pressed3) {
             repair(); // Repair player
+            isPlayerTurn = true;
+        } else if (keyHandler.pressed4) {
+            eaglesEye(80); // Activate garanteed shoot
+            isPlayerTurn = true;
+        } else if (keyHandler.pressed5) {
+            sendTrojan(100); // Weakens the enemy and blocks their view a little
+            isPlayerTurn = true;
+        } else if (keyHandler.pressed6) {
+            scan(50); // Lets you see the enemies HP
             isPlayerTurn = true;
         }
         // Reset keyHandler flags after processing
@@ -87,16 +106,28 @@ public class Combat {
     }
 
     private void shoot(int damage) {
-        enemy.takeDamage(damage);
-        System.out.println("Shot enemy with " + damage + " damage");
-        System.out.println("Enemy health down to " + enemy.health);
+        if (attackHits() || eaglesEyeActivated) {
+            int finalDamage = damage;
+            if (trojanSent) {
+                finalDamage *= 1.5;
+            }
+            if (isCriticalHit()) {
+                finalDamage *= 1.5;
+                textField.addMessage("Critical Hit!");
+            }
+            enemy.takeDamage(damage);
+            textField.addMessage("Shot enemy with " + finalDamage + " damage. Enemy HP: " + enemy.health);
+        } else {
+            textField.addMessage("Your shot missed!");
+        }
     }
 
-    private void hack(int energyCost) {
-        if (energyCost < currentEnergy) {
+    private void shield(int energyCost) {
+        if (energyCost <= currentEnergy) {
             currentEnergy -= energyCost;
-            System.out.println("Used " + energyCost + " energy. Energy remaining: " + currentEnergy);
-        } else System.out.println("Not enough energy");
+            shieldUp = true;
+            textField.addMessage("SHIELD UP");
+        } else textField.addMessage("Not enough energy");
     }
 
     private void repair() {
@@ -106,16 +137,69 @@ public class Combat {
                 currentPlayerHealth = player.getMaxHealth();
             }
             --currentStimpaks; // Reduces the count of stimpaks
-            System.out.println("Repaired! Player Health: " + currentPlayerHealth);
-            System.out.println("Stimpaks remaining: " + currentStimpaks);
-        } else System.out.println("No stimpaks remaining");
+            textField.addMessage("Repaired! Player Health: " + currentPlayerHealth);
+            textField.addMessage("Stimpaks remaining: " + currentStimpaks);
+        } else textField.addMessage("No stimpaks remaining");
     }
 
-    private void takeDamage(int damage) {
-        currentPlayerHealth -= damage;
-        System.out.println("Enemy deals " + damage + "damage");
-        System.out.println("Player Health:  " + currentPlayerHealth);
+    private void eaglesEye(int energyCost) {
+        if (energyCost <= currentEnergy) {
+            currentEnergy -= energyCost;
+            eaglesEyeActivated = true;
+            textField.addMessage("EAGLES EYE ACTIVATED");
+        } else textField.addMessage("Not enough energy");
     }
+    private void sendTrojan(int energyCost) {
+        if (energyCost <= currentEnergy) {
+            currentEnergy -= energyCost;
+            trojanSent = true;
+            textField.addMessage("TROJAN SENT");
+        } else textField.addMessage("Not enough energy");
+    }
+    private void scan(int energyCost) {
+        if (!scanned) {
+            if (energyCost <= currentEnergy) {
+                currentEnergy -= energyCost;
+                textField.addMessage("SCANNING.");
+                textField.addMessage("SCANNING. .");
+                textField.addMessage("SCANNING. . .");
+                textField.addMessage("ENEMY SCANNED");
+                scanned = true;
+            } else textField.addMessage("Not enough energy");
+        } else textField.addMessage("Already scanned this enemy!");
+    }
+
+    private void takeDamage(int damage) { // Enemy attack
+        if (trojanSent) {
+            damage /= 1.2;
+            trojanSent = false;
+        }
+        if (shieldUp) {
+            textField.addMessage("Shield deflected " + damage + " damage.");
+            shieldUp = false;
+        } else if (enemyAttackHits()) {
+            currentPlayerHealth -= damage;
+            textField.addMessage("Enemy damaged you! Lost " + damage + " HP.");
+        } else {
+            textField.addMessage("Enemy attack missed!");
+        }
+    }
+
+    private boolean attackHits() {
+        double hitProbability = 0.75; // 75% chance to hit
+        return random.nextDouble() < hitProbability;
+    }
+
+    private boolean isCriticalHit() {
+        double critChance = 0.20; // 20% chance for a critical hit
+        return random.nextDouble() < critChance;
+    }
+
+    private boolean enemyAttackHits() {
+        double hitProbability = enemy.hitPropability; // chance to hit
+        return random.nextDouble() < hitProbability;
+    }
+
     private void resetKeyHandlerFlags() {
         keyHandler.pressed1 = false;
         keyHandler.pressed2 = false;

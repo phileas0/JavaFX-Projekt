@@ -1,5 +1,6 @@
 package com.javaprojekt.finalversionjavaproject.entity;
 
+import com.javaprojekt.finalversionjavaproject.main.Background;
 import com.javaprojekt.finalversionjavaproject.main.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -15,19 +16,25 @@ public class Enemy extends Entity {
     public BufferedImage idleCombat;
     public int health;
     public int damage;
+    public double hitPropability;
+    public int skinNr;
+    public int backgroundNr;
 
+    public int givesExp;
     public int getGivesExp() {
         return givesExp;
     }
 
-    public int givesExp;
     public boolean isMarkedForRemoval() {
         return markForRemoval;
     }
 
-    public Enemy(int health, int damage, int givesExp) {
+    public Enemy(int health, int damage, double hitPropability, int givesExp, int skinNr, int backgroundNr) {
         this.health = health;
         this.damage = damage;
+        this.hitPropability = hitPropability;
+        this.skinNr = skinNr;
+        this.backgroundNr = backgroundNr;
         this.givesExp = givesExp;
         getEnemyImage();
     }
@@ -58,7 +65,7 @@ public class Enemy extends Entity {
             e.printStackTrace();
         }
     }
-    public void drawEnemyPortrait(Graphics2D g2) {
+    public void drawEnemyPortrait0(Graphics2D g2) {
         g2.drawImage(idleCombat, 650, 350, 256, 256, null);
     }
 

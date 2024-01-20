@@ -14,7 +14,7 @@ public class Background {
     public EnemySetter enemySetter;
     public BufferedImage map, map2, map3, map4, map5, map6, map7, map8, map9, map10, map11;
     public BufferedImage gameover, pauseScreen, expMenu;
-    public BufferedImage firstBatte;
+    public BufferedImage firstBatte, streetFights, theFactory, meetingRoom, kitchenRoom, finalBoss;
     private Player player;
     int currentMap;
 
@@ -31,6 +31,10 @@ public class Background {
             map2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/Scene1part2.png")));
             map3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/waffenlagerfront.png")));
             firstBatte = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/FirstBattle.png")));
+            streetFights = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/streetFights.png")));
+            meetingRoom = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/meetingRoom.png")));
+            kitchenRoom = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/kitchenRoom.png")));
+            finalBoss = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/finalBoss.png")));
             map4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/waffenlager.png")));
             map5 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/weaponOffice.gif")));
             map6 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/StreetbackgroundSzene4.gif")));
@@ -101,5 +105,20 @@ public class Background {
     }
     public void drawFirstBattle(Graphics2D g2) {
         g2.drawImage(firstBatte, 0, 0, 1280, 768, null);
+    }
+    public void drawStreetFights(Graphics2D g2) {
+        g2.drawImage(streetFights, 0, 0, 1280, 768, null);
+    }
+    public void drawTheFactory(Graphics2D g2) {
+        g2.drawImage(theFactory, 0, 0, 1280, 768, null);
+    }
+    public void drawMeetingRoom(Graphics2D g2) {
+        g2.drawImage(meetingRoom, 0, 0, 1280, 768, null);
+    }
+    public void drawKitchenRoom(Graphics2D g2) {
+        g2.drawImage(kitchenRoom, 0, 0, 1280, 768, null);
+    }
+    public void drawTheFinale(Graphics2D g2) {
+        g2.drawImage(finalBoss, 0, 0, 1280, 768, null);
     }
 }

@@ -13,14 +13,15 @@ public class Player extends Entity{
 
     GamePanel gamePanel;
     KeyHandler keyHandler;
+    TextField textField;
     public int hasKey = 0; // will need 2 to enter final boss room
     public int hasKey2 = 0;
 
     public BufferedImage idleCombat, shoot, hack, dmg1, dmg2;
 
     public int currentLevel = 1;
-    public int maxHealth = 10; // +5 per Level
-    public int currentHealth = 10; // only used in Battle
+    public int maxHealth = 20; // +5 per Level
+    public int currentHealth; // only used in Battle
     public int damage = 4; // +2 per Level
     public int energy = 100; // + 10 per Level
     public int energyRecovery = 15; // +3 per Level

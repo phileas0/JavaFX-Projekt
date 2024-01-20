@@ -2,6 +2,7 @@ package com.javaprojekt.finalversionjavaproject.main;
 
 import com.javaprojekt.finalversionjavaproject.combat.Combat;
 import com.javaprojekt.finalversionjavaproject.combat.LevelUp;
+import com.javaprojekt.finalversionjavaproject.combat.TextField;
 import com.javaprojekt.finalversionjavaproject.entity.Enemy;
 import com.javaprojekt.finalversionjavaproject.entity.Player;
 import com.javaprojekt.finalversionjavaproject.object.SuperClassObject;
@@ -26,6 +27,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     TileManager tileManager = new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
+    TextField textField = new TextField(this, this.keyHandler);
     Thread gameThread;
 
     public Tutorial tutorial = new Tutorial(this);
@@ -34,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Background background = new Background(this);
     public ObjectSetter oSetter = new ObjectSetter(this);
     public HUD hud = new HUD(this);
-    public Player player = new Player(this, keyHandler);
+    public Player player;
     public SuperClassObject[][] obj = new SuperClassObject[maxMap][10];
     public ArrayList<ArrayList<Enemy>> listOfEnemies;
     public ArrayList<ArrayList<Enemy>> getListOfEnemies() {
@@ -127,20 +129,23 @@ public class GamePanel extends JPanel implements Runnable {
         if (player != null && encounteredEnemy != null && !encounteredEnemy.isInCombat()) {
             encounteredEnemy.setInCombat(true);
             enemy = encounteredEnemy; // Set the current enemy
-            combat = new Combat(player, enemy, keyHandler);
+            combat = new Combat(player, enemy, keyHandler, textField);
             currentGameState = GameState.IN_COMBAT;
             combatCooldown = combatCooldownTime; // Set the cooldown
         }
     }
 
     public void update() {
+        textField.update();
         switch (currentGameState) {
             case PLAYING:
                 // If the tutorial is active, don't update the game state
                 if(tutorial.isTutorialActive) {
                     return;
                 }
-                player.update();
+                if (!textField.isDisplayingMessages()) {
+                    player.update();
+                }
                 for (ArrayList<Enemy> enemies : listOfEnemies) {
                     enemies.removeIf(Enemy::isMarkedForRemoval);
                 }
@@ -175,7 +180,9 @@ public class GamePanel extends JPanel implements Runnable {
                 }
                 break;
             case IN_COMBAT:
-                combat.processTurn();
+                if (!textField.isDisplayingMessages()) {
+                    combat.processTurn();
+                }
                 if (combat.enemyDead) {
                     combat.enemyDead = true;
                     if (player.exp >= player.expToNextLevel) {
@@ -190,9 +197,6 @@ public class GamePanel extends JPanel implements Runnable {
                 }
                 break;
             case EXP_MENU:
-                if (keyHandler.pressed1) {
-                    player.setMaxHealth();
-                }
                 if (keyHandler.interacted) {
                     player.hasLeveledUp = false;
                     currentGameState = GameState.PLAYING;
@@ -207,7 +211,6 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
         Graphics2D graphics2D = (Graphics2D) graphics;
-
         switch (currentGameState) {
             case PLAYING:
                 drawOverworld(graphics2D);
@@ -367,38 +370,64 @@ public class GamePanel extends JPanel implements Runnable {
 
     private void drawHealthBar(Graphics2D g2, int x, int y, int currentHealth, int maxHealth) {
         // Calculate health bar width based on health ratio
-        int barWidth = 100; // Total width of the health bar
+        int barWidth = 200; // Total width of the health bar
         int healthWidth = (int) ((currentHealth / (float) maxHealth) * barWidth);
         g2.setColor(Color.BLUE);
-        g2.fillRect(x, y, healthWidth, 10);
+        g2.fillRect(x, y, healthWidth, 20);
         g2.setColor(Color.YELLOW);
-        g2.drawRect(x, y, barWidth, 10);
+        g2.drawRect(x, y, barWidth, 20);
     }
     public void drawCombatUI(Graphics2D g2) {
-        background.drawFirstBattle(g2);
+        switch (enemy.backgroundNr) {
+            case 0:
+                background.drawStreetFights(g2);
+                break;
+            case 1:
+                background.drawTheFactory(g2);
+                break;
+            case 2:
+                background.drawMeetingRoom(g2);
+                break;
+            case 3:
+                background.drawKitchenRoom(g2);
+                break;
+            case 4:
+                background.drawTheFinale(g2);
+                break;
+        }
         player.drawPlayerPortrait(g2);
-        enemy.drawEnemyPortrait(g2);
+        if (enemy.skinNr == 0) {
+            enemy.drawEnemyPortrait0(g2);
+        }
+
         // Draw the action menu
         g2.drawString("1. Shoot  2. Use Hacks  3. Repair", 10, screenHeight - 30);
 
         drawHealthBar(g2, 10, 5, combat.currentPlayerHealth, player.getMaxHealth());
+
+
         if (enemy != null) {
-            if (newEnemy) {
-                helpHealth = enemy.health;
-                newEnemy = false;
+            if (combat.scanned) {
+                if (newEnemy) {
+                    helpHealth = enemy.health;
+                    newEnemy = false;
+                }
+                drawHealthBar(g2, screenWidth - 210, 5, enemy.health, helpHealth);
             }
-            drawHealthBar(g2, screenWidth - 110, 5, enemy.health, helpHealth);
-        }
-        else System.out.println("Enemy null");
+        } else System.out.println("Enemy null");
 
         // Display player and enemy stats
         g2.drawString("Player HP: " + combat.currentPlayerHealth + " / " + player.maxHealth, 10, 30);
         g2.drawString("Energy: " + combat.getCurrentEnergy(), 10, 50);
         g2.drawString("Stimpaks: " + combat.getCurrentStimpaks(), 10, 70);
+
         if (enemy != null) {
-            g2.drawString("Enemy HP: " + enemy.health + " / " + helpHealth, screenWidth - 110, 30);
-        }
-        else System.out.println("Enemy null");
-        // Any other UI elements...
+            if (combat.scanned) {
+                g2.drawString("Enemy HP: " + enemy.health + " / " + helpHealth, screenWidth - 110, 30);
+            }
+        } else System.out.println("Enemy null");
+
+        // Textfield display
+        textField.draw(g2);
     }
 }

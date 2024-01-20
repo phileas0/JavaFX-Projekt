@@ -2,14 +2,17 @@ package com.javaprojekt.finalversionjavaproject.combat;
 
 import com.javaprojekt.finalversionjavaproject.entity.Player;
 
+import javax.swing.*;
+
 public class LevelUp {
     private Player player;
+
     public LevelUp(Player player) {
         this.player = player;
     }
 
     public void applyLevelUp() {
-        // Raise stats
+        // Standard stat increase
         player.setMaxHealth();
         player.setDamage();
         player.setEnergy();
@@ -18,11 +21,11 @@ public class LevelUp {
         player.setHealing();
 
         // Take rest exp into next bar
-        int help = player.exp - player.expToNextLevel;
-        player.exp = 0;
-        player.exp += help;
+        int overflowExp = player.exp - player.expToNextLevel;
+        player.exp = overflowExp;
         player.expToNextLevel += 5; // Increase threshold for next level
 
         player.setLevelUp();
     }
+
 }
