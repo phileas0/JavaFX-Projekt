@@ -13,7 +13,7 @@ public class Background {
     public GamePanel gamePanel;
     public EnemySetter enemySetter;
     public BufferedImage map, map2, map3, map4, map5, map6, map7, map8, map9, map10, map11, map12;
-    public BufferedImage gameover, pauseScreen, expMenu;
+    public BufferedImage gameover, pauseScreen, expMenu, textField;
     public BufferedImage firstBatte, streetFights, theFactory, meetingRoom, kitchenRoom, finalBoss;
     private Player player;
     int currentMap;
@@ -25,6 +25,7 @@ public class Background {
         this.objectSetter = new ObjectSetter(gamePanel);
         try {
             map = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/Scene_1_bg.png")));
+            textField = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/textfield.png")));
             gameover = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Gameover.png")));
             pauseScreen = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/pauseScreen.png")));
             expMenu = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/expMenu.png")));

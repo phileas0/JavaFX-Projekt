@@ -396,34 +396,45 @@ public class GamePanel extends JPanel implements Runnable {
                 break;
         }
         player.drawPlayerPortrait(g2);
-        if (enemy.skinNr == 0) {
-            enemy.drawEnemyPortrait0(g2);
+        switch (enemy.skinNr) {
+            case 0:
+                enemy.drawEnemyPortrait0(g2);
+                break;
         }
 
         // Draw the action menu
-        g2.drawString("1. Shoot  2. Use Hacks  3. Repair", 10, screenHeight - 30);
+        combat.drawTextField(g2, getHeight() - 20, getHeight() - 20, 100, 100);
+        g2.setColor(new Color(255, 255, 255, 200));
+        g2.setFont(new Font("Consolas", Font.BOLD, 15));
+        g2.drawString("1. Shoot: Pass Turn", 10, screenHeight - 130);
+        g2.drawString("2. Shield: 75E", 10, screenHeight - 110);
+        g2.drawString("3. Repair: Stimpak", 10, screenHeight - 90);
+        g2.drawString("4. Eagle Eyes: 80E", 10, screenHeight - 70);
+        g2.drawString("5. Send Trojan: 100E", 10, screenHeight - 50);
+        g2.drawString("6. Scan: 50E", 10, screenHeight - 30);
 
+        // Player HP bar
         drawHealthBar(g2, 10, 5, combat.currentPlayerHealth, player.getMaxHealth());
-
-
         if (enemy != null) {
-            if (combat.scanned) {
-                if (newEnemy) {
-                    helpHealth = enemy.health;
-                    newEnemy = false;
-                }
+            if (newEnemy) {
+                helpHealth = enemy.health;
+                newEnemy = false;
+            }
+            if (combat.scanned) { // Enemy HP bar
                 drawHealthBar(g2, screenWidth - 210, 5, enemy.health, helpHealth);
             }
         } else System.out.println("Enemy null");
 
         // Display player and enemy stats
-        g2.drawString("Player HP: " + combat.currentPlayerHealth + " / " + player.maxHealth, 10, 30);
-        g2.drawString("Energy: " + combat.getCurrentEnergy(), 10, 50);
-        g2.drawString("Stimpaks: " + combat.getCurrentStimpaks(), 10, 70);
+        g2.setColor(new Color(255, 255, 0, 255));
+        g2.setFont(new Font("Consolas", Font.PLAIN, 20));
+        g2.drawString("Player HP: " + combat.currentPlayerHealth + " / " + player.maxHealth, 10, 50);
+        g2.drawString("Energy: " + combat.getCurrentEnergy() + " / " + player.getEnergy() + "%", 10, 80);
+        g2.drawString("Stimpaks: " + combat.getCurrentStimpaks(), 10, 110);
 
         if (enemy != null) {
             if (combat.scanned) {
-                g2.drawString("Enemy HP: " + enemy.health + " / " + helpHealth, screenWidth - 110, 30);
+                g2.drawString("Enemy HP: " + enemy.health + " / " + helpHealth, screenWidth - 210, 50);
             }
         } else System.out.println("Enemy null");
 

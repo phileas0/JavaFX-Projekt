@@ -4,7 +4,10 @@ import com.javaprojekt.finalversionjavaproject.entity.Player;
 import com.javaprojekt.finalversionjavaproject.entity.Enemy;
 import com.javaprojekt.finalversionjavaproject.main.KeyHandler;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Random;
 
 public class Combat {
@@ -210,5 +213,14 @@ public class Combat {
     }
     public int getCurrentEnergy() {
         return currentEnergy;
+    }
+    public void drawTextField(Graphics2D g2, int x, int y, int width, int height) {
+        BufferedImage textFieldImage;
+        try {
+            textFieldImage = ImageIO.read(getClass().getResourceAsStream("/res/combat/textfield.png"));
+            g2.drawImage(textFieldImage, x, y, width, height, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
