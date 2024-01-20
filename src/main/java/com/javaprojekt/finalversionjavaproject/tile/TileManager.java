@@ -22,6 +22,8 @@ public class TileManager {
     public String street = "/res/maps/street.txt";
     public String hqFront = "/res/maps/hqFront.txt";
     public String lobby = "/res/maps/lobby.txt";
+    public String meetingRoom = "/res/maps/meetingRoom.txt";
+    public String kitchen = "/res/maps/kitchen.txt";
     public String lobby2 = "/res/maps/lobby2.txt";
     public String finalBossRoom = "/res/maps/finalBossRoom.txt";
 
@@ -41,6 +43,8 @@ public class TileManager {
         loadMap(street, 5);
         loadMap(hqFront, 6);
         loadMap(lobby, 7);
+        loadMap(meetingRoom, 8);
+        loadMap(kitchen, 9);
         loadMap(lobby2, 10);
         loadMap(finalBossRoom, 11);
     }
@@ -59,6 +63,12 @@ public class TileManager {
 
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/red.png"));
+
+            tile[4] = new Tile();
+            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/blue.png"));
+
+            tile[5] = new Tile();
+            tile[5].image = ImageIO.read(getClass().getResourceAsStream("/res/tiles/yellow.png"));
 
         } catch (IOException e) {
             e.printStackTrace();

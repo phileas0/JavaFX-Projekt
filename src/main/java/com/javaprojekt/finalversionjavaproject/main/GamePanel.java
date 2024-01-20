@@ -140,9 +140,9 @@ public class GamePanel extends JPanel implements Runnable {
         switch (currentGameState) {
             case PLAYING:
                 // If the tutorial is active, don't update the game state
-                if(tutorial.isTutorialActive) {
-                    return;
-                }
+                //if(tutorial.isTutorialActive) {
+                  //  return;
+                //}
                 if (!textField.isDisplayingMessages()) {
                     player.update();
                 }
@@ -312,7 +312,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         //UI
         hud.draw(g2);
-        if(currentMap == 0)tutorial.draw(g2);
+        //if(currentMap == 0)tutorial.draw(g2);
 
 
 

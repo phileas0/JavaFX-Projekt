@@ -40,6 +40,8 @@ public class Background {
             map6 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/StreetbackgroundSzene4.gif")));
             map7 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/hqFront.png")));
             map8 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/Lobby.png")));
+            map9 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/MeetingRoom.png")));
+            map10 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/kitchen.png")));
             map11 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/Lobby2.png")));
             map12 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/FinalBossRoom.png")));
         } catch (IOException e) {
@@ -47,53 +49,58 @@ public class Background {
         }
     }
 
-    public void switchLevel() {
-        if (gamePanel.currentMap == 0) {
-            gamePanel.currentMap = 1;
-            map = map2;// Change the map to the second level
-            enemySetter.setEnemies(gamePanel.currentMap);
-            objectSetter.setObject(gamePanel.currentMap);
-        } else if(gamePanel.currentMap == 1) {
-            gamePanel.currentMap = 2;
-            map = map3;
-            enemySetter.setEnemies(gamePanel.currentMap);
-            objectSetter.setObject(gamePanel.currentMap);
-        } else if (gamePanel.currentMap == 2) {
-            gamePanel.currentMap = 3;
-            map = map4;
-            enemySetter.setEnemies(gamePanel.currentMap);
-            objectSetter.setObject(gamePanel.currentMap);
-        } else if (gamePanel.currentMap == 3) {
-            gamePanel.currentMap = 4;
-            map = map5;
-            enemySetter.setEnemies(gamePanel.currentMap);
-            objectSetter.setObject(gamePanel.currentMap);
-        } else if (gamePanel.currentMap == 4) {
-            gamePanel.currentMap = 5;
-            map = map6;
-            enemySetter.setEnemies(gamePanel.currentMap);
-            objectSetter.setObject(gamePanel.currentMap);
-        } else if (gamePanel.currentMap == 5) {
-            gamePanel.currentMap = 6;
-            map = map7;
-            enemySetter.setEnemies(gamePanel.currentMap);
-            objectSetter.setObject(gamePanel.currentMap);
-        } else if (gamePanel.currentMap == 6) {
-            gamePanel.currentMap = 7;
-            map = map8;
-            enemySetter.setEnemies(gamePanel.currentMap);
-            objectSetter.setObject(gamePanel.currentMap);
-        } else if (gamePanel.currentMap == 7) {
-            gamePanel.currentMap = 10;
-            map = map11;
-            enemySetter.setEnemies(gamePanel.currentMap);
-            objectSetter.setObject(gamePanel.currentMap);
-        } else if (gamePanel.currentMap == 10) {
-            gamePanel.currentMap = 11;
-            map = map12;
-            enemySetter.setEnemies(gamePanel.currentMap);
-            objectSetter.setObject(gamePanel.currentMap);
+    public void switchLevel(int mapID) {
+        switch (mapID) {
+            case 0:
+                gamePanel.currentMap = 1;
+                map = map2;
+                break;
+            case 1:
+                gamePanel.currentMap = 2;
+                map = map3;
+                break;
+            case 2:
+                gamePanel.currentMap = 3;
+                map = map4;
+                break;
+            case 3:
+                gamePanel.currentMap = 4;
+                map = map5;
+                break;
+            case 4:
+                gamePanel.currentMap = 5;
+                map = map6;
+                break;
+            case 5:
+                gamePanel.currentMap = 6;
+                map = map7;
+                break;
+            case 6:
+                gamePanel.currentMap = 7;
+                map = map8;
+                break;
+            case 7:
+                gamePanel.currentMap = 8;
+                map = map9;
+                break;
+            case 8:
+                gamePanel.currentMap = 9;
+                map = map10;
+                break;
+            case 9:
+                gamePanel.currentMap = 10;
+                map = map11 ;
+                break;
+            case 10:
+                gamePanel.currentMap = 11;
+                map = map12;
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid map ID: " + gamePanel.currentMap);
         }
+
+        enemySetter.setEnemies(gamePanel.currentMap);
+        objectSetter.setObject(gamePanel.currentMap);
             /*else if (gamePanel.currentMap == 1) {
              //Add more conditions if you have additional levels
              //For example:
