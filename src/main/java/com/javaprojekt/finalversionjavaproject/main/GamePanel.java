@@ -140,9 +140,9 @@ public class GamePanel extends JPanel implements Runnable {
         switch (currentGameState) {
             case PLAYING:
                 // If the tutorial is active, don't update the game state
-                //if(tutorial.isTutorialActive) {
-                  //  return;
-                //}
+                if(tutorial.isTutorialActive) {
+                    return;
+                }
                 //if (!textField.isDisplayingMessages()) {
                     player.update();
                 //}
@@ -173,8 +173,12 @@ public class GamePanel extends JPanel implements Runnable {
                 break;
             case PAUSED:
                 if (keyHandler.pauseGame) {
-                    tutorial.isTutorialActive1 = false;
-                    tutorial.isTutorialActive2 = true;
+                    if(tutorial.pauseGameCounter==1){
+                        tutorial.isTutorialActive1 = false;
+                        tutorial.isTutorialActive2 = true;
+                        tutorial.pauseGameCounter++;
+                    }
+
                     currentGameState = GameState.PLAYING;
                     keyHandler.pauseGame = false; // Reset the flag
                 }
@@ -312,7 +316,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         //UI
         hud.draw(g2);
-        //if(currentMap == 0)tutorial.draw(g2);
+        if(currentMap == 0)tutorial.draw(g2);
         textField.draw(g2);
 
 

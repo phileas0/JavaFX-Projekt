@@ -46,14 +46,14 @@ public class CollisionDetection {
                 if (gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
                     entity.collision = true;
                 }
-                if(enemySetter.areAllEnemiesOffMap()){
+                //if(enemySetter.areAllEnemiesOffMap()){
                     checkTile3(entity);
-                }
-                else if(tileNum1 == 3 || tileNum2 == 3 && enemySetter.areAllEnemiesOffMap()){
-                    if (!textField.isDisplayingMessages()){
-                        textField.addMessage("You can't leave the map while enemies are still on it!");
-                    }
-                }
+                //}
+                //else if(tileNum1 == 3 || tileNum2 == 3 && enemySetter.areAllEnemiesOffMap()){
+                //    if (!textField.isDisplayingMessages()){
+                //        textField.addMessage("You can't leave the map while enemies are still on it!");
+                //    }
+                //}
                 break;
             case "down":
                 entity.collision = false; // Reset collision flag
@@ -63,13 +63,13 @@ public class CollisionDetection {
                 if (gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
                     entity.collision = true;
                 }
-                if(enemySetter.areAllEnemiesOffMap()){
-                    checkTile3(entity);
-                }
-                else if(tileNum1 == 3 || tileNum2 == 3&& enemySetter.areAllEnemiesOffMap()){
-                    if (!textField.isDisplayingMessages()){
-                        textField.addMessage("You can't leave the map while enemies are still on it!");
-                    }                }
+                //if(enemySetter.areAllEnemiesOffMap()){
+                  checkTile3(entity);
+                //}
+                //else if(tileNum1 == 3 || tileNum2 == 3&& enemySetter.areAllEnemiesOffMap()){
+                //    if (!textField.isDisplayingMessages()){
+                //        textField.addMessage("You can't leave the map while enemies are still on it!");
+                //    }                }
                 break;
             case "left":
                 entity.collision = false; // Reset collision flag
@@ -79,13 +79,13 @@ public class CollisionDetection {
                 if (gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
                     entity.collision = true;
                 }
-                if(enemySetter.areAllEnemiesOffMap()){
+                //if(enemySetter.areAllEnemiesOffMap()){
                     checkTile3(entity);
-                }
-                else if(tileNum1 == 3 || tileNum2 == 3&& enemySetter.areAllEnemiesOffMap()){
-                    if (!textField.isDisplayingMessages()){
-                        textField.addMessage("You can't leave the map while enemies are still on it!");
-                    }                }
+                //}
+                //else if(tileNum1 == 3 || tileNum2 == 3&& enemySetter.areAllEnemiesOffMap()){
+                //if (!textField.isDisplayingMessages()){
+                //    textField.addMessage("You can't leave the map while enemies are still on it!");
+                //}                }
                 break;
             case "right":
                 entity.collision = false; // Reset collision flag
@@ -95,13 +95,13 @@ public class CollisionDetection {
                 if (gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
                     entity.collision = true;
                 }
-                if(enemySetter.areAllEnemiesOffMap()){
+                //if(enemySetter.areAllEnemiesOffMap()){
                     checkTile3(entity);
-                }
-                else if(tileNum1 == 3 || tileNum2 == 3 && enemySetter.areAllEnemiesOffMap()){
-                    if (!textField.isDisplayingMessages()){
-                        textField.addMessage("You can't leave the map while enemies are still on it!");
-                    }                }
+                //}
+                //else if(tileNum1 == 3 || tileNum2 == 3 && enemySetter.areAllEnemiesOffMap()){
+                //if (!textField.isDisplayingMessages()){
+                // textField.addMessage("You can't leave the map while enemies are still on it!");
+                //}                }
 
                 break;
         }

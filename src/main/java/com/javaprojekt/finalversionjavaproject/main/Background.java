@@ -16,6 +16,9 @@ public class Background {
     public BufferedImage gameover, pauseScreen, expMenu, textField;
     public BufferedImage firstBatte, streetFights, theFactory, meetingRoom, kitchenRoom, finalBoss;
     private Player player;
+    public int lobbycounter = 0;
+    public int meetingcounter = 0;
+    public int kitchencounter = 0;
     int currentMap;
 
 
@@ -79,14 +82,17 @@ public class Background {
             case 6:
                 gamePanel.currentMap = 7;
                 map = map8;
+                lobbycounter++;
                 break;
             case 7:
                 gamePanel.currentMap = 8;
                 map = map9;
+                meetingcounter++;
                 break;
             case 8:
                 gamePanel.currentMap = 9;
                 map = map10;
+                kitchencounter++;
                 break;
             case 9:
                 gamePanel.currentMap = 10;

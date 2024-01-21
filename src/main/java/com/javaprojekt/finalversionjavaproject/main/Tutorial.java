@@ -5,7 +5,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class Tutorial {//Tutorial class
+public class Tutorial {
+    public int pauseGameCounter = 1;//Tutorial class
     GamePanel gamePanel;
     KeyHandler keyHandler;
     Font arial40;//Initialize font
