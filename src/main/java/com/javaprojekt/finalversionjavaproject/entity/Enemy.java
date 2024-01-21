@@ -1,19 +1,15 @@
 package com.javaprojekt.finalversionjavaproject.entity;
 
-import com.javaprojekt.finalversionjavaproject.main.Background;
-import com.javaprojekt.finalversionjavaproject.main.GamePanel;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class Enemy extends Entity {
     public boolean markForRemoval = false;
     public boolean isInCombat = false;
-    public BufferedImage idleCombat;
+    public BufferedImage enemy0, smallGuard, bigGuard, deviousGuard, factoryRobot, smallCook, bigCook, finalBoss;
     public int health;
     public int damage;
     public double hitPropability;
@@ -60,19 +56,47 @@ public class Enemy extends Entity {
     public void getEnemyImage() {
         try {
             idle = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/playerTest_0.png")));
-            idleCombat = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/firstEnemy.png")));
+
+            enemy0 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/enemy0.png")));
+            smallGuard = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/smallGuard.png")));
+            bigGuard = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/bigGuard.png")));
+            deviousGuard = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/deviousGuard.png")));
+            factoryRobot = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/factoryRobot.png")));
+            smallCook = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/smallCook.png")));
+            bigCook = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/bigCook.png")));
+            finalBoss = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/finalBoss.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     public void drawEnemyPortrait0(Graphics2D g2) {
-        g2.drawImage(idleCombat, 650, 350, 256, 256, null);
+        g2.drawImage(enemy0, 650, 350, 256, 256, null);
+    }
+    public void drawSmallGuard(Graphics2D g2) {
+        g2.drawImage(smallGuard, 650, 350, 256, 256, null);
+    }
+    public void drawBigGuard(Graphics2D g2) {
+        g2.drawImage(bigGuard, 650, 350, 256, 256, null);
+    }
+    public void drawFactoryRobot(Graphics2D g2) {
+        g2.drawImage(factoryRobot, 650, 350, 256, 256, null);
+    }
+    public void drawSmallCook(Graphics2D g2) {
+        g2.drawImage(smallCook, 650, 350, 256, 256, null);
+    }
+    public void drawBigCook(Graphics2D g2) {
+        g2.drawImage(bigCook, 650, 350, 256, 256, null);
+    }
+    public void drawDeviousGuard(Graphics2D g2) {
+        g2.drawImage(deviousGuard, 650, 350, 256, 256, null);
+    }
+    public void drawFinalBoss(Graphics2D g2) {
+        g2.drawImage(finalBoss, 650, 350, 256, 256, null);
     }
 
     public void draw(Graphics2D graphics2D) {
-        BufferedImage image = idle;
-        if (image != null) {
-            graphics2D.drawImage(image, x, y, 64, 64, null);
+        if (idle != null) {
+            graphics2D.drawImage(idle, x, y, 64, 64, null);
         } else {
             // Draw a placeholder rectangle if sprite is null
             graphics2D.setColor(Color.RED);

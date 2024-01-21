@@ -42,7 +42,7 @@ public class EnemySetter {
     }
 
     private void setEnemiesForFinal() {//setter for boss
-        Enemy newEnemy1Map11 = new Enemy(10, 2, 0.85, 8, 0, 2);
+        Enemy newEnemy1Map11 = new Enemy(10, 2, 0.85, 8, 7, 4);
         newEnemy1Map11.x = 4 * gamePanel.tileSize;
         newEnemy1Map11.y = 8 * gamePanel.tileSize;
         addEnemyToCurrentMap(newEnemy1Map11);
@@ -139,7 +139,7 @@ public class EnemySetter {
 
     private void setEnemiesForMap0() {//setter für starting map
         // Beispiel: Enemy1 auf Map 0
-        Enemy enemy1Map0 = new Enemy(20, 4, 0.85, 8, 0, 2);
+        Enemy enemy1Map0 = new Enemy(20, 4, 0.85, 8, 0, 0);
         enemy1Map0.x = 10 * gamePanel.tileSize -32;
         enemy1Map0.y = 3 * gamePanel.tileSize;
         addEnemyToCurrentMap(enemy1Map0);

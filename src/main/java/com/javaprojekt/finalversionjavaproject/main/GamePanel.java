@@ -409,6 +409,27 @@ public class GamePanel extends JPanel implements Runnable {
             case 0:
                 enemy.drawEnemyPortrait0(g2);
                 break;
+            case 1:
+                enemy.drawSmallGuard(g2);
+                break;
+            case 2:
+                enemy.drawBigGuard(g2);
+                break;
+            case 3:
+                enemy.drawDeviousGuard(g2);
+                break;
+            case 4:
+                enemy.drawFactoryRobot(g2);
+                break;
+            case 5:
+                enemy.drawSmallCook(g2);
+                break;
+            case 6:
+                enemy.drawBigCook(g2);
+                break;
+            case 7:
+                enemy.drawFinalBoss(g2);
+                break;
         }
 
         // Draw the action menu
@@ -439,7 +460,7 @@ public class GamePanel extends JPanel implements Runnable {
         g2.setFont(new Font("Consolas", Font.PLAIN, 20));
         g2.drawString("Player HP: " + combat.currentPlayerHealth + " / " + player.maxHealth, 10, 50);
         g2.drawString("Energy: " + combat.getCurrentEnergy() + " / " + player.getEnergy() + "%", 10, 80);
-        g2.drawString("Stimpaks: " + combat.getCurrentStimpaks(), 10, 110);
+        g2.drawString("Stimpaks: " + combat.getCurrentStimpaks() + " (+" + player.getHealing() + " HP)", 10, 110);
 
         if (enemy != null) {
             if (combat.scanned) {
