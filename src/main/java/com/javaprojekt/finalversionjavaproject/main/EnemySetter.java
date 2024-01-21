@@ -14,22 +14,34 @@ public class EnemySetter {
     }
 
     public void setEnemies(int mapNumber) {
-        if(mapNumber == 0) {
-            setEnemiesForMap0();
-        } else if(mapNumber == 1) {
-            setEnemiesForMap1();
-        } else if(mapNumber == 2) {
-            setEnemiesForMap2();
-        } else if(mapNumber == 3) {
-            setEnemiesForMap3();
-        } else if (mapNumber == 6) {
-            setEnemiesForMap6();
-        } else if (mapNumber == 8) {
-            setEnemiesForMap8();
-        } else if (mapNumber == 9) {
-            setEnemiesForMap9();
-        } else if (mapNumber == 11) {
-            setEnemiesForFinal();
+        switch (mapNumber) {
+            case 0:
+                setEnemiesForMap0();
+                break;
+            case 1:
+                setEnemiesForMap1();
+                break;
+            case 2:
+                setEnemiesForMap2();
+                break;
+            case 3:
+                setEnemiesForMap3();
+                break;
+            case 6:
+                setEnemiesForMap6();
+                break;
+            case 8:
+                setEnemiesForMap8();
+                break;
+            case 9:
+                setEnemiesForMap9();
+                break;
+            case 11:
+                setEnemiesForFinal();
+                break;
+            default:
+                // Handle any other case here
+                break;
         }
 
         System.out.println("Setting enemies for Map " + gamePanel.currentMap);

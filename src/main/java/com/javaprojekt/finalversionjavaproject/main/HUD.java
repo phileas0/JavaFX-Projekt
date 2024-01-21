@@ -8,8 +8,10 @@ import java.awt.image.BufferedImage;
 
 public class HUD {
     GamePanel gamePanel;
+    Tutorial tutorial;
+    com.javaprojekt.finalversionjavaproject.combat.TextField textField;
     Font arial40;
-    BufferedImage keyImage;
+    BufferedImage keyImage1;
     BufferedImage keyImage2;
     public boolean messageBoolean = false;
     public String messageString = "";
@@ -18,26 +20,59 @@ public class HUD {
 
     public HUD(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
+        this.tutorial = gamePanel.tutorial;
+        this.textField = gamePanel.textField;
 
         arial40 = new Font("Arial", Font.BOLD, 40);
         KeyObject key = new KeyObject();
         KeyObject2 key2 = new KeyObject2();
-        keyImage = key.image;
+        keyImage1 = key.image;
         keyImage2 = key2.image;
     }
 
 
     public void draw(Graphics2D g2) {
-        g2.setColor(Color.WHITE);
-        g2.setFont(arial40);
-        g2.drawImage(keyImage, 16, 16, 64, 64, null);
-        g2.drawImage(keyImage2, 16, 65, 64, 64, null);
-        g2.drawString(" : " + gamePanel.player.hasKey, 60, 60);
-        g2.drawString(" : " + gamePanel.player.hasKey2, 60, 110);
+        if(gamePanel.player.hasKey1==1){
+            getKey(g2, 1);
+        } else if (gamePanel.player.hasKey2==1) {
+            getKey(g2, 2);
+        }
 
+    }
+
+    private void getKey(Graphics2D g2, int haskey) {
+        AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f);
+        g2.setComposite(ac);
+        g2.setFont(arial40);
+
+        if(haskey == 1) {
+            g2.setColor(Color.YELLOW);
+            g2.drawImage(tutorial.Textfield, 6, 10, 140, 75, null);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+            g2.drawImage(keyImage1, 16, 16, 64, 64, null);
+            g2.drawString(" : " + gamePanel.player.hasKey1, 60, 60);
+        }
+        g2.setComposite(ac);
+        if(haskey == 2) {
+            g2.setColor(new Color(97,42,111));
+            g2.drawImage(tutorial.Textfield, 6, 10, 140, 75, null);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+            g2.drawImage(keyImage2, 16, 16, 64, 64, null);
+            g2.drawString(" : " + gamePanel.player.hasKey2, 60, 60);
+        }
+        g2.setComposite(ac);
         if(messageBoolean){
-            g2.setFont(g2.getFont().deriveFont(30F));
-            g2.drawString(messageString, 500, 720);
+            int centerX = gamePanel.getWidth() / 2;
+            int variableY = 620/* your variable y-coordinate here */;
+
+            int imageWidth = tutorial.Textfield.getWidth(null);
+            int imageHeight = tutorial.Textfield.getHeight(null);
+
+            int textWidth = g2.getFontMetrics().stringWidth(messageString);
+            int textHeight = g2.getFontMetrics().getHeight();
+
+            g2.drawImage(tutorial.Textfield, centerX-(textWidth/2)-70, variableY-30, textWidth+140, 80 + textHeight, null);
+            g2.drawString(messageString, centerX - textWidth / 2, variableY + textHeight);
 
             if(messageStringBefore != messageString){
                 messageTimer = 0;
@@ -50,11 +85,9 @@ public class HUD {
                 messageBoolean = false;
                 messageTimer = 0;
             }
-
-
         }
-
     }
+
     public void showMessage(String message) {
         messageBoolean = true;
         messageString = message;

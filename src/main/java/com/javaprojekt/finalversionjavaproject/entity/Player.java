@@ -14,7 +14,7 @@ public class Player extends Entity{
     GamePanel gamePanel;
     KeyHandler keyHandler;
     TextField textField;
-    public int hasKey = 0; // will need 2 to enter final boss room
+    public int hasKey1 = 0; // will need 2 to enter final boss room
     public int hasKey2 = 0;
 
     public BufferedImage idleCombat, shoot, hack, dmg1, dmg2;
@@ -190,7 +190,7 @@ public class Player extends Entity{
 
             switch (objName) {
                 case "KeyObject":
-                    hasKey++;
+                    hasKey1++;
                     gamePanel.obj[gamePanel.currentMap][index] = null;
                     gamePanel.hud.showMessage("You picked up key 1!");
                     break;
@@ -200,8 +200,8 @@ public class Player extends Entity{
                     gamePanel.hud.showMessage("You picked up key 2!");
                     break;
                 case "DoorObject":
-                    if (hasKey >= 1) {
-                        hasKey--;
+                    if (hasKey1 >= 1) {
+                        hasKey1--;
                         gamePanel.obj[gamePanel.currentMap][index] = null;
                         gamePanel.hud.showMessage("You opened the door!");
                     } else if (hasKey2 >= 1){
@@ -215,7 +215,7 @@ public class Player extends Entity{
                         hasKey2--;
                         gamePanel.obj[gamePanel.currentMap][index] = null;
                         gamePanel.hud.showMessage("You opened the door!");
-                    } else if (hasKey >= 1){
+                    } else if (hasKey1 >= 1){
                         gamePanel.hud.showMessage("You need key 2!");
                     } else {
                         gamePanel.hud.showMessage("You need a key!");
