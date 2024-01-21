@@ -22,6 +22,8 @@ public class EnemySetter {
             setEnemiesForMap2();
         } else if(mapNumber == 3) {
             setEnemiesForMap3();
+        } else if (mapNumber == 4) {
+            setEnemiesForMap4();
         } else if (mapNumber == 7) {
             setEnemiesForMap6();
         } else if (mapNumber == 9) {
@@ -89,6 +91,21 @@ public class EnemySetter {
         addEnemyToCurrentMap(newEnemy2Map6);
     }
 
+    private void setEnemiesForMap4() {//setter for weapons room
+        Enemy newEnemy1Map4 = new Enemy(10, 2, 0.85, 8, 0, 2);
+        newEnemy1Map4.x = 12 * gamePanel.tileSize;
+        newEnemy1Map4.y = 8 * gamePanel.tileSize;
+        addEnemyToCurrentMap(newEnemy1Map4);
+
+        // Füge hier weitere Enemies für Map 3 hinzu
+
+        Enemy newEnemy2Map4 = new Enemy(10, 2, 0.85, 8, 0, 2);
+        newEnemy2Map4.x = 3 * gamePanel.tileSize;
+        newEnemy2Map4.y = 10 * gamePanel.tileSize;
+        addEnemyToCurrentMap(newEnemy2Map4);
+
+        // Füge hier weitere Enemies für Map 3 hinzu
+    }
     private void setEnemiesForMap3() {//setter for weapons room
         Enemy newEnemy1Map3 = new Enemy(10, 2, 0.85, 8, 0, 2);
         newEnemy1Map3.x = 12 * gamePanel.tileSize;
