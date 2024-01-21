@@ -26,6 +26,7 @@ public class TileManager {
     public String kitchen = "/res/maps/kitchen.txt";
     public String lobby2 = "/res/maps/lobby2.txt";
     public String finalBossRoom = "/res/maps/finalBossRoom.txt";
+    public String weaponFactory2 = "/res/maps/weaponFactory2.txt";
 
     public TileManager(GamePanel gamePanel){
         this.gamePanel = gamePanel;
@@ -39,14 +40,16 @@ public class TileManager {
         loadMap(startingMap1, 1);
         loadMap(weaponEntrance, 2);
         loadMap(weaponFactory, 3);
-        loadMap(weaponOffice, 4);
-        loadMap(street, 5);
-        loadMap(hqFront, 6);
-        loadMap(lobby, 7);
-        loadMap(meetingRoom, 8);
-        loadMap(kitchen, 9);
-        loadMap(lobby2, 10);
-        loadMap(finalBossRoom, 11);
+        loadMap(weaponFactory2, 4);
+        loadMap(weaponOffice, 5);
+        loadMap(street, 6);
+        loadMap(hqFront, 7);
+        loadMap(lobby, 8);
+        loadMap(meetingRoom, 9);
+        loadMap(kitchen, 10);
+        loadMap(lobby2, 11);
+        loadMap(finalBossRoom, 12);
+
     }
 
     public void getTileImages() {

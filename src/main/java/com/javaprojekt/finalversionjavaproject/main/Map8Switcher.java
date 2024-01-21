@@ -10,7 +10,7 @@ public class Map8Switcher {
     }
 
     public void checkTileForMapSwitch(Entity entity) {
-        if (gamePanel.currentMap != 7) {
+        if (gamePanel.currentMap != 8) {
             return; // Only perform checks on map 8
         }
 
@@ -20,13 +20,13 @@ public class Map8Switcher {
 
         switch (tileNum) {
             case 3: // Tile 3 brings you to map 11
-                gamePanel.background.switchLevel(9);
+                gamePanel.background.switchLevel(10);
                 break;
             case 4: // Tile 4 brings you to map 9
-                gamePanel.background.switchLevel(7);
+                gamePanel.background.switchLevel(8);
                 break;
             case 5: // Tile 5 brings you to map 10
-                gamePanel.background.switchLevel(8);
+                gamePanel.background.switchLevel(9);
                 break;
         }
     }

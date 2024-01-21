@@ -132,45 +132,52 @@ public class CollisionDetection {
                     if (tileNum== 3) {
                         gamePanel.getListOfEnemies().get(1).clear();
                         gamePanel.background.switchLevel(1);
-                        entity.x = 620;
-                        entity.y = 645;
+                        entity.x = 70;
+                        entity.y = 635;
                     } break;
                 case 2:
                     if (tileNum == 3) {
                         gamePanel.getListOfEnemies().get(2).clear();
                         gamePanel.background.switchLevel(2);
-                        entity.x = 1150;
+                        entity.x = 150;
                         entity.y = 550;
                     } break;
                 case 3:
                     if (tileNum == 3) {
                         gamePanel.getListOfEnemies().get(3).clear();
                         gamePanel.background.switchLevel(3);
-                        entity.x = 1150;
+                        entity.x = 150;
                         entity.y = 550;
                     } break;
                 case 4:
                     if (tileNum == 3) {
                         gamePanel.getListOfEnemies().get(4).clear();
                         gamePanel.background.switchLevel(4);
-                        entity.x = 50;
+                        entity.x = 150;
                         entity.y = 550;
                     } break;
                 case 5:
                     if (tileNum == 3) {
                         gamePanel.getListOfEnemies().get(5).clear();
                         gamePanel.background.switchLevel(5);
-                        entity.x = 600;
-                        entity.y = 645;
+                        entity.x = 50;
+                        entity.y = 550;
                     } break;
                 case 6:
                     if (tileNum == 3) {
                         gamePanel.getListOfEnemies().get(6).clear();
                         gamePanel.background.switchLevel(6);
-                        entity.x = 615;
+                        entity.x = 600;
                         entity.y = 645;
                     } break;
                 case 7:
+                    if (tileNum == 3) {
+                        gamePanel.getListOfEnemies().get(7).clear();
+                        gamePanel.background.switchLevel(7);
+                        entity.x = 615;
+                        entity.y = 645;
+                    } break;
+                case 8:
                     if (tileNum == 3) {
                         map8Switcher.checkTileForMapSwitch(entity);
                         entity.x = 600;
@@ -185,24 +192,24 @@ public class CollisionDetection {
                         entity.y = 645;
 
                     }break;
-                case 8:
-                    if (tileNum == 3) {
-                        gamePanel.getListOfEnemies().get(8).clear();
-                        gamePanel.background.switchLevel(6);
-                        entity.x = 600;
-                        entity.y = 645;
-                    } break;
                 case 9:
                     if (tileNum == 3) {
                         gamePanel.getListOfEnemies().get(9).clear();
-                        gamePanel.background.switchLevel(6);
+                        gamePanel.background.switchLevel(7);
                         entity.x = 600;
-                        entity.y = 640;
+                        entity.y = 645;
                     } break;
                 case 10:
                     if (tileNum == 3) {
                         gamePanel.getListOfEnemies().get(10).clear();
-                        gamePanel.background.switchLevel(10);
+                        gamePanel.background.switchLevel(7);
+                        entity.x = 600;
+                        entity.y = 640;
+                    } break;
+                case 11:
+                    if (tileNum == 3) {
+                        gamePanel.getListOfEnemies().get(11).clear();
+                        gamePanel.background.switchLevel(11);
                         entity.x = 600;
                         entity.y = 640;
                     } break;

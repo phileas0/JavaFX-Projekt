@@ -12,7 +12,7 @@ public class Background {
     private ObjectSetter objectSetter;
     public GamePanel gamePanel;
     public EnemySetter enemySetter;
-    public BufferedImage map, map2, map3, map4, map5, map6, map7, map8, map9, map10, map11, map12;
+    public BufferedImage map, map2, map3, map4, map5, map6, map7, map8, map9, map10, map11, map12, map13;
     public BufferedImage gameover, pauseScreen, expMenu, textField;
     public BufferedImage firstBatte, streetFights, theFactory, meetingRoom, kitchenRoom, finalBoss;
     private Player player;
@@ -48,6 +48,7 @@ public class Background {
             map10 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/kitchen.png")));
             map11 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/Lobby2.png")));
             map12 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/FinalBossRoom.png")));
+            map13 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/waffenlager2.png")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -69,37 +70,41 @@ public class Background {
                 break;
             case 3:
                 gamePanel.currentMap = 4;
-                map = map5;
+                map = map13;
                 break;
             case 4:
                 gamePanel.currentMap = 5;
-                map = map6;
+                map = map5;
                 break;
             case 5:
                 gamePanel.currentMap = 6;
-                map = map7;
+                map = map6;
                 break;
             case 6:
                 gamePanel.currentMap = 7;
-                map = map8;
-                lobbycounter++;
+                map = map7;
                 break;
             case 7:
                 gamePanel.currentMap = 8;
-                map = map9;
-                meetingcounter++;
+                map = map8;
+                lobbycounter++;
                 break;
             case 8:
                 gamePanel.currentMap = 9;
-                map = map10;
-                kitchencounter++;
+                map = map9;
+                meetingcounter++;
                 break;
             case 9:
                 gamePanel.currentMap = 10;
-                map = map11 ;
+                map = map10;
+                kitchencounter++;
                 break;
             case 10:
                 gamePanel.currentMap = 11;
+                map = map11 ;
+                break;
+            case 11:
+                gamePanel.currentMap = 12;
                 map = map12;
                 break;
             default:

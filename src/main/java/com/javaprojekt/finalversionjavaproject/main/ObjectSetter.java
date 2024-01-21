@@ -22,13 +22,13 @@ public class ObjectSetter {
                 /*case 2:
                     setObjectMap2(mapNumber);
                     break;*/
-                case 7:
+                case 8:
                     setObjectMap7(mapNumber);
                     break;
-                case 8:
+                case 9:
                     setObjectMap8(mapNumber);
                     break;
-                case 9:
+                case 10:
                     setObjectMap9(mapNumber);
                     break;
             }
@@ -37,24 +37,24 @@ public class ObjectSetter {
 
 
         }
-    private void setObjectMap8(int mapnumber){
+    private void setObjectMap8(int mapNumber){
         if(gamePanel.background.meetingcounter<2){
-            gamePanel.obj[mapnumber][0] = new KeyObject2();
-            gamePanel.obj[mapnumber][0].worldX = 1 * gamePanel.tileSize;
-            gamePanel.obj[mapnumber][0].worldY = 6 * gamePanel.tileSize;
+            gamePanel.obj[mapNumber][0] = new KeyObject2();
+            gamePanel.obj[mapNumber][0].worldX = 1 * gamePanel.tileSize;
+            gamePanel.obj[mapNumber][0].worldY = 6 * gamePanel.tileSize;
         }
     }
-    private void setObjectMap7(int mapnumber){
+    private void setObjectMap7(int mapNumber){
         if(gamePanel.background.lobbycounter<3){
-            gamePanel.obj[mapnumber][0] = new DoorObject();
-            gamePanel.obj[mapnumber][0].worldX = 0 * gamePanel.tileSize;
-            gamePanel.obj[mapnumber][0].worldY = 4 * gamePanel.tileSize+24;
+            gamePanel.obj[mapNumber][0] = new DoorObject();
+            gamePanel.obj[mapNumber][0].worldX = 0 * gamePanel.tileSize;
+            gamePanel.obj[mapNumber][0].worldY = 4 * gamePanel.tileSize+24;
         }
 
 
-        gamePanel.obj[mapnumber][1] = new DoorObject2();
-        gamePanel.obj[mapnumber][1].worldX = 7 * gamePanel.tileSize;
-        gamePanel.obj[mapnumber][1].worldY = 0 * gamePanel.tileSize;
+        gamePanel.obj[mapNumber][1] = new DoorObject2();
+        gamePanel.obj[mapNumber][1].worldX = 7 * gamePanel.tileSize;
+        gamePanel.obj[mapNumber][1].worldY = 0 * gamePanel.tileSize;
     }
 
     private void setObjectMap9(int mapNumber) {
