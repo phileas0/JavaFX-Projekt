@@ -95,8 +95,36 @@ public class Enemy extends Entity {
     }
 
     public void draw(Graphics2D graphics2D) {
-        if (idle != null) {
-            graphics2D.drawImage(idle, x, y, 64, 64, null);
+        BufferedImage enemyImage;
+        switch (skinNr) {
+            case 1:
+                enemyImage = smallGuard;
+                break;
+            case 2:
+                enemyImage = bigGuard;
+                break;
+            case 3:
+                enemyImage = deviousGuard;
+                break;
+            case 4:
+                enemyImage = factoryRobot;
+                break;
+            case 5:
+                enemyImage = smallCook;
+                break;
+            case 6:
+                enemyImage = bigCook;
+                break;
+            case 7:
+                enemyImage = finalBoss;
+                break;
+            default:
+                enemyImage = enemy0;
+                break;
+        }
+
+        if (enemyImage != null) {
+            graphics2D.drawImage(enemyImage, x, y, 64, 64, null);
         } else {
             // Draw a placeholder rectangle if sprite is null
             graphics2D.setColor(Color.RED);
