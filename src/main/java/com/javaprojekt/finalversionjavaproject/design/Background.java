@@ -1,6 +1,9 @@
-package com.javaprojekt.finalversionjavaproject.main;
+package com.javaprojekt.finalversionjavaproject.design;
 
 import com.javaprojekt.finalversionjavaproject.entity.Player;
+import com.javaprojekt.finalversionjavaproject.main.EnemySetter;
+import com.javaprojekt.finalversionjavaproject.main.GamePanel;
+import com.javaprojekt.finalversionjavaproject.main.ObjectSetter;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,7 +17,7 @@ public class Background {
     public EnemySetter enemySetter;
     public BufferedImage map, map2, map3, map4, map5, map6, map7, map8, map9, map10, map11, map12, map13;
     public BufferedImage gameover, pauseScreen, expMenu, textField;
-    public BufferedImage firstBatte, streetFights, theFactory, meetingRoom, kitchenRoom, finalBoss;
+    public BufferedImage streetFights, streetFights2, factoryFront, theFactory, meetingRoom, kitchenRoom, finalBoss;
     private Player player;
     public int lobbycounter = 0;
     public int meetingcounter = 0;
@@ -34,8 +37,10 @@ public class Background {
             expMenu = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/expMenu.png")));
             map2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/Scene1part2.png")));
             map3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/waffenlagerfront.png")));
-            firstBatte = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/FirstBattle.png")));
             streetFights = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/streetFights.png")));
+            streetFights2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/streetFights2.png")));
+            factoryFront = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/factoryFront.png")));
+            theFactory = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/theFactory.png")));
             meetingRoom = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/meetingRoom.png")));
             kitchenRoom = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/kitchenRoom.png")));
             finalBoss = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/finalBoss.png")));
@@ -127,11 +132,14 @@ public class Background {
     public void drawExpMenu(Graphics2D g2) {
         g2.drawImage(expMenu, 0, 0, 1280, 768, null);
     }
-    public void drawFirstBattle(Graphics2D g2) {
-        g2.drawImage(firstBatte, 0, 0, 1280, 768, null);
-    }
     public void drawStreetFights(Graphics2D g2) {
         g2.drawImage(streetFights, 0, 0, 1280, 768, null);
+    }
+    public void drawStreetFights2(Graphics2D g2) {
+        g2.drawImage(streetFights2, 0, 0, 1280, 768, null);
+    }
+    public void drawFactoryFront(Graphics2D g2) {
+        g2.drawImage(factoryFront, 0, 0, 1280, 768, null);
     }
     public void drawTheFactory(Graphics2D g2) {
         g2.drawImage(theFactory, 0, 0, 1280, 768, null);

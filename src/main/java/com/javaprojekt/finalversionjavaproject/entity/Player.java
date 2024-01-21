@@ -17,11 +17,11 @@ public class Player extends Entity{
     public int hasKey1 = 0; // will need 2 to enter final boss room
     public int hasKey2 = 0;
 
-    public BufferedImage idleCombat, shoot, hack, dmg1, dmg2;
-
+    public BufferedImage idleCombat, shoot, hack, dmg1, dmg2, alternateImage;
+    private int alternateImageDuration = 0;
     public int currentLevel = 1;
     public int maxHealth = 20; // +5 per Level
-    public int currentHealth; // only used in Battle
+    public int currentHealth = 20; // only used in Battle
     public int damage = 4; // +2 per Level
     public int energy = 100; // + 10 per Level
     public int energyRecovery = 15; // +3 per Level
@@ -73,6 +73,7 @@ public class Player extends Entity{
             e.printStackTrace();
         }
     }
+
     public void getPlayerCombatImage() {
         try {
             idleCombat = ImageIO.read(getClass().getResourceAsStream("/res/player/sprite_0.png"));
@@ -84,9 +85,39 @@ public class Player extends Entity{
             e.printStackTrace();
         }
     }
-    public void drawPlayerPortrait(Graphics2D g2) {
-        g2.drawImage(idleCombat, 350, 350, 256, 256, null);
+
+    public void setAlternateImage(BufferedImage image, int durationFrames) {
+        this.alternateImage = image;
+        this.alternateImageDuration = durationFrames;
     }
+    public void updateAlternateImageTimer() {
+        if (alternateImageDuration > 0) {
+            alternateImageDuration--;
+        }
+    }
+
+
+    public void drawPlayerPortrait0(Graphics2D g2) {
+        BufferedImage imageToDraw = alternateImageDuration > 0 ? shoot : idleCombat;
+        g2.drawImage(imageToDraw, 350, 350, 256, 256, null);
+    }
+    public void drawPlayerPortrait1(Graphics2D g2) {
+        BufferedImage imageToDraw = alternateImageDuration > 0 ? shoot : idleCombat;
+        g2.drawImage(imageToDraw, 350, 350, 256, 256, null);
+    }
+    public void drawPlayerPortrait2(Graphics2D g2) {
+        BufferedImage imageToDraw = alternateImageDuration > 0 ? shoot : idleCombat;
+        g2.drawImage(imageToDraw, 350, 350, 256, 256, null);
+    }
+    public void drawPlayerPortrait5(Graphics2D g2) {
+        BufferedImage imageToDraw = alternateImageDuration > 0 ? shoot : idleCombat;
+        g2.drawImage(imageToDraw, 450, 580, 128, 128, null);
+    }
+    public void drawPlayerPortrait6(Graphics2D g2) {
+        BufferedImage imageToDraw = alternateImageDuration > 0 ? shoot : idleCombat;
+        g2.drawImage(imageToDraw, 450, 580, 128, 128, null);
+    }
+
     public void update() {
         if (keyHandler.upPressed || keyHandler.downPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
             if (keyHandler.upPressed) {

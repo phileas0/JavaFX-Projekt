@@ -1,5 +1,7 @@
-package com.javaprojekt.finalversionjavaproject.main;
+package com.javaprojekt.finalversionjavaproject.design;
 
+import com.javaprojekt.finalversionjavaproject.main.GamePanel;
+import com.javaprojekt.finalversionjavaproject.main.Tutorial;
 import com.javaprojekt.finalversionjavaproject.object.KeyObject;
 import com.javaprojekt.finalversionjavaproject.object.KeyObject2;
 

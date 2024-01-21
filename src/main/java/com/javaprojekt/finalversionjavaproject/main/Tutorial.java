@@ -10,7 +10,17 @@ public class Tutorial {
     GamePanel gamePanel;
     KeyHandler keyHandler;
     Font arial40;//Initialize font
-    BufferedImage KeyW, KeyA, KeyS, KeyD, KeyE, KeyEsc, KeyQ, Key1, Key2, Key3, Textfield;//Initialize images
+    BufferedImage KeyW;
+    BufferedImage KeyA;
+    BufferedImage KeyS;
+    BufferedImage KeyD;
+    BufferedImage KeyE;
+    BufferedImage KeyEsc;
+    BufferedImage KeyQ;
+    BufferedImage Key1;
+    BufferedImage Key2;
+    BufferedImage Key3;
+    public BufferedImage Textfield;//Initialize images
     public boolean isTutorialActive = true;//Initialize boolean for tutorial display
     boolean isTutorialActive1 = false;
     boolean isTutorialActive2 = false;

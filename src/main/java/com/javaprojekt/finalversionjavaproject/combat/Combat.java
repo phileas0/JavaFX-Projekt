@@ -2,6 +2,7 @@ package com.javaprojekt.finalversionjavaproject.combat;
 
 import com.javaprojekt.finalversionjavaproject.entity.Player;
 import com.javaprojekt.finalversionjavaproject.entity.Enemy;
+import com.javaprojekt.finalversionjavaproject.main.GameUtils;
 import com.javaprojekt.finalversionjavaproject.main.KeyHandler;
 
 import javax.imageio.ImageIO;
@@ -35,7 +36,7 @@ public class Combat {
         this.keyHandler = keyHandler;
         this.textField = textField;
         if (player != null) {
-            currentPlayerHealth = player.getMaxHealth();
+            currentPlayerHealth = player.currentHealth;
             currentEnergy = player.getEnergy();
             currentStimpaks = player.getMaxStimpaks();
         }
@@ -97,11 +98,14 @@ public class Combat {
 
     private void checkCombatEndConditions() {
         if (currentPlayerHealth <= 0) {
+            GameUtils.sleep(240);
             playerDead = true;
             // Handle player's defeat
         }
         if (enemy.getHealth() <= 0) {
+            GameUtils.sleep(240);
             enemyDead = true;
+            player.currentHealth = currentPlayerHealth;
             player.setExp(enemy.getGivesExp());
             enemy.markForRemoval = true;
             // Handle enemy defeat
@@ -109,6 +113,7 @@ public class Combat {
     }
 
     private void shoot(int damage) {
+        player.setAlternateImage(player.shoot, 60);
         if (attackHits() || eaglesEyeActivated) {
             int finalDamage = damage;
             if (trojanSent) {
@@ -118,10 +123,10 @@ public class Combat {
                 finalDamage *= 1.5;
                 textField.addMessage("Critical Hit!");
             }
-            enemy.takeDamage(damage);
-            textField.addMessage("Shot enemy with " + finalDamage + " damage. Enemy HP: " + enemy.health);
+            enemy.takeDamage(finalDamage);
+            textField.addMessage("Shot enemy with " + finalDamage + " damage.");
         } else {
-            textField.addMessage("Your shot missed!");
+            textField.addMessage("Your gun jammed!");
         }
     }
 
@@ -163,11 +168,12 @@ public class Combat {
         if (!scanned) {
             if (energyCost <= currentEnergy) {
                 currentEnergy -= energyCost;
+                GameUtils.sleep(360);
+                scanned = true;
                 textField.addMessage("SCANNING.");
                 textField.addMessage("SCANNING. .");
                 textField.addMessage("SCANNING. . .");
                 textField.addMessage("ENEMY SCANNED");
-                scanned = true;
             } else textField.addMessage("Not enough energy");
         } else textField.addMessage("Already scanned this enemy!");
     }

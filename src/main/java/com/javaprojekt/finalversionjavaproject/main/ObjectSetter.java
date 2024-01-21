@@ -1,5 +1,6 @@
 package com.javaprojekt.finalversionjavaproject.main;
 
+import com.javaprojekt.finalversionjavaproject.design.Background;
 import com.javaprojekt.finalversionjavaproject.object.*;
 
 public class ObjectSetter {

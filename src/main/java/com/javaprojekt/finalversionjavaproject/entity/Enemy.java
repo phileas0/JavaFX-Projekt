@@ -100,7 +100,7 @@ public class Enemy extends Entity {
         g2.drawImage(deviousGuard, 650, 350, 256, 256, null);
     }
     public void drawFinalBoss(Graphics2D g2) {
-        g2.drawImage(finalBoss, 650, 350, 256, 256, null);
+        g2.drawImage(finalBoss, 650, 200, 512, 512, null);
     }
 
     public void draw(Graphics2D graphics2D) {

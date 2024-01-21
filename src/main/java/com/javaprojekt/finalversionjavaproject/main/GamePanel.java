@@ -3,6 +3,8 @@ package com.javaprojekt.finalversionjavaproject.main;
 import com.javaprojekt.finalversionjavaproject.combat.Combat;
 import com.javaprojekt.finalversionjavaproject.combat.LevelUp;
 import com.javaprojekt.finalversionjavaproject.combat.TextField;
+import com.javaprojekt.finalversionjavaproject.design.Background;
+import com.javaprojekt.finalversionjavaproject.design.HUD;
 import com.javaprojekt.finalversionjavaproject.entity.Enemy;
 import com.javaprojekt.finalversionjavaproject.entity.Player;
 import com.javaprojekt.finalversionjavaproject.object.SuperClassObject;
@@ -25,9 +27,16 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * maxScreenRow; // 720
     int FPS = 60;
 
+    // Transition variables
+    private float transitionOpacity = 0.0f;
+    private boolean isTransitioning = false;
+    private int transitionFrames = 0; // Total frames for the transition
+    private int currentTransitionFrame = 0; // Current frame in the transition
+
+
     TileManager tileManager = new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
-    TextField textField = new TextField(this, this.keyHandler);
+    public TextField textField = new TextField(this, this.keyHandler);
     ManagerDialogue managerDialogue = new ManagerDialogue(this);
     Thread gameThread;
 
@@ -47,6 +56,7 @@ public class GamePanel extends JPanel implements Runnable {
     private Enemy enemy;
     private GameState currentGameState;
     private Combat combat;
+    private boolean readyForCombat = false;
     private final int combatCooldownTime = 60; // Cooldown time in frames (1 second if 60 FPS)
     private int combatCooldown = 0;
     private boolean newEnemy;
@@ -126,6 +136,12 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    public void startTransition(int frames) {
+        isTransitioning = true;
+        transitionFrames = frames;
+        currentTransitionFrame = 0;
+    }
+
     public void startCombat(Enemy encounteredEnemy) {
         if (player != null && encounteredEnemy != null && !encounteredEnemy.isInCombat()) {
             encounteredEnemy.setInCombat(true);
@@ -137,8 +153,17 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        textField.update();
-        switch (currentGameState) {
+        player.updateAlternateImageTimer(); // Alternate image loader
+        if (isTransitioning) { // Transitions
+            transitionOpacity = (float) currentTransitionFrame / transitionFrames;
+            currentTransitionFrame++;
+            if (currentTransitionFrame > transitionFrames) {
+                isTransitioning = false;
+            }
+        }
+        GameUtils.update(); // for sleep() funktion
+        textField.update(); // displays textfields
+        switch (currentGameState) { //
             case PLAYING:
                 // If the tutorial is active, don't update the game state
                 if(tutorial.isTutorialActive ) {
@@ -156,15 +181,22 @@ public class GamePanel extends JPanel implements Runnable {
                 } else {
                     for (ArrayList<Enemy> enemies : listOfEnemies) {
                         for (Enemy enemy : enemies) {
-                            if (player.collidesWith(enemy) && !enemy.isInCombat()) {
-                                startCombat(enemy);
+                            if (player.collidesWith(enemy) && !enemy.isInCombat() && !readyForCombat) {
+                                GameUtils.sleep(120); // Start the sleep timer
+                                startTransition(120);  // Start the transition
+                                textField.addMessage("Starting battle...");
+                                this.enemy = enemy; // Make sure to set the current enemy
                                 newEnemy = true;
-                                combatCooldown = combatCooldownTime; // Reset the cooldown
-                                break;
+                                readyForCombat = true;
+                                combatCooldown = combatCooldownTime;
                             }
                         }
                     }
-
+                }
+                if (readyForCombat && !GameUtils.isSleeping() && !isTransitioning) {
+                    startCombat(enemy); // Start combat after transition
+                    readyForCombat = false; // Reset the flag
+                    combatCooldown = combatCooldownTime; // Reset the cooldown
                 }
                 //System.out.println("Number of enemies: " + listOfEnemies.size());
                 if (keyHandler.pauseGame) {
@@ -198,7 +230,11 @@ public class GamePanel extends JPanel implements Runnable {
                     currentGameState = GameState.EXP_MENU;
                 }
                 if (combat.playerDead) {
-                    currentGameState = GameState.GAMEOVER;
+                    textField.addMessage("You died :(");
+                    startTransition(0);
+                    if (!GameUtils.isSleeping()) {
+                        currentGameState = GameState.GAMEOVER;
+                    }
                 }
                 break;
             case EXP_MENU:
@@ -215,25 +251,29 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
-        Graphics2D graphics2D = (Graphics2D) graphics;
+        Graphics2D g2 = (Graphics2D) graphics;
         switch (currentGameState) {
             case PLAYING:
-                drawOverworld(graphics2D);
+                drawOverworld(g2);
                 break;
             case PAUSED:
-                drawPauseScreen(graphics2D);
+                drawPauseScreen(g2);
                 break;
             case IN_COMBAT:
-                drawCombatUI(graphics2D);
+                drawCombatUI(g2);
                 break;
             case EXP_MENU:
-                drawExpMenu(graphics2D);
+                drawExpMenu(g2);
                 break;
             case GAMEOVER:
-                drawGameover(graphics2D);
+                drawGameover(g2);
                 break;
         }
-        graphics2D.dispose();
+        if (isTransitioning) {
+            g2.setColor(new Color(0, 0, 0, transitionOpacity));
+            g2.fillRect(0, 0, getWidth(), getHeight());
+        }
+        g2.dispose();
     }
 
     private void drawExpMenu(Graphics2D g2) {
@@ -395,19 +435,39 @@ public class GamePanel extends JPanel implements Runnable {
                 background.drawStreetFights(g2);
                 break;
             case 1:
-                background.drawTheFactory(g2);
+                background.drawStreetFights2(g2);
                 break;
             case 2:
-                background.drawMeetingRoom(g2);
+                background.drawFactoryFront(g2);
                 break;
             case 3:
-                background.drawKitchenRoom(g2);
+                background.drawTheFactory(g2);
                 break;
             case 4:
+                background.drawMeetingRoom(g2);
+                break;
+            case 5:
+                background.drawKitchenRoom(g2);
+                break;
+            case 6:
                 background.drawTheFinale(g2);
                 break;
         }
-        player.drawPlayerPortrait(g2);
+        switch (enemy.backgroundNr) {
+            case 1:
+                player.drawPlayerPortrait1(g2);
+                break;
+            case 2:
+                player.drawPlayerPortrait2(g2);
+                break;
+            case 6:
+                player.drawPlayerPortrait6(g2);
+                break;
+            default:
+                player.drawPlayerPortrait0(g2);
+                break;
+        }
+
         switch (enemy.skinNr) {
             case 0:
                 enemy.drawEnemyPortrait0(g2);
@@ -446,6 +506,9 @@ public class GamePanel extends JPanel implements Runnable {
         g2.drawString("5. Send Trojan: 100E", 10, screenHeight - 50);
         g2.drawString("6. Scan: 50E", 10, screenHeight - 30);
 
+
+        g2.setColor(new Color(255, 255, 0, 255));
+        g2.setFont(new Font("Consolas", Font.PLAIN, 20));
         // Player HP bar
         drawHealthBar(g2, 10, 5, combat.currentPlayerHealth, player.getMaxHealth());
         if (enemy != null) {
@@ -453,23 +516,16 @@ public class GamePanel extends JPanel implements Runnable {
                 helpHealth = enemy.health;
                 newEnemy = false;
             }
-            if (combat.scanned) { // Enemy HP bar
+            if (combat.scanned && !GameUtils.isSleeping()) { // Enemy HP bar
                 drawHealthBar(g2, screenWidth - 210, 5, enemy.health, helpHealth);
+                g2.drawString("Enemy HP: " + enemy.health + " / " + helpHealth, screenWidth - 210, 50);
             }
         } else System.out.println("Enemy null");
 
         // Display player and enemy stats
-        g2.setColor(new Color(255, 255, 0, 255));
-        g2.setFont(new Font("Consolas", Font.PLAIN, 20));
         g2.drawString("Player HP: " + combat.currentPlayerHealth + " / " + player.maxHealth, 10, 50);
         g2.drawString("Energy: " + combat.getCurrentEnergy() + " / " + player.getEnergy() + "%", 10, 80);
         g2.drawString("Stimpaks: " + combat.getCurrentStimpaks() + " (+" + player.getHealing() + " HP)", 10, 110);
-
-        if (enemy != null) {
-            if (combat.scanned) {
-                g2.drawString("Enemy HP: " + enemy.health + " / " + helpHealth, screenWidth - 210, 50);
-            }
-        } else System.out.println("Enemy null");
 
         // Textfield display
         textField.draw(g2);
