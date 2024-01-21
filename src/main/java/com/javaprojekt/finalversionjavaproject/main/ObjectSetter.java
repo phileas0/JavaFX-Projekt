@@ -106,6 +106,10 @@ public class ObjectSetter {
         gamePanel.obj[mapNumber][0].worldX = 12 * gamePanel.tileSize;
         gamePanel.obj[mapNumber][0].worldY = 1 * gamePanel.tileSize;
 
+        gamePanel.obj[mapNumber][1] = new CorpseObject();
+        gamePanel.obj[mapNumber][1].worldX = 3 * gamePanel.tileSize;
+        gamePanel.obj[mapNumber][1].worldY = 6 * gamePanel.tileSize;
+
         gamePanel.obj[mapNumber][2] = new TrashbagObject();
         gamePanel.obj[mapNumber][2].worldX = 4 * gamePanel.tileSize;
         gamePanel.obj[mapNumber][2].worldY = 4 * gamePanel.tileSize;

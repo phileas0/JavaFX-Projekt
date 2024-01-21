@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Enemy extends Entity {
     public boolean markForRemoval = false;
     public boolean isInCombat = false;
-    public BufferedImage enemy0, smallGuard, bigGuard, deviousGuard, factoryRobot, smallCook, bigCook, finalBoss;
+    public BufferedImage enemy0, smallGuard, bigGuard, deviousGuard, factoryRobot, smallCook, bigCook, finalBoss, enemy0Sprite, smallGuardSprite, bigGuardSprite, deviousGuardSprite, factoryRobotSprite, smallCookSprite, bigCookSprite;
     public int health;
     public int damage;
     public double hitPropability;
@@ -65,6 +65,15 @@ public class Enemy extends Entity {
             smallCook = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/smallCook.png")));
             bigCook = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/bigCook.png")));
             finalBoss = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/finalBoss.png")));
+
+            enemy0Sprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/enemy0Sprite.png")));
+            smallGuardSprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/smallGuardSprite.png")));
+            bigGuardSprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/bigGuardSprite.png")));
+            deviousGuardSprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/deviousGuardSprite.png")));
+            factoryRobotSprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/factoryRobotSprite.png")));
+            smallCookSprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/smallCookSprite.png")));
+            bigCookSprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/bigCookSprite.png")));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -98,33 +107,33 @@ public class Enemy extends Entity {
         BufferedImage enemyImage;
         switch (skinNr) {
             case 1:
-                enemyImage = smallGuard;
+                enemyImage = smallGuardSprite;
                 break;
             case 2:
-                enemyImage = bigGuard;
+                enemyImage = bigGuardSprite;
                 break;
             case 3:
-                enemyImage = deviousGuard;
+                enemyImage = deviousGuardSprite;
                 break;
             case 4:
-                enemyImage = factoryRobot;
+                enemyImage = factoryRobotSprite;
                 break;
             case 5:
-                enemyImage = smallCook;
+                enemyImage = smallCookSprite;
                 break;
             case 6:
-                enemyImage = bigCook;
+                enemyImage = bigCookSprite;
                 break;
             case 7:
                 enemyImage = finalBoss;
                 break;
             default:
-                enemyImage = enemy0;
+                enemyImage = enemy0Sprite;
                 break;
         }
 
         if (enemyImage != null) {
-            graphics2D.drawImage(enemyImage, x, y, 64, 64, null);
+            graphics2D.drawImage(enemyImage, x, y, 64, 135, null);
         } else {
             // Draw a placeholder rectangle if sprite is null
             graphics2D.setColor(Color.RED);

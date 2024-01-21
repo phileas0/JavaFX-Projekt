@@ -28,6 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
     TileManager tileManager = new TileManager(this);
     KeyHandler keyHandler = new KeyHandler();
     TextField textField = new TextField(this, this.keyHandler);
+    ManagerDialogue managerDialogue = new ManagerDialogue(this);
     Thread gameThread;
 
     public Tutorial tutorial = new Tutorial(this);
@@ -140,12 +141,12 @@ public class GamePanel extends JPanel implements Runnable {
         switch (currentGameState) {
             case PLAYING:
                 // If the tutorial is active, don't update the game state
-                if(tutorial.isTutorialActive) {
+                if(tutorial.isTutorialActive ) {
                     return;
                 }
-                //if (!textField.isDisplayingMessages()) {
+                if (!textField.isDisplayingMessages() || managerDialogue.ismonologue) {
                     player.update();
-                //}
+                }
                 for (ArrayList<Enemy> enemies : listOfEnemies) {
                     enemies.removeIf(Enemy::isMarkedForRemoval);
                 }
@@ -317,6 +318,8 @@ public class GamePanel extends JPanel implements Runnable {
         //UI
         hud.draw(g2);
         if(currentMap == 0)tutorial.draw(g2);
+        if(currentMap == 5)managerDialogue.drawDialogue();
+        if(currentMap == 6)managerDialogue.drawMonologue();
         textField.draw(g2);
 
 

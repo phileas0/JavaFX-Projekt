@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.nio.Buffer;
 
 public class SuperClassObject {
-    public BufferedImage image;
+    public Image image;
     public String name;
     public boolean collision = false;
     public int worldX,worldY;

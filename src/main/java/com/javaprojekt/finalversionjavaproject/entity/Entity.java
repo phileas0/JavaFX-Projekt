@@ -19,7 +19,7 @@ public class Entity {
 
     public boolean collidesWith(Entity other) {
         Rectangle thisHitbox = new Rectangle(x, y, 64, 64); // Assuming width and height are your entity's dimensions
-        Rectangle otherHitbox = new Rectangle(other.x, other.y, 64, 64);
+        Rectangle otherHitbox = new Rectangle(other.x, other.y, 64, 135);
         return thisHitbox.intersects(otherHitbox);
     }
 

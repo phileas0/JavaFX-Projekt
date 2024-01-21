@@ -4,15 +4,14 @@ import com.javaprojekt.finalversionjavaproject.object.KeyObject;
 import com.javaprojekt.finalversionjavaproject.object.KeyObject2;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class HUD {
     GamePanel gamePanel;
     Tutorial tutorial;
     com.javaprojekt.finalversionjavaproject.combat.TextField textField;
     Font arial40;
-    BufferedImage keyImage1;
-    BufferedImage keyImage2;
+    Image keyImage1;
+    Image keyImage2;
     public boolean messageBoolean = false;
     public String messageString = "";
     String messageStringBefore = "";

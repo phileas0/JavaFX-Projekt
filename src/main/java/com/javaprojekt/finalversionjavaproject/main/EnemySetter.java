@@ -124,13 +124,13 @@ public class EnemySetter {
 
     private void setEnemiesForMap1() {//setter for crossroad
         // Spezieller Enemy1 nur auf Map 1
-            Enemy specialEnemy1Map1 = new Enemy(10, 2, 0.85, 10, 0, 2);
+            Enemy specialEnemy1Map1 = new Enemy(10, 2, 0.85, 10, 3, 2);
             specialEnemy1Map1.x = 11 * gamePanel.tileSize;
             specialEnemy1Map1.y = 4 * gamePanel.tileSize;
             addEnemyToCurrentMap(specialEnemy1Map1);
 
             // Spezieller Enemy2 nur auf Map 1
-            Enemy specialEnemy2Map1 = new Enemy(10, 2, 0.85, 10, 0, 2);
+            Enemy specialEnemy2Map1 = new Enemy(10, 2, 0.85, 10, 3, 2);
             specialEnemy2Map1.x = 7 * gamePanel.tileSize;
             specialEnemy2Map1.y = 4 * gamePanel.tileSize;
             addEnemyToCurrentMap(specialEnemy2Map1);
