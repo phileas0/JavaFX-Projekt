@@ -79,4 +79,8 @@ public class Enemy extends Entity {
             graphics2D.fillRect(20, 20, 20, 20); // Placeholder for enemy
         }
     }
+
+    public boolean isOnMap() {
+        return !isMarkedForRemoval() && !isInCombat();
+    }
 }

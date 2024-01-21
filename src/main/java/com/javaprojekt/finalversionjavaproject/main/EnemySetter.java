@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class EnemySetter {
     GamePanel gamePanel;
+    Enemy enemy;
 
 
     public EnemySetter(GamePanel gamePanel) {
@@ -107,6 +108,16 @@ public class EnemySetter {
         enemy2Map0.y = 4 * gamePanel.tileSize;
         addEnemyToCurrentMap(enemy2Map0);
     }*/
+    public boolean areAllEnemiesOffMap() {
+        for (ArrayList<Enemy> enemies : gamePanel.getListOfEnemies()) {
+            for (Enemy enemy : enemies) {
+                if (enemy.isOnMap()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
 
     private void addEnemyToCurrentMap(Enemy enemy) {

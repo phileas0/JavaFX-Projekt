@@ -143,9 +143,9 @@ public class GamePanel extends JPanel implements Runnable {
                 //if(tutorial.isTutorialActive) {
                   //  return;
                 //}
-                if (!textField.isDisplayingMessages()) {
+                //if (!textField.isDisplayingMessages()) {
                     player.update();
-                }
+                //}
                 for (ArrayList<Enemy> enemies : listOfEnemies) {
                     enemies.removeIf(Enemy::isMarkedForRemoval);
                 }
@@ -313,6 +313,11 @@ public class GamePanel extends JPanel implements Runnable {
         //UI
         hud.draw(g2);
         //if(currentMap == 0)tutorial.draw(g2);
+        textField.draw(g2);
+
+
+
+
 
 
 
