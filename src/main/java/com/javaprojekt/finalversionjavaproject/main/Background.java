@@ -102,13 +102,6 @@ public class Background {
 
         enemySetter.setEnemies(gamePanel.currentMap);
         objectSetter.setObject(gamePanel.currentMap);
-            /*else if (gamePanel.currentMap == 1) {
-             //Add more conditions if you have additional levels
-             //For example:
-             gamePanel.currentMap = 2;
-             map2 = map3;
-        }*/
-
     }
 
     public void drawMap(Graphics2D g2) {

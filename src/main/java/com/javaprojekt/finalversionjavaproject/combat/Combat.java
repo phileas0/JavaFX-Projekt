@@ -45,7 +45,7 @@ public class Combat {
     public void processTurn() {
         //Debugging
         if (player == null) {
-            System.out.println("payer is null in processTurn()");
+            System.out.println("player is null in processTurn()");
             return;
         }
         // Check if combat has ended

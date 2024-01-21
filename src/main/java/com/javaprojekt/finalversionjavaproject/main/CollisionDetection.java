@@ -134,8 +134,8 @@ public class CollisionDetection {
                     if (tileNum== 3) {
                         gamePanel.getListOfEnemies().get(1).clear();
                         gamePanel.background.switchLevel(1);
-                        entity.x = 80;
-                        entity.y = 350;
+                        entity.x = 620;
+                        entity.y = 645;
                     } break;
                 case 2:
                     if (tileNum == 3) {
@@ -155,7 +155,7 @@ public class CollisionDetection {
                     if (tileNum == 3) {
                         gamePanel.getListOfEnemies().get(4).clear();
                         gamePanel.background.switchLevel(4);
-                        entity.x = 100;
+                        entity.x = 50;
                         entity.y = 550;
                     } break;
                 case 5:
@@ -163,28 +163,28 @@ public class CollisionDetection {
                         gamePanel.getListOfEnemies().get(5).clear();
                         gamePanel.background.switchLevel(5);
                         entity.x = 600;
-                        entity.y = 640;
+                        entity.y = 645;
                     } break;
                 case 6:
                     if (tileNum == 3) {
                         gamePanel.getListOfEnemies().get(6).clear();
                         gamePanel.background.switchLevel(6);
-                        entity.x = 600;
-                        entity.y = 640;
+                        entity.x = 615;
+                        entity.y = 645;
                     } break;
                 case 7:
                     if (tileNum == 3) {
                         map8Switcher.checkTileForMapSwitch(entity);
                         entity.x = 600;
-                        entity.y = 640;
+                        entity.y = 645;
                     } else if (tileNum == 4) {
                         map8Switcher.checkTileForMapSwitch(entity);
                         entity.x = 600;
-                        entity.y = 640;
+                        entity.y = 645;
                     } else if (tileNum == 5) {
                         map8Switcher.checkTileForMapSwitch(entity);
                         entity.x = 600;
-                        entity.y = 640;
+                        entity.y = 645;
 
                     }break;
                 case 8:
@@ -192,7 +192,7 @@ public class CollisionDetection {
                         gamePanel.getListOfEnemies().get(8).clear();
                         gamePanel.background.switchLevel(6);
                         entity.x = 600;
-                        entity.y = 640;
+                        entity.y = 645;
                     } break;
                 case 9:
                     if (tileNum == 3) {

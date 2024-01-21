@@ -22,9 +22,13 @@ public class EnemySetter {
             setEnemiesForMap3();
         } else if (mapNumber == 6) {
             setEnemiesForMap6();
+        } else if (mapNumber == 8) {
+            setEnemiesForMap8();
+        } else if (mapNumber == 9) {
+            setEnemiesForMap9();
+        } else if (mapNumber == 11) {
+            setEnemiesForFinal();
         }
-        /*else if (mapNumber == 3) {
-            setEnemiesForMap3();*/
 
         System.out.println("Setting enemies for Map " + gamePanel.currentMap);
         // ... (dein bestehender Code)
@@ -35,14 +39,44 @@ public class EnemySetter {
         }
     }
 
+    private void setEnemiesForFinal() {
+        Enemy newEnemy1Map11 = new Enemy(10, 2, 0.85, 8, 0, 2);
+        newEnemy1Map11.x = 4 * gamePanel.tileSize;
+        newEnemy1Map11.y = 8 * gamePanel.tileSize;
+        addEnemyToCurrentMap(newEnemy1Map11);
+    }
+
+    private void setEnemiesForMap9() {
+        Enemy newEnemy1Map9 = new Enemy(10, 2, 0.85, 8, 0, 2);
+        newEnemy1Map9.x = 14 * gamePanel.tileSize;
+        newEnemy1Map9.y = 6 * gamePanel.tileSize;
+        addEnemyToCurrentMap(newEnemy1Map9);
+
+        Enemy newEnemy2Map9 = new Enemy(10, 2, 0.85, 8, 0, 2);
+        newEnemy2Map9.x = 4 * gamePanel.tileSize;
+        newEnemy2Map9.y = 8 * gamePanel.tileSize;
+        addEnemyToCurrentMap(newEnemy2Map9);
+    }
+
+    private void setEnemiesForMap8() {
+        Enemy newEnemy1Map8 = new Enemy(10, 2, 0.85, 8, 0, 2);
+        newEnemy1Map8.x = 16 * gamePanel.tileSize;
+        newEnemy1Map8.y = 9 * gamePanel.tileSize;
+        addEnemyToCurrentMap(newEnemy1Map8);
+
+        Enemy newEnemy2Map8 = new Enemy(10, 2, 0.85, 8, 0, 2);
+        newEnemy2Map8.x = 2 * gamePanel.tileSize;
+        newEnemy2Map8.y = 8 * gamePanel.tileSize;
+        addEnemyToCurrentMap(newEnemy2Map8);
+    }
     private void setEnemiesForMap6() {
         Enemy newEnemy1Map6 = new Enemy(10, 2, 0.85, 8, 0, 2);
-        newEnemy1Map6.x = 14 * gamePanel.tileSize;
+        newEnemy1Map6.x = 12 * gamePanel.tileSize;
         newEnemy1Map6.y = 6 * gamePanel.tileSize;
         addEnemyToCurrentMap(newEnemy1Map6);
 
         Enemy newEnemy2Map6 = new Enemy(10, 2, 0.85, 8, 0, 2);
-        newEnemy2Map6.x = 5 * gamePanel.tileSize;
+        newEnemy2Map6.x = 7 * gamePanel.tileSize;
         newEnemy2Map6.y = 6 * gamePanel.tileSize;
         addEnemyToCurrentMap(newEnemy2Map6);
     }
@@ -65,14 +99,14 @@ public class EnemySetter {
 
     private void setEnemiesForMap2() {// Neue Enemies auf Map 2
             Enemy newEnemy1Map2 = new Enemy(10, 2, 0.85, 10, 0, 4);
-            newEnemy1Map2.x = 15 * gamePanel.tileSize;
+            newEnemy1Map2.x = 12 * gamePanel.tileSize;
             newEnemy1Map2.y = 6 * gamePanel.tileSize;
             addEnemyToCurrentMap(newEnemy1Map2);
 
             // Füge hier weitere Enemies für Map 2 hinzu
 
             Enemy newEnemy2Map2 = new Enemy(10, 2, 0.85, 10, 0, 3);
-            newEnemy2Map2.x = 5 * gamePanel.tileSize;
+            newEnemy2Map2.x = 7 * gamePanel.tileSize;
             newEnemy2Map2.y = 6 * gamePanel.tileSize;
             addEnemyToCurrentMap(newEnemy2Map2);
 
