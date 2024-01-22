@@ -18,7 +18,7 @@ public class Background {
     public BufferedImage map, map2, map3, map4, map5, map6, map7, map8, map9, map10, map11, map12, map13;
     public BufferedImage gameover, pauseScreen, expMenu, textField, credits;
     public BufferedImage streetFights, streetFights2, factoryFront, theFactory, meetingRoom, kitchenRoom, finalBoss;
-    private Player player;
+    public Player player;
     public int lobbycounter = 0;
     public int meetingcounter = 0;
     public int kitchencounter = 0;
@@ -29,6 +29,7 @@ public class Background {
         this.gamePanel = gamePanel;
         this.enemySetter = new EnemySetter(gamePanel);
         this.objectSetter = new ObjectSetter(gamePanel);
+        this.player = new Player(gamePanel, gamePanel.keyHandler);
         try {
             map = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/Scene_1_bg.png")));
             textField = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/textfield.png")));
@@ -65,30 +66,37 @@ public class Background {
             case 0:
                 gamePanel.currentMap = 1;
                 map = map2;
+                player.currentHealth = player.maxHealth;
                 break;
             case 1:
                 gamePanel.currentMap = 2;
                 map = map3;
+                player.currentHealth = player.maxHealth;
                 break;
             case 2:
                 gamePanel.currentMap = 3;
                 map = map4;
+                player.currentHealth = player.maxHealth;
                 break;
             case 3:
                 gamePanel.currentMap = 4;
                 map = map13;
+                player.currentHealth = player.maxHealth;
                 break;
             case 4:
                 gamePanel.currentMap = 5;
                 map = map5;
+                player.currentHealth = player.maxHealth;
                 break;
             case 5:
                 gamePanel.currentMap = 6;
                 map = map6;
+                player.currentHealth = player.maxHealth;
                 break;
             case 6:
                 gamePanel.currentMap = 7;
                 map = map7;
+                player.currentHealth = player.maxHealth;
                 break;
             case 7:
                 gamePanel.currentMap = 8;
@@ -108,6 +116,7 @@ public class Background {
             case 10:
                 gamePanel.currentMap = 11;
                 map = map11 ;
+                player.currentHealth = player.maxHealth;
                 break;
             case 11:
                 gamePanel.currentMap = 12;

@@ -79,12 +79,12 @@ public class CollisionDetection {
                 if (gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
                     entity.collision = true;
                 }
-                //if(enemySetter.areAllEnemiesOffMap()){
+                // if(enemySetter.areAllEnemiesOffMap()){
                     checkTile3(entity);
                 //}
                 //else if(tileNum1 == 3 || tileNum2 == 3&& enemySetter.areAllEnemiesOffMap()){
                 //if (!textField.isDisplayingMessages()){
-                //    textField.addMessage("You can't leave the map while enemies are still on it!");
+                //   textField.addMessage("You can't leave the map while enemies are still on it!");
                 //}                }
                 break;
             case "right":
@@ -99,7 +99,7 @@ public class CollisionDetection {
                     checkTile3(entity);
                 //}
                 //else if(tileNum1 == 3 || tileNum2 == 3 && enemySetter.areAllEnemiesOffMap()){
-                //if (!textField.isDisplayingMessages()){
+                // if (!textField.isDisplayingMessages()){
                 // textField.addMessage("You can't leave the map while enemies are still on it!");
                 //}                }
 
