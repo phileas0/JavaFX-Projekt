@@ -37,4 +37,20 @@ public class ManagerDialogue {
             ismonologue = true;
         }
     }
+    public void drawManagerDialogue(){
+        if(dialogueCounter==2){
+            textField.addMessage("You: \"It was you the whole time?\"");
+            textField.addMessage("Manager: \"Ahh... You finally made it\"");
+            textField.addMessage("You: \"Why are you doing this? Isn't your company one of..\"");
+            textField.addMessage("You: \".. the biggest in the world?\"");
+            textField.addMessage("Manager: \"Yes you are correct. You are probably wondering..\"?");
+            textField.addMessage("Manager: \"..why my Robots are out there murdering people.\"");
+            textField.addMessage("You: \"I actually don't care!\"");
+            textField.addMessage("Manager: \"Well... they are collecting people's debt\"");
+            textField.addMessage("Manager: \"I would have gone bankrupt within a week\"?");
+            textField.addMessage("You: \"THAT'S NO EXCUSE!\"");
+            dialogueCounter++;
+        }
+
+    }
 }

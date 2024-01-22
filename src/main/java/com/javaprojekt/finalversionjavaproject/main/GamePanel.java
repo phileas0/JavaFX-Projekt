@@ -35,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 
     TileManager tileManager = new TileManager(this);
-    KeyHandler keyHandler = new KeyHandler();
+    public KeyHandler keyHandler = new KeyHandler();
     public TextField textField = new TextField(this, this.keyHandler);
     ManagerDialogue managerDialogue = new ManagerDialogue(this);
     Thread gameThread;
@@ -46,14 +46,14 @@ public class GamePanel extends JPanel implements Runnable {
     public Background background = new Background(this);
     public ObjectSetter oSetter = new ObjectSetter(this);
     public HUD hud = new HUD(this);
-    public Player player;
+    public Player player = new Player(this, keyHandler);
     public SuperClassObject[][] obj = new SuperClassObject[maxMap][10];
     public ArrayList<ArrayList<Enemy>> listOfEnemies;
     public ArrayList<ArrayList<Enemy>> getListOfEnemies() {
         return listOfEnemies;
     }
 
-    private Enemy enemy;
+    public Enemy enemy;
     private GameState currentGameState;
     private Combat combat;
     private boolean readyForCombat = false;
@@ -360,6 +360,7 @@ public class GamePanel extends JPanel implements Runnable {
         if(currentMap == 0)tutorial.draw(g2);
         if(currentMap == 5)managerDialogue.drawDialogue();
         if(currentMap == 6)managerDialogue.drawMonologue();
+        if(currentMap == 12)managerDialogue.drawManagerDialogue();
         textField.draw(g2);
 
 

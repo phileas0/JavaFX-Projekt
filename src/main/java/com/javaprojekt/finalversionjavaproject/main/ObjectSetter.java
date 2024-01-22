@@ -1,16 +1,19 @@
 package com.javaprojekt.finalversionjavaproject.main;
 
 import com.javaprojekt.finalversionjavaproject.design.Background;
+import com.javaprojekt.finalversionjavaproject.entity.Player;
 import com.javaprojekt.finalversionjavaproject.object.*;
 
 public class ObjectSetter {
     GamePanel gamePanel;
     Background background;
+    Player player;
 
 
         public ObjectSetter(GamePanel gamePanel) {
             this.gamePanel = gamePanel;
             this.background = gamePanel.background;
+            this.player = new Player(gamePanel, gamePanel.keyHandler);
         }
         public void setObject(int mapNumber) {
             switch(mapNumber) {
@@ -46,6 +49,10 @@ public class ObjectSetter {
         }
     }
     private void setObjectMap7(int mapNumber){
+            if(gamePanel.background.lobbycounter<2){
+                player.currentHealth = player.maxHealth;
+            }
+
         if(gamePanel.background.lobbycounter<3){
             gamePanel.obj[mapNumber][0] = new DoorObject();
             gamePanel.obj[mapNumber][0].worldX = 0 * gamePanel.tileSize;
