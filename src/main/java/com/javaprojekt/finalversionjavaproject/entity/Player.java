@@ -223,20 +223,20 @@ public class Player extends Entity{
                 case "KeyObject":
                     hasKey1++;
                     gamePanel.obj[gamePanel.currentMap][index] = null;
-                    gamePanel.hud.showMessage("You picked up key 1!");
+                    gamePanel.hud.showMessage("You picked a key!");
                     break;
                 case "KeyObject2":
                     hasKey2++;
                     gamePanel.obj[gamePanel.currentMap][index] = null;
-                    gamePanel.hud.showMessage("You picked up key 2!");
+                    gamePanel.hud.showMessage("You picked up another!");
                     break;
                 case "DoorObject":
                     if (hasKey1 >= 1) {
                         hasKey1--;
                         gamePanel.obj[gamePanel.currentMap][index] = null;
-                        gamePanel.hud.showMessage("You opened the door!");
+                        gamePanel.hud.showMessage("You opened a door!");
                     } else if (hasKey2 >= 1){
-                        gamePanel.hud.showMessage("You need key 1!");
+                        gamePanel.hud.showMessage("You need another key!");
                     } else {
                         gamePanel.hud.showMessage("You need a key!");
                     }
@@ -247,7 +247,7 @@ public class Player extends Entity{
                         gamePanel.obj[gamePanel.currentMap][index] = null;
                         gamePanel.hud.showMessage("You opened the door!");
                     } else if (hasKey1 >= 1){
-                        gamePanel.hud.showMessage("You need key 2!");
+                        gamePanel.hud.showMessage("You need another key!");
                     } else {
                         gamePanel.hud.showMessage("You need a key!");
                     }

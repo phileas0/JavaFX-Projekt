@@ -64,10 +64,7 @@ public class HUD {
         g2.setComposite(ac);
         if(messageBoolean){
             int centerX = gamePanel.getWidth() / 2;
-            int variableY = 620/* your variable y-coordinate here */;
-
-            int imageWidth = tutorial.Textfield.getWidth(null);
-            int imageHeight = tutorial.Textfield.getHeight(null);
+            int variableY = 620;
 
             int textWidth = g2.getFontMetrics().stringWidth(messageString);
             int textHeight = g2.getFontMetrics().getHeight();

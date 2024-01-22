@@ -10,7 +10,7 @@ import com.javaprojekt.finalversionjavaproject.entity.Player;
 import com.javaprojekt.finalversionjavaproject.object.SuperClassObject;
 import com.javaprojekt.finalversionjavaproject.tile.TileManager;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -25,6 +25,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int currentMap = 0;
     public final int screenWidth = tileSize * maxScreenCol; // 1280
     public final int screenHeight = tileSize * maxScreenRow; // 720
+    int creditsCounter = 0;
     int FPS = 60;
 
     // Transition variables
@@ -90,27 +91,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     @Override
-    /*
-    public void run() {
-        double drawInterval = 1000000000/FPS;
-        double nextDrawTime = System.nanoTime() + drawInterval;
-        while (gameThread != null) {
-            update();
-            repaint();
-            try {
-                double remainingTime = nextDrawTime - System.nanoTime();
-                remainingTime = remainingTime/1000000;
-                if(remainingTime < 0) {
-                    remainingTime = 0;
-                }
-                Thread.sleep((long) remainingTime);
-                nextDrawTime += drawInterval;
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-     */
     public void run() {
         double drawInterval = 1000000000 / FPS;
         double delta = 0;
@@ -167,7 +147,7 @@ public class GamePanel extends JPanel implements Runnable {
         switch (currentGameState) { //
             case PLAYING:
                 // If the tutorial is active, don't update the game state
-                if(tutorial.isTutorialActive ) {
+                if(tutorial.isTutorialActive){
                     return;
                 }
                 if (!textField.isDisplayingMessages() || managerDialogue.ismonologue) {
@@ -380,6 +360,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
         if (combat.finalBossDead) {
             background.drawCredits(g2);
+            if (keyHandler.escPressed) {
+                    restartGame();
+            }
         }
     }
     private void drawPauseScreen(Graphics2D g2) {
@@ -529,5 +512,28 @@ public class GamePanel extends JPanel implements Runnable {
 
         // Textfield display
         textField.draw(g2);
+    }
+    public void restartGame() {
+        // Dispose the current window
+        Window window = SwingUtilities.getWindowAncestor(this);
+        window.dispose();
+
+        // Create a new instance of the game
+        JFrame newWindow = new JFrame();
+        newWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        newWindow.setResizable(false);
+        newWindow.setExtendedState(Frame.MAXIMIZED_BOTH);
+        newWindow.setTitle("HoloHunter");
+
+        GamePanel newGamePanel = new GamePanel();
+        newWindow.add(newGamePanel);
+
+        newWindow.pack();
+
+        newWindow.setLocationRelativeTo(null);
+        newWindow.setVisible(true);
+
+        newGamePanel.setupGame();
+        newGamePanel.startGameThread();
     }
 }

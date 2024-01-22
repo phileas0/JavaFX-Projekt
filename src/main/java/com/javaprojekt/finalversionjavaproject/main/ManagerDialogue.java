@@ -38,6 +38,7 @@ public class ManagerDialogue {
         }
     }
     public void drawManagerDialogue(){
+        ismonologue = false;
         if(dialogueCounter==2){
             textField.addMessage("You: \"It was you the whole time?\"");
             textField.addMessage("Manager: \"Ahh... You finally made it\"");

@@ -108,6 +108,8 @@ public class CollisionDetection {
 
     }
 
+
+
     public void checkTile3(Entity entity){//check if player is on a tile[3] (red tile)
         //if(keyHandler.interacted) {
             int playerTopRow = (entity.y + entity.solidAreaDefaultY) / gamePanel.tileSize;
@@ -281,9 +283,6 @@ public class CollisionDetection {
                 gamePanel.obj[gamePanel.currentMap][i].solid.y = gamePanel.obj[gamePanel.currentMap][i].solidAreaDefaultY;
             }
         }
-
-
         return index;
-
     }
 }

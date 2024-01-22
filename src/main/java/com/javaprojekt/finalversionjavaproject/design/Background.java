@@ -1,9 +1,11 @@
 package com.javaprojekt.finalversionjavaproject.design;
 
+import com.javaprojekt.finalversionjavaproject.combat.TextField;
 import com.javaprojekt.finalversionjavaproject.entity.Player;
 import com.javaprojekt.finalversionjavaproject.main.EnemySetter;
 import com.javaprojekt.finalversionjavaproject.main.GamePanel;
 import com.javaprojekt.finalversionjavaproject.main.ObjectSetter;
+import com.javaprojekt.finalversionjavaproject.main.Tutorial;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,10 +21,11 @@ public class Background {
     public BufferedImage gameover, pauseScreen, expMenu, textField, credits;
     public BufferedImage streetFights, streetFights2, factoryFront, theFactory, meetingRoom, kitchenRoom, finalBoss;
     public Player player;
+    Tutorial tutorial;
     public int lobbycounter = 0;
     public int meetingcounter = 0;
     public int kitchencounter = 0;
-    int currentMap;
+    private int creditcounter;
 
 
     public Background(GamePanel gamePanel) {
@@ -30,6 +33,7 @@ public class Background {
         this.enemySetter = new EnemySetter(gamePanel);
         this.objectSetter = new ObjectSetter(gamePanel);
         this.player = new Player(gamePanel, gamePanel.keyHandler);
+        this.tutorial = gamePanel.tutorial;
         try {
             map = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/Scene_1_bg.png")));
             textField = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/textfield.png")));
@@ -143,7 +147,22 @@ public class Background {
         g2.drawImage(expMenu, 0, 0, 1280, 768, null);
     }
     public void drawCredits(Graphics2D g2) {
+        Font arial40 = new Font("Arial", Font.BOLD, 40);
+        g2.setFont(arial40);
+        g2.setColor(Color.PINK);
+        String message = "You won. Press \"esc\" to restart the game";
+        int centerX = gamePanel.getWidth() / 2;
+        int variableY = 620;
+
+        int textWidth = g2.getFontMetrics().stringWidth(message);
+        int textHeight = g2.getFontMetrics().getHeight();
         g2.drawImage(credits, 0, 0, 1280, 768, null);
+        creditcounter++;
+        if(creditcounter>180){
+            g2.drawImage(tutorial.Textfield, centerX-(textWidth/2)-150, variableY-30, textWidth+300, 80 + textHeight, null);
+            g2.drawString("You won. Press \"esc\" to restart the game", centerX - textWidth / 2, variableY + textHeight);
+        }
+
     }
     public void drawStreetFights(Graphics2D g2) {
         g2.drawImage(streetFights, 0, 0, 1280, 768, null);
