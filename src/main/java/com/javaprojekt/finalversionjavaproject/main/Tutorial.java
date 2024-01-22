@@ -58,7 +58,7 @@ public class Tutorial {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
             g2.setColor(Color.GRAY);
             g2.setFont(arial40);
-            g2.drawString("Press the following Keys to move:", 340, 360);
+            g2.drawString("Press the following keys to move:", 340, 360);
             g2.drawImage(KeyW, 500, 400, 64, 54, null);
             g2.drawImage(KeyA, 600, 400, 64, 54, null);
             g2.drawImage(KeyS, 700, 400, 64, 54, null);
@@ -74,7 +74,7 @@ public class Tutorial {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
             g2.setColor(Color.GRAY);
             g2.setFont(arial40);
-            g2.drawString("Press the following Key to Pause the game:", 240, 360);
+            g2.drawString("Press the following key to pause the game:", 240, 360);
             g2.drawImage(KeyQ, 610, 400, 64, 54, null);
             g2.setComposite(ac);
         }
@@ -83,8 +83,8 @@ public class Tutorial {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
             g2.setColor(Color.GRAY);
             g2.setFont(arial40);
-            g2.drawString("Press the following Key to leave after the fight Scenes", 200, 360);
-            g2.drawImage(KeyE, 610, 400, 64, 54, null);
+            g2.drawString("Press the following key to leave after fights:", 220, 360);
+            g2.drawImage(KeyE, 610, 450, 64, 54, null);
             if (keyHandler.interacted) {
                 isTutorialActive2 = false;
                 isTutorialActive3 = true;
@@ -95,9 +95,9 @@ public class Tutorial {
             g2.setFont(arial40);
             g2.drawImage(Textfield, 100, 100, 1080, 568, null);
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
-            String paragraph = "You are the detective in this game which/nneeds to solve a" +
-                                "'Cyberpunk'-Mystery,/nby fighting against enemies and/n" +
-                                "solving puzzles, exploring the map./n/n                         press 'esc'";
+            String paragraph = "Welcome to 'Holo Hunter'./nA cyberpunk detective RPG game./n" +
+                                "You are a detective in the city/nManus Machina/n" +
+                                "Try solving the mystery surrounding it!/n/n                        press 'esc'";
             String[] lines = paragraph.split("/n");
             int y = 240;
             for (String line : lines) {

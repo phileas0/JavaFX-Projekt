@@ -20,12 +20,13 @@ public class Player extends Entity{
     public BufferedImage idleCombat, shoot, hack, dmg1, dmg2, alternateImage;
     private int alternateImageDuration = 0;
     public int currentLevel = 1;
-    public int maxHealth = 1000; // +5 per Level
+    public int maxHealth = 20; // +5 per Level
     public int currentHealth = maxHealth; // only used in Battle
-    public int damage = 2000; // +2 per Level
+    public int damage = 4; // +2 per Level
     public int energy = 100; // + 10 per Level
     public int energyRecovery = 15; // +3 per Level
     public int maxStimpaks = 1; // +1 per Level;
+    public int currentStimpaks = maxStimpaks;
     public int healing = 3; // +2 per Level
     public int exp = 0;
     public int expToNextLevel = 10; // +5 per Level
@@ -61,14 +62,14 @@ public class Player extends Entity{
     public void getPlayerImage() {
         try {
             idle = ImageIO.read(getClass().getResourceAsStream("/res/player/playerTest_0.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/res/player/playerTest_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/res/player/playerTest_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/res/player/playerTest_3.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/res/player/playerTest_4.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/res/player/playerTest_5.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/res/player/playerTest_6.png"));
-            up1 = ImageIO.read(getClass().getResourceAsStream("/res/player/playerTest_7.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/res/player/playerTest_8.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_0.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_1.png"));
+            left1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_2.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_3.png"));
+            right1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_4.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_5.png"));
+            up1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_6.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_7.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -163,7 +164,6 @@ public class Player extends Entity{
                 processDownKey();
             }
         }
-        else direction = "idle";
     }
 
     // Process 'up' key
@@ -277,7 +277,7 @@ public class Player extends Entity{
             case "idle":
                 image = idle;
         }
-        graphics2D.drawImage(image, x, y, gamePanel.tileSize, gamePanel.tileSize, null);
+        graphics2D.drawImage(image, x, y, gamePanel.tileSize * 2, gamePanel.tileSize * 2, null);
     }
 
     public int getMaxHealth() {

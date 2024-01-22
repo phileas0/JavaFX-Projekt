@@ -44,8 +44,8 @@ public class EnemySetter {
     }
 
     private void setEnemiesForFinal() {//setter for boss
-        Enemy newEnemy1Map11 = new Enemy(100, 15, 0.9, 500, 7, 6);
-        newEnemy1Map11.x = 4 * gamePanel.tileSize;
+        Enemy newEnemy1Map11 = new Enemy(100, 15, 0.99, 0, 7, 6);
+        newEnemy1Map11.x = 12 * gamePanel.tileSize;
         newEnemy1Map11.y = 8 * gamePanel.tileSize;
         addEnemyToCurrentMap(newEnemy1Map11);
     }
@@ -80,42 +80,42 @@ public class EnemySetter {
 
     }
     private void setEnemiesForMap6() {//setter for lobby entrance
-        Enemy newEnemy1Map6 = new Enemy(50, 10, 0.85, 25, 3, 1);
+        Enemy newEnemy1Map6 = new Enemy(50, 12, 0.75, 35, 3, 1);
         newEnemy1Map6.x = 12 * gamePanel.tileSize;
         newEnemy1Map6.y = 6 * gamePanel.tileSize;
         addEnemyToCurrentMap(newEnemy1Map6);
 
-        Enemy newEnemy2Map6 = new Enemy(50, 10, 0.85, 25, 3, 1);
+        Enemy newEnemy2Map6 = new Enemy(55, 12, 0.75, 40, 3, 1);
         newEnemy2Map6.x = 7 * gamePanel.tileSize;
         newEnemy2Map6.y = 6 * gamePanel.tileSize;
         addEnemyToCurrentMap(newEnemy2Map6);
     }
 
     private void setEnemiesForMap4() {//setter for weapons room
-        Enemy newEnemy1Map4 = new Enemy(10, 2, 0.85, 8, 0, 2);
-        newEnemy1Map4.x = 12 * gamePanel.tileSize;
-        newEnemy1Map4.y = 8 * gamePanel.tileSize;
+        Enemy newEnemy1Map4 = new Enemy(34, 15, 0.5, 27, 4, 3);
+        newEnemy1Map4.x = 10 * gamePanel.tileSize;
+        newEnemy1Map4.y = 9 * gamePanel.tileSize;
         addEnemyToCurrentMap(newEnemy1Map4);
 
         // Füge hier weitere Enemies für Map 3 hinzu
 
-        Enemy newEnemy2Map4 = new Enemy(10, 2, 0.85, 8, 0, 2);
-        newEnemy2Map4.x = 3 * gamePanel.tileSize;
-        newEnemy2Map4.y = 10 * gamePanel.tileSize;
+        Enemy newEnemy2Map4 = new Enemy(21, 1, 1, 3, 4, 3);
+        newEnemy2Map4.x = 4 * gamePanel.tileSize;
+        newEnemy2Map4.y = 7 * gamePanel.tileSize;
         addEnemyToCurrentMap(newEnemy2Map4);
 
         // Füge hier weitere Enemies für Map 3 hinzu
     }
     private void setEnemiesForMap3() {//setter for factory
-        Enemy newEnemy1Map3 = new Enemy(40, 15, 0.5, 20, 4, 3);
+        Enemy newEnemy1Map3 = new Enemy(42, 18, 0.3, 23, 4, 3);
         newEnemy1Map3.x = 12 * gamePanel.tileSize;
         newEnemy1Map3.y = 8 * gamePanel.tileSize;
         addEnemyToCurrentMap(newEnemy1Map3);
 
         // Füge hier weitere Enemies für Map 3 hinzu
 
-        Enemy newEnemy2Map3 = new Enemy(40, 15, 0.5, 20, 4, 3);
-        newEnemy2Map3.x = 3 * gamePanel.tileSize;
+        Enemy newEnemy2Map3 = new Enemy(24, 15, 0.4, 22, 4, 3);
+        newEnemy2Map3.x = 5 * gamePanel.tileSize;
         newEnemy2Map3.y = 10 * gamePanel.tileSize;
         addEnemyToCurrentMap(newEnemy2Map3);
 

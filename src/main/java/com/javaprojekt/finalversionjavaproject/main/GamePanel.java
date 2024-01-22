@@ -10,9 +10,13 @@ import com.javaprojekt.finalversionjavaproject.entity.Player;
 import com.javaprojekt.finalversionjavaproject.object.SuperClassObject;
 import com.javaprojekt.finalversionjavaproject.tile.TileManager;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class GamePanel extends JPanel implements Runnable {
     //SCREEN SETTINGS
@@ -200,7 +204,7 @@ public class GamePanel extends JPanel implements Runnable {
                 if (!textField.isDisplayingMessages()) {
                     combat.processTurn();
                 }
-                if (combat.enemyDead) {
+                if (combat.enemyDead && !textField.isDisplayingMessages()) {
                     combat.enemyDead = true;
                     if (player.exp >= player.expToNextLevel) {
                         player.hasLeveledUp = true;
@@ -341,6 +345,7 @@ public class GamePanel extends JPanel implements Runnable {
         if(currentMap == 1)managerDialogue.drawMonologue();
         if(currentMap == 5)managerDialogue.drawDialogue();
         if(currentMap == 6)managerDialogue.drawMonologue1();
+        if(currentMap == 7)managerDialogue.setIsmonologue();
         if(currentMap == 12)managerDialogue.drawManagerDialogue();
         textField.draw(g2);
 
@@ -480,15 +485,16 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         // Draw the action menu
-        combat.drawTextField(g2, getHeight() - 20, getHeight() - 20, 100, 100);
+        g2.setColor(new Color(0, 0, 0, 190));
+        g2.fillRect(5, screenHeight - 145, 200, 120); // Background for action menu
         g2.setColor(new Color(255, 255, 255, 200));
         g2.setFont(new Font("Consolas", Font.BOLD, 15));
         g2.drawString("1. Shoot: Pass Turn", 10, screenHeight - 130);
-        g2.drawString("2. Shield: 75E", 10, screenHeight - 110);
-        g2.drawString("3. Repair: Stimpak", 10, screenHeight - 90);
-        g2.drawString("4. Eagle Eyes: 80E", 10, screenHeight - 70);
-        g2.drawString("5. Send Trojan: 100E", 10, screenHeight - 50);
-        g2.drawString("6. Scan: 50E", 10, screenHeight - 30);
+        g2.drawString("2. Shield: -75%", 10, screenHeight - 110);
+        g2.drawString("3. Repair: -1 Stimpak", 10, screenHeight - 90);
+        g2.drawString("4. Eagle Eyes: -40%", 10, screenHeight - 70);
+        g2.drawString("5. Send Trojan: -80%", 10, screenHeight - 50);
+        g2.drawString("6. Scan: -50%", 10, screenHeight - 30);
 
 
         g2.setColor(new Color(255, 255, 0, 255));
@@ -501,12 +507,21 @@ public class GamePanel extends JPanel implements Runnable {
                 newEnemy = false;
             }
             if (combat.scanned && !GameUtils.isSleeping()) { // Enemy HP bar
+                g2.setColor(new Color(0, 0, 0, 190)); // Background for enemy stats
+                g2.fillRect(screenWidth - 210 - 5, 30, 200, 90);
+                g2.setColor(new Color(255, 255, 0, 255)); // enemy stats
                 drawHealthBar(g2, screenWidth - 210, 5, enemy.health, helpHealth);
                 g2.drawString("Enemy HP: " + enemy.health + " / " + helpHealth, screenWidth - 210, 50);
+                g2.drawString("Damage: " + enemy.damage, screenWidth - 210, 80);
+                g2.drawString("Probability: " + (int) (enemy.hitPropability * 100) + "%", screenWidth - 210, 110);
             }
         } else System.out.println("Enemy null");
 
         // Display player and enemy stats
+
+        g2.setColor(new Color(0, 0, 0, 190)); // Background for player stats
+        g2.fillRect(5, 35, 220, 85);
+        g2.setColor(new Color(255, 255, 0, 255)); // Player stats
         g2.drawString("Player HP: " + combat.currentPlayerHealth + " / " + player.maxHealth, 10, 50);
         g2.drawString("Energy: " + combat.getCurrentEnergy() + " / " + player.getEnergy() + "%", 10, 80);
         g2.drawString("Stimpaks: " + combat.getCurrentStimpaks() + " (+" + player.getHealing() + " HP)", 10, 110);

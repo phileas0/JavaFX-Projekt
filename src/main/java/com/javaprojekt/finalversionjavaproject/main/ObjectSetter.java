@@ -29,6 +29,9 @@ public class ObjectSetter {
                 case 4:
                     setObjectMap4(mapNumber);
                     break;
+                case 5:
+                    setObjectMap5(mapNumber);
+                    break;
                 /*case 2:
                     setObjectMap2(mapNumber);
                     break;*/
@@ -123,6 +126,9 @@ public class ObjectSetter {
         gamePanel.obj[mapNumber][5].worldY = 5 * gamePanel.tileSize;
     }*/
 
+    private void setObjectMap5(int mapNumber) { // Manager office
+        gamePanel.obj[mapNumber][0] = new ManagerObject();
+    }
     private void setObjectMap4(int mapNumber) { //factory room 2
 
         gamePanel.obj[mapNumber][0] = new ExitObject();

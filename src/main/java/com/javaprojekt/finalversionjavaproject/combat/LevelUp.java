@@ -19,6 +19,8 @@ public class LevelUp {
         player.setEnergyRecovery();
         player.setMaxStimpaks();
         player.setHealing();
+        player.currentHealth = player.maxHealth;
+        player.currentStimpaks = player.maxStimpaks;
 
         // Take rest exp into next bar
         int overflowExp = player.exp - player.expToNextLevel;

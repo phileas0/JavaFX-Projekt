@@ -70,16 +70,16 @@ public class Combat {
             shoot(player.getDamage());
             isPlayerTurn = false; // End player's turn
         } else if (keyHandler.pressed2) {
-            shield(70); //  Shields the player from the next attack
+            shield(65); //  Shields the player from the next attack
             isPlayerTurn = true;
         } else if (keyHandler.pressed3) {
             repair(); // Repair player
             isPlayerTurn = true;
         } else if (keyHandler.pressed4) {
-            eaglesEye(80); // Activate garanteed shoot
+            eaglesEye(40); // Activate garanteed shoot
             isPlayerTurn = true;
         } else if (keyHandler.pressed5) {
-            sendTrojan(100); // Weakens the enemy and blocks their view a little
+            sendTrojan(80); // Weakens the enemy and blocks their view a little
             isPlayerTurn = true;
         } else if (keyHandler.pressed6) {
             scan(50); // Lets you see the enemies HP
@@ -110,7 +110,9 @@ public class Combat {
                 finalBossDead = true;
             }
             enemyDead = true;
+            textField.addMessage("Enemy defeated");
             player.currentHealth = currentPlayerHealth;
+            player.currentStimpaks = currentStimpaks;
             player.setExp(enemy.getGivesExp());
             enemy.markForRemoval = true;
         }

@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Enemy extends Entity {
     public boolean markForRemoval = false;
     public boolean isInCombat = false;
-    public BufferedImage enemy0, smallGuard, bigGuard, deviousGuard, factoryRobot, smallCook, bigCook, finalBoss, enemy0Sprite, smallGuardSprite, bigGuardSprite, deviousGuardSprite, factoryRobotSprite, smallCookSprite, bigCookSprite;
+    public BufferedImage enemy0, manager, smallGuard, bigGuard, deviousGuard, factoryRobot, smallCook, bigCook, finalBoss, enemy0Sprite, smallGuardSprite, bigGuardSprite, deviousGuardSprite, factoryRobotSprite, smallCookSprite, bigCookSprite;
     public int health;
     public int damage;
     public double hitPropability;
@@ -64,6 +64,7 @@ public class Enemy extends Entity {
             factoryRobot = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/factoryRobot.png")));
             smallCook = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/smallCook.png")));
             bigCook = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/bigCook.png")));
+            manager = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/Conversation/manager.png")));
             finalBoss = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/finalBoss.png")));
 
             enemy0Sprite = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/enemy0Sprite.png")));
@@ -94,7 +95,7 @@ public class Enemy extends Entity {
         g2.drawImage(smallCook, 650, 350, 256, 256, null);
     }
     public void drawBigCook(Graphics2D g2) {
-        g2.drawImage(bigCook, 650, 350, 256, 256, null);
+        g2.drawImage(bigCook, 650, 350, 256 / 2, 256, null);
     }
     public void drawDeviousGuard(Graphics2D g2) {
         g2.drawImage(deviousGuard, 650, 350, 256, 256, null);
@@ -125,7 +126,7 @@ public class Enemy extends Entity {
                 enemyImage = bigCookSprite;
                 break;
             case 7:
-                enemyImage = finalBoss;
+                enemyImage = manager;
                 break;
             default:
                 enemyImage = enemy0Sprite;
