@@ -23,17 +23,23 @@ public class ObjectSetter {
                 case 1:
                     setObjectMap1(mapNumber);
                     break;
+                case 3:
+                    setObjectMap3(mapNumber);
+                    break;
+                case 4:
+                    setObjectMap4(mapNumber);
+                    break;
                 /*case 2:
                     setObjectMap2(mapNumber);
                     break;*/
                 case 8:
-                    setObjectMap7(mapNumber);
-                    break;
-                case 9:
                     setObjectMap8(mapNumber);
                     break;
-                case 10:
+                case 9:
                     setObjectMap9(mapNumber);
+                    break;
+                case 10:
+                    setObjectMap10(mapNumber);
                     break;
             }
 
@@ -41,14 +47,18 @@ public class ObjectSetter {
 
 
         }
-    private void setObjectMap8(int mapNumber){
+    private void setObjectMap9(int mapNumber){
         if(gamePanel.background.meetingcounter<2){
             gamePanel.obj[mapNumber][0] = new KeyObject2();
             gamePanel.obj[mapNumber][0].worldX = 1 * gamePanel.tileSize;
             gamePanel.obj[mapNumber][0].worldY = 6 * gamePanel.tileSize;
         }
+
+        gamePanel.obj[mapNumber][1] = new ExitObject();
+        gamePanel.obj[mapNumber][1].worldX = 17 * gamePanel.tileSize;
+        gamePanel.obj[mapNumber][1].worldY = 6 * gamePanel.tileSize;
     }
-    private void setObjectMap7(int mapNumber){
+    private void setObjectMap8(int mapNumber){
             if(gamePanel.background.lobbycounter<2){
                 player.currentHealth = player.maxHealth;
             }
@@ -65,7 +75,7 @@ public class ObjectSetter {
         gamePanel.obj[mapNumber][1].worldY = 0 * gamePanel.tileSize;
     }
 
-    private void setObjectMap9(int mapNumber) {
+    private void setObjectMap10(int mapNumber) {
         if(gamePanel.background.kitchencounter<2){
             gamePanel.obj[mapNumber][0] = new KeyObject();
             gamePanel.obj[mapNumber][0].worldX = 3 * gamePanel.tileSize;
@@ -85,6 +95,10 @@ public class ObjectSetter {
         gamePanel.obj[mapNumber][3] = new ShelfObject();
         gamePanel.obj[mapNumber][3].worldX = 7 * gamePanel.tileSize;
         gamePanel.obj[mapNumber][3].worldY = 5 * gamePanel.tileSize;
+
+        gamePanel.obj[mapNumber][4] = new ExitObject();
+        gamePanel.obj[mapNumber][4].worldX = 17 * gamePanel.tileSize;
+        gamePanel.obj[mapNumber][4].worldY = 5 * gamePanel.tileSize;
     }
 
     /*private void setObjectMap2(int mapNumber) {
@@ -109,6 +123,20 @@ public class ObjectSetter {
         gamePanel.obj[mapNumber][5].worldY = 5 * gamePanel.tileSize;
     }*/
 
+    private void setObjectMap4(int mapNumber) { //factory room 2
+
+        gamePanel.obj[mapNumber][0] = new ExitObject();
+        gamePanel.obj[mapNumber][0].worldX = 17 * gamePanel.tileSize;
+        gamePanel.obj[mapNumber][0].worldY = 7 * gamePanel.tileSize;
+    }
+
+    private void setObjectMap3(int mapNumber) { //factory room 1
+
+        gamePanel.obj[mapNumber][0] = new ExitObject();
+        gamePanel.obj[mapNumber][0].worldX = 17 * gamePanel.tileSize;
+        gamePanel.obj[mapNumber][0].worldY = 7 * gamePanel.tileSize;
+    }
+
     private void setObjectMap1(int mapNumber) {
         gamePanel.obj[mapNumber][0] = new StopsignObject();
         gamePanel.obj[mapNumber][0].worldX = 12 * gamePanel.tileSize;
@@ -125,6 +153,10 @@ public class ObjectSetter {
         gamePanel.obj[mapNumber][3] = new BarricadeObject();
         gamePanel.obj[mapNumber][3].worldX = 1 * gamePanel.tileSize;
         gamePanel.obj[mapNumber][3].worldY = 5 * gamePanel.tileSize +32;
+
+        gamePanel.obj[mapNumber][4] = new ExitObject();
+        gamePanel.obj[mapNumber][4].worldX = 18 * gamePanel.tileSize;
+        gamePanel.obj[mapNumber][4].worldY = 4 * gamePanel.tileSize;
 
 
     }

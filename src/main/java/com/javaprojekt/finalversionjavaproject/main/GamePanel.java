@@ -338,8 +338,9 @@ public class GamePanel extends JPanel implements Runnable {
         //UI
         hud.draw(g2);
         if(currentMap == 0)tutorial.draw(g2);
+        if(currentMap == 1)managerDialogue.drawMonologue();
         if(currentMap == 5)managerDialogue.drawDialogue();
-        if(currentMap == 6)managerDialogue.drawMonologue();
+        if(currentMap == 6)managerDialogue.drawMonologue1();
         if(currentMap == 12)managerDialogue.drawManagerDialogue();
         textField.draw(g2);
 
