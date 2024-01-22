@@ -76,6 +76,7 @@ public class GamePanel extends JPanel implements Runnable {
         enemySetter = new EnemySetter(this);
         currentGameState = GameState.PLAYING;
         player = new Player(this, keyHandler);
+        this.combat = new Combat(this.player, this.enemy, this.keyHandler, this.textField);
     }
 
     public void setupGame() {
@@ -175,7 +176,6 @@ public class GamePanel extends JPanel implements Runnable {
                 for (ArrayList<Enemy> enemies : listOfEnemies) {
                     enemies.removeIf(Enemy::isMarkedForRemoval);
                 }
-
                 if (combatCooldown > 0) { // Only checks for collision if cooldown is zero
                     combatCooldown--;
                 } else {
@@ -365,9 +365,6 @@ public class GamePanel extends JPanel implements Runnable {
 
 
 
-
-
-
         if (keyHandler.showDebugText == true) {
             g2.setFont(new Font("Arial", Font.PLAIN, 20));
             int x = 10;
@@ -379,6 +376,9 @@ public class GamePanel extends JPanel implements Runnable {
             g2.drawString("Col: " + (player.x + player.solidAreaDefaultX) / tileSize, x, y); y += lineHeight;
             g2.drawString("Row: " + (player.y + player.solidAreaDefaultY) / tileSize, x, y); y += lineHeight;
 
+        }
+        if (combat.finalBossDead) {
+            background.drawCredits(g2);
         }
     }
     private void drawPauseScreen(Graphics2D g2) {
@@ -417,7 +417,6 @@ public class GamePanel extends JPanel implements Runnable {
         g2.drawString(energyRecovery, getWidth() / 2 - 100, screenHeight / 3 + 210);
         g2.drawString(stimpaks, getWidth() / 2 - 100, screenHeight / 3 + 240);
         g2.drawString(healing, getWidth() / 2 - 100, screenHeight / 3 + 270);
-
     }
 
     private void drawHealthBar(Graphics2D g2, int x, int y, int currentHealth, int maxHealth) {

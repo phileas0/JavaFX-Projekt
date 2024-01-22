@@ -20,9 +20,9 @@ public class Player extends Entity{
     public BufferedImage idleCombat, shoot, hack, dmg1, dmg2, alternateImage;
     private int alternateImageDuration = 0;
     public int currentLevel = 1;
-    public int maxHealth = 20; // +5 per Level
-    public int currentHealth = 20; // only used in Battle
-    public int damage = 4; // +2 per Level
+    public int maxHealth = 1000; // +5 per Level
+    public int currentHealth = maxHealth; // only used in Battle
+    public int damage = 2000; // +2 per Level
     public int energy = 100; // + 10 per Level
     public int energyRecovery = 15; // +3 per Level
     public int maxStimpaks = 1; // +1 per Level;

@@ -16,7 +16,7 @@ public class Background {
     public GamePanel gamePanel;
     public EnemySetter enemySetter;
     public BufferedImage map, map2, map3, map4, map5, map6, map7, map8, map9, map10, map11, map12, map13;
-    public BufferedImage gameover, pauseScreen, expMenu, textField;
+    public BufferedImage gameover, pauseScreen, expMenu, textField, credits;
     public BufferedImage streetFights, streetFights2, factoryFront, theFactory, meetingRoom, kitchenRoom, finalBoss;
     private Player player;
     public int lobbycounter = 0;
@@ -33,6 +33,7 @@ public class Background {
             map = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/Scene_1_bg.png")));
             textField = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/combat/textfield.png")));
             gameover = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/Gameover.png")));
+            credits = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/Conversation/credits.png")));
             pauseScreen = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/pauseScreen.png")));
             expMenu = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/expMenu.png")));
             map2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/Scene1part2.png")));
@@ -131,6 +132,9 @@ public class Background {
     }
     public void drawExpMenu(Graphics2D g2) {
         g2.drawImage(expMenu, 0, 0, 1280, 768, null);
+    }
+    public void drawCredits(Graphics2D g2) {
+        g2.drawImage(credits, 0, 0, 1280, 768, null);
     }
     public void drawStreetFights(Graphics2D g2) {
         g2.drawImage(streetFights, 0, 0, 1280, 768, null);

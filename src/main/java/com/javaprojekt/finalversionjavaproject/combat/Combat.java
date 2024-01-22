@@ -28,6 +28,7 @@ public class Combat {
     private boolean trojanSent = false;
     private boolean eaglesEyeActivated = false;
     public boolean scanned = false;
+    public boolean finalBossDead = false;
     Random random = new Random();
 
     public Combat(Player player, Enemy enemy, KeyHandler keyHandler, TextField textField) {
@@ -62,6 +63,7 @@ public class Combat {
         // Check for end of combat conditions after each turn
         checkCombatEndConditions();
     }
+
     private void handlePlayerTurn() {
         // Check for player's action based on key inputs
         if (keyHandler.pressed1) {
@@ -104,13 +106,18 @@ public class Combat {
         }
         if (enemy.getHealth() <= 0) {
             GameUtils.sleep(240);
+            if (enemy.skinNr == 7) {
+                finalBossDead = true;
+            }
             enemyDead = true;
             player.currentHealth = currentPlayerHealth;
             player.setExp(enemy.getGivesExp());
             enemy.markForRemoval = true;
-            // Handle enemy defeat
         }
+        // Handle enemy defeat
     }
+
+
 
     private void shoot(int damage) {
         player.setAlternateImage(player.shoot, 60);
