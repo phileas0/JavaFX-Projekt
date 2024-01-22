@@ -122,11 +122,15 @@ public class ObjectSetter {
         gamePanel.obj[mapNumber][2].worldX = 4 * gamePanel.tileSize;
         gamePanel.obj[mapNumber][2].worldY = 4 * gamePanel.tileSize;
 
+        gamePanel.obj[mapNumber][3] = new BarricadeObject();
+        gamePanel.obj[mapNumber][3].worldX = 1 * gamePanel.tileSize;
+        gamePanel.obj[mapNumber][3].worldY = 5 * gamePanel.tileSize +32;
+
 
     }
 
     private void setObjectMap0(int mapNumber) {
-        gamePanel.obj[mapNumber][0] = new burningTrashbin();
+        gamePanel.obj[mapNumber][0] = new BurningTrashbin();
         gamePanel.obj[mapNumber][0].worldX = 18 * gamePanel.tileSize;
         gamePanel.obj[mapNumber][0].worldY = 5 * gamePanel.tileSize;
 

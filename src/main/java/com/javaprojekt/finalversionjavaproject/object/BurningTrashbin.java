@@ -6,11 +6,11 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 
 
-public class burningTrashbin extends SuperClassObject {
+public class BurningTrashbin extends SuperClassObject {
 
 
 
-    public burningTrashbin() {
+    public BurningTrashbin() {
         name = "burningTrashbin";
         collision = true;
         super.solid = new Rectangle(0,0,45,103);
