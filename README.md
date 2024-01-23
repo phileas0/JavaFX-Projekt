@@ -106,4 +106,5 @@ We still have to code many important features, so there is still a lot missing!
 - `TileManager` and `Tile`: Handle tile rendering and map loading.
 - `HUD`: Displays player information and messages.
 
-
+## Quellenangaben:
+- **Youtube Playlist:** https://www.youtube.com/watch?v=om59cwR7psI&list=PL_QPQmz5C6WUF-pOQDsbsKbaBZqXj4qSq
