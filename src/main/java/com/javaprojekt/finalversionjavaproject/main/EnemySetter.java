@@ -51,12 +51,12 @@ public class EnemySetter {
 
     private void setEnemiesForMap9() {//setter for kitchen
         if(gamePanel.background.kitchencounter<2){
-            Enemy newEnemy1Map9 = new Enemy(60, 12, 1, 55, 6, 5);
+            Enemy newEnemy1Map9 = new Enemy(60, 15, 1, 55, 6, 5);
             newEnemy1Map9.x = 14 * gamePanel.tileSize;
             newEnemy1Map9.y = 6 * gamePanel.tileSize;
             addEnemyToCurrentMap(newEnemy1Map9);
 
-            Enemy newEnemy2Map9 = new Enemy(40, 9, 1, 45, 5, 5);
+            Enemy newEnemy2Map9 = new Enemy(50, 13, 1, 45, 5, 5);
             newEnemy2Map9.x = 4 * gamePanel.tileSize;
             newEnemy2Map9.y = 8 * gamePanel.tileSize;
             addEnemyToCurrentMap(newEnemy2Map9);
@@ -65,12 +65,12 @@ public class EnemySetter {
 
     private void setEnemiesForMap8() {//setter for meetingroom
         if(gamePanel.background.meetingcounter<2){
-            Enemy newEnemy1Map8 = new Enemy(60, 15, 0.85, 35, 3, 4);
+            Enemy newEnemy1Map8 = new Enemy(60, 10, 0.80, 35, 3, 4);
             newEnemy1Map8.x = 16 * gamePanel.tileSize;
             newEnemy1Map8.y = 9 * gamePanel.tileSize;
             addEnemyToCurrentMap(newEnemy1Map8);
 
-            Enemy newEnemy2Map8 = new Enemy(50, 12, 0.85, 30, 2, 4);
+            Enemy newEnemy2Map8 = new Enemy(50, 8, 0.85, 30, 2, 4);
             newEnemy2Map8.x = 2 * gamePanel.tileSize;
             newEnemy2Map8.y = 8 * gamePanel.tileSize;
             addEnemyToCurrentMap(newEnemy2Map8);
@@ -122,14 +122,14 @@ public class EnemySetter {
     }
 
     private void setEnemiesForMap2() {// setter for factory entrance
-            Enemy newEnemy1Map2 = new Enemy(30, 4, 1, 16, 3, 2);
+            Enemy newEnemy1Map2 = new Enemy(30, 5, 1, 16, 3, 2);
             newEnemy1Map2.x = 12 * gamePanel.tileSize;
             newEnemy1Map2.y = 6 * gamePanel.tileSize;
             addEnemyToCurrentMap(newEnemy1Map2);
 
             // Füge hier weitere Enemies für Map 2 hinzu
 
-            Enemy newEnemy2Map2 = new Enemy(25, 5, 0.85, 12, 2, 2);
+            Enemy newEnemy2Map2 = new Enemy(25, 6, 0.85, 12, 2, 2);
             newEnemy2Map2.x = 7 * gamePanel.tileSize;
             newEnemy2Map2.y = 6 * gamePanel.tileSize;
             addEnemyToCurrentMap(newEnemy2Map2);

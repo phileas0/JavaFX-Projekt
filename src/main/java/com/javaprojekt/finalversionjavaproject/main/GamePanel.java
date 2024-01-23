@@ -231,6 +231,10 @@ public class GamePanel extends JPanel implements Runnable {
                 }
                 break;
             case GAMEOVER:
+                if (keyHandler.escPressed && !gameRestarted) { // Press esc in gameover screen to restart the game
+                    restartGame();
+                    gameRestarted = true;
+                }
                 break;
         }
     }

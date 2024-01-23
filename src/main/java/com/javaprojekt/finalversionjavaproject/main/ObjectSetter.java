@@ -83,8 +83,7 @@ public class ObjectSetter {
             gamePanel.obj[mapNumber][0].worldY = 4 * gamePanel.tileSize;
         }
 
-
-
+        /*
         gamePanel.obj[mapNumber][1] = new ShelfObject();
         gamePanel.obj[mapNumber][1].worldX = 3 * gamePanel.tileSize;
         gamePanel.obj[mapNumber][1].worldY = 5 * gamePanel.tileSize;
@@ -97,6 +96,7 @@ public class ObjectSetter {
         gamePanel.obj[mapNumber][3].worldX = 7 * gamePanel.tileSize;
         gamePanel.obj[mapNumber][3].worldY = 5 * gamePanel.tileSize;
 
+         */
         gamePanel.obj[mapNumber][4] = new ExitObject();
         gamePanel.obj[mapNumber][4].worldX = 17 * gamePanel.tileSize;
         gamePanel.obj[mapNumber][4].worldY = 5 * gamePanel.tileSize;
