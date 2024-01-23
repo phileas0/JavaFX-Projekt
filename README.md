@@ -19,6 +19,36 @@ We still have to code many important features, so there is still a lot missing!
 - **Debug Mode:**
     - **T:** Toggle debug text display
 
+## Player Stats:
+- **Level:** Your current level
+- **EXP:** Current experience points. If you reach the goal, you level up
+- **Health:** Current health points. If they go to 0, you die
+- **Energy:** Current energy points. Needed for using special abilities
+- **Damage:** Reduces the enemies health by the value
+- **Speed:** Amount of Energy that gets replenished every round
+- **Stimpaks:** Heals the player
+- **Arcane:** Amount of health points that stimpaks heal
+
+## Enemy Stats:
+- **Health:** Enemy health points
+- **Damage:** Amount of damage the player takes every round
+- **Hit-Probability:** The probability of enemy attacks hitting
+
+## Combat:
+- **Your goal:** Getting the enemies health to 0, while players health stays up
+- **Possible Actions:** Can be performed by pressing the corresponding number
+  - **1. Shoot:** Enemy's health decreases by the players damage. Cost: Passing the turn to the enemy
+  - **2. Shield:** Protects you from damage for the next enemy turn. Cost: 65%
+  - **3. Repair:** Heals the player by using a stimpak. Cost: 1 stimpak
+  - **4. Eagles Eye:** Guarantees a hit by the player for the next round. Cost: 40 Energy
+  - **5. Send Trojan:** Weakens the enemy (increases damage taken by the enemy and decreases damage taken by the player) Cost: 80 Energy
+  - **6. Scan:** Shows the enemies values upon use. Cost: 50 Energy
+
+- **Other important things to know::**
+  - You can use as many abilities as you want (if you have the resources)
+  - Shooting passes the turn to the enemy. NO TURNING BACK!
+
+
 ## Important Functions:
 
 ### `GamePanel` Class:
