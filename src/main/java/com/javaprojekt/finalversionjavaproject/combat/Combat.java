@@ -140,11 +140,13 @@ public class Combat {
     }
 
     private void shield(int energyCost) {
-        if (energyCost <= currentEnergy) {
-            currentEnergy -= energyCost;
-            shieldUp = true;
-            textField.addMessage("SHIELD UP");
-        } else textField.addMessage("Not enough energy");
+        if (shieldUp) {
+            if (energyCost <= currentEnergy) {
+                currentEnergy -= energyCost;
+                shieldUp = true;
+                textField.addMessage("SHIELD UP");
+            } else textField.addMessage("Not enough energy");
+        } else textField.addMessage("Already shielded up");
     }
 
     private void repair() {
@@ -160,18 +162,22 @@ public class Combat {
     }
 
     private void eaglesEye(int energyCost) {
-        if (energyCost <= currentEnergy) {
-            currentEnergy -= energyCost;
-            eaglesEyeActivated = true;
-            textField.addMessage("EAGLES EYE ACTIVATED");
-        } else textField.addMessage("Not enough energy");
+        if (eaglesEyeActivated) {
+            if (energyCost <= currentEnergy) {
+                currentEnergy -= energyCost;
+                eaglesEyeActivated = true;
+                textField.addMessage("EAGLES EYE ACTIVATED");
+            } else textField.addMessage("Not enough energy");
+        } else textField.addMessage("Eagle eye already activated");
     }
     private void sendTrojan(int energyCost) {
-        if (energyCost <= currentEnergy) {
-            currentEnergy -= energyCost;
-            trojanSent = true;
-            textField.addMessage("TROJAN SENT");
-        } else textField.addMessage("Not enough energy");
+        if (trojanSent) {
+            if (energyCost <= currentEnergy) {
+                currentEnergy -= energyCost;
+                trojanSent = true;
+                textField.addMessage("TROJAN SENT");
+            } else textField.addMessage("Not enough energy");
+        } else textField.addMessage("Trojan already sent");
     }
     private void scan(int energyCost) {
         if (!scanned) {
@@ -188,14 +194,15 @@ public class Combat {
     }
 
     private void takeDamage(int damage) { // Enemy attack
+        boolean hit = enemyAttackHits();
         if (trojanSent) {
             damage /= 1.2;
             trojanSent = false;
         }
-        if (shieldUp) {
+        if (shieldUp && hit) {
             textField.addMessage("Shield deflected " + damage + " damage.");
             shieldUp = false;
-        } else if (enemyAttackHits()) {
+        } else if (hit) {
             currentPlayerHealth -= damage;
             textField.addMessage("Enemy damaged you! Lost " + damage + " HP.");
         } else {
@@ -228,14 +235,5 @@ public class Combat {
     }
     public int getCurrentEnergy() {
         return currentEnergy;
-    }
-    public void drawTextField(Graphics2D g2, int x, int y, int width, int height) {
-        BufferedImage textFieldImage;
-        try {
-            textFieldImage = ImageIO.read(getClass().getResourceAsStream("/res/combat/textfield.png"));
-            g2.drawImage(textFieldImage, x, y, width, height, null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
