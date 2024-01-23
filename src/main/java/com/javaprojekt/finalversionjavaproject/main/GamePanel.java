@@ -490,7 +490,7 @@ public class GamePanel extends JPanel implements Runnable {
         g2.setColor(new Color(255, 255, 255, 200));
         g2.setFont(new Font("Consolas", Font.BOLD, 15));
         g2.drawString("1. Shoot: Pass Turn", 10, screenHeight - 130);
-        g2.drawString("2. Shield: -75%", 10, screenHeight - 110);
+        g2.drawString("2. Shield: -65%", 10, screenHeight - 110);
         g2.drawString("3. Repair: -1 Stimpak", 10, screenHeight - 90);
         g2.drawString("4. Eagle Eyes: -40%", 10, screenHeight - 70);
         g2.drawString("5. Send Trojan: -80%", 10, screenHeight - 50);

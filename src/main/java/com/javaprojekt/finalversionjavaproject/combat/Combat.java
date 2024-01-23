@@ -140,7 +140,7 @@ public class Combat {
     }
 
     private void shield(int energyCost) {
-        if (shieldUp) {
+        if (!shieldUp) {
             if (energyCost <= currentEnergy) {
                 currentEnergy -= energyCost;
                 shieldUp = true;
@@ -162,7 +162,7 @@ public class Combat {
     }
 
     private void eaglesEye(int energyCost) {
-        if (eaglesEyeActivated) {
+        if (!eaglesEyeActivated) {
             if (energyCost <= currentEnergy) {
                 currentEnergy -= energyCost;
                 eaglesEyeActivated = true;
@@ -171,7 +171,7 @@ public class Combat {
         } else textField.addMessage("Eagle eye already activated");
     }
     private void sendTrojan(int energyCost) {
-        if (trojanSent) {
+        if (!trojanSent) {
             if (energyCost <= currentEnergy) {
                 currentEnergy -= energyCost;
                 trojanSent = true;
