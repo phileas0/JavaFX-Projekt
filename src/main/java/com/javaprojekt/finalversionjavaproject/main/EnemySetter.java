@@ -5,8 +5,7 @@ import com.javaprojekt.finalversionjavaproject.entity.Enemy;
 import java.util.ArrayList;
 
 public class EnemySetter {
-    GamePanel gamePanel;
-    Enemy enemy;
+    private GamePanel gamePanel;
 
 
     public EnemySetter(GamePanel gamePanel) {

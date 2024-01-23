@@ -5,14 +5,12 @@ import com.javaprojekt.finalversionjavaproject.entity.Player;
 import com.javaprojekt.finalversionjavaproject.object.*;
 
 public class ObjectSetter {
-    GamePanel gamePanel;
-    Background background;
-    Player player;
+    private GamePanel gamePanel;
+    private Player player;
 
 
         public ObjectSetter(GamePanel gamePanel) {
             this.gamePanel = gamePanel;
-            this.background = gamePanel.background;
             this.player = new Player(gamePanel, gamePanel.keyHandler);
         }
         public void setObject(int mapNumber) {

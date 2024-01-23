@@ -4,6 +4,7 @@ import com.javaprojekt.finalversionjavaproject.main.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.util.Objects;
 
 public class DoorObject extends SuperClassObject{
     public DoorObject() {
@@ -12,7 +13,7 @@ public class DoorObject extends SuperClassObject{
         super.solid = new Rectangle(0,0,70,256);
 
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/door.png"));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/objects/door.png")));
 
         } catch (Exception e) {
             e.printStackTrace();

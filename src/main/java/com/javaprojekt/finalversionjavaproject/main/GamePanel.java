@@ -29,8 +29,10 @@ public class GamePanel extends JPanel implements Runnable {
     public int currentMap = 0;
     public final int screenWidth = tileSize * maxScreenCol; // 1280
     public final int screenHeight = tileSize * maxScreenRow; // 720
-    int creditsCounter = 0;
-    int FPS = 60;
+    private int messageCounter = 0;
+    int FPS = 120;
+
+
 
     // Transition variables
     private float transitionOpacity = 0.0f;
@@ -39,12 +41,11 @@ public class GamePanel extends JPanel implements Runnable {
     private int currentTransitionFrame = 0; // Current frame in the transition
 
 
-    TileManager tileManager = new TileManager(this);
+    public TileManager tileManager = new TileManager(this);
     public KeyHandler keyHandler = new KeyHandler();
     public TextField textField = new TextField(this, this.keyHandler);
-    ManagerDialogue managerDialogue = new ManagerDialogue(this);
-    Thread gameThread;
-
+    public ManagerDialogue managerDialogue = new ManagerDialogue(this);
+    public Thread gameThread;
     public Tutorial tutorial = new Tutorial(this);
     public EnemySetter enemySetter;
     public CollisionDetection cDetecter = new CollisionDetection(this);
@@ -96,7 +97,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        double drawInterval = 1000000000 / FPS;
+        double drawInterval = 2000000000 / FPS;
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -154,18 +155,19 @@ public class GamePanel extends JPanel implements Runnable {
                 if(tutorial.isTutorialActive){
                     return;
                 }
-                if (!textField.isDisplayingMessages() || managerDialogue.ismonologue) {
+                if (!textField.isDisplayingMessages() || managerDialogue.ismonologue) {//update player when a message is not being displayed or when a monologue is active
                     player.update();
+                    managerDialogue.ismonologue = false;
                 }
-                for (ArrayList<Enemy> enemies : listOfEnemies) {
+                for (ArrayList<Enemy> enemies : listOfEnemies) {//enemies marked for removal are removed
                     enemies.removeIf(Enemy::isMarkedForRemoval);
                 }
                 if (combatCooldown > 0) { // Only checks for collision if cooldown is zero
                     combatCooldown--;
                 } else {
-                    for (ArrayList<Enemy> enemies : listOfEnemies) {
+                    for (ArrayList<Enemy> enemies : listOfEnemies) {//checks for collision with enemies
                         for (Enemy enemy : enemies) {
-                            if (player.collidesWith(enemy) && !enemy.isInCombat() && !readyForCombat) {
+                            if (player.collidesWith(enemy) && !enemy.isInCombat() && !readyForCombat) {//if player collides with enemy and enemy is not in combat and player is not ready for combat
                                 GameUtils.sleep(120); // Start the sleep timer
                                 startTransition(120);  // Start the transition
                                 textField.addMessage("Starting battle...");
@@ -201,12 +203,12 @@ public class GamePanel extends JPanel implements Runnable {
                 }
                 break;
             case IN_COMBAT:
-                if (!textField.isDisplayingMessages()) {
+                if (!textField.isDisplayingMessages()) {//process player turn when a message is not being displayed
                     combat.processTurn();
                 }
-                if (combat.enemyDead && !textField.isDisplayingMessages()) {
+                if (combat.enemyDead && !textField.isDisplayingMessages()) {//if enemy is dead and no message is being displayed then the enemy is removed and the player is rewarded with exp
                     combat.enemyDead = true;
-                    if (player.exp >= player.expToNextLevel) {
+                    if (player.exp >= player.expToNextLevel) {//if player has enough exp to level up then the player levels up
                         player.hasLeveledUp = true;
                         LevelUp levelUp = new LevelUp(player);
                         levelUp.applyLevelUp();
@@ -228,6 +230,9 @@ public class GamePanel extends JPanel implements Runnable {
                 }
                 break;
             case GAMEOVER:
+                if (keyHandler.escPressed) {
+                    restartGame();
+                }
                 break;
         }
     }
@@ -317,6 +322,14 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void drawOverworld(Graphics2D g2) {
+        if(background.startScreen){
+            background.drawStartScreen(g2);
+            if(messageCounter < 2){
+                textField.addMessage("Press \"E\" to start the game");
+                messageCounter++;
+            }textField.draw(g2);return;
+        }
+
         //TILE
         tileManager.draw(g2);
         //Map
@@ -352,7 +365,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 
 
-        if (keyHandler.showDebugText == true) {
+        if (keyHandler.showDebugText == true) {//debugging function
             g2.setFont(new Font("Arial", Font.PLAIN, 20));
             int x = 10;
             int y = 400;
@@ -364,7 +377,7 @@ public class GamePanel extends JPanel implements Runnable {
             g2.drawString("Row: " + (player.y + player.solidAreaDefaultY) / tileSize, x, y); y += lineHeight;
 
         }
-        if (combat.finalBossDead) {
+        if (combat.finalBossDead) {//if final boss is dead then the credits are displayed
             background.drawCredits(g2);
             if (keyHandler.escPressed) {
                     restartGame();

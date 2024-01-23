@@ -8,16 +8,16 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Player extends Entity{
 
-    GamePanel gamePanel;
-    KeyHandler keyHandler;
-    TextField textField;
-    public int hasKey1 = 0; // will need 2 to enter final boss room
+    private GamePanel gamePanel;
+    private KeyHandler keyHandler;
+    public int hasKey1 = 0;
     public int hasKey2 = 0;
 
-    public BufferedImage idleCombat, shoot, hack, dmg1, dmg2, alternateImage;
+    public BufferedImage idleCombat, shoot, alternateImage;
     private int alternateImageDuration = 0;
     public int currentLevel = 1;
     public int maxHealth = 20; // +5 per Level
@@ -61,15 +61,14 @@ public class Player extends Entity{
 
     public void getPlayerImage() {
         try {
-            idle = ImageIO.read(getClass().getResourceAsStream("/res/player/playerTest_0.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_0.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_1.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_2.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_3.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_4.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_5.png"));
-            up1 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_6.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/res/player/player_7.png"));
+            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/player_0.png")));
+            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/player_1.png")));
+            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/player_2.png")));
+            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/player_3.png")));
+            right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/player_4.png")));
+            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/player_5.png")));
+            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/player_6.png")));
+            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/player_7.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -77,11 +76,8 @@ public class Player extends Entity{
 
     public void getPlayerCombatImage() {
         try {
-            idleCombat = ImageIO.read(getClass().getResourceAsStream("/res/player/sprite_0.png"));
-            dmg1 = ImageIO.read(getClass().getResourceAsStream("/res/player/sprite_1.png"));
-            dmg2 = ImageIO.read(getClass().getResourceAsStream("/res/player/sprite_2.png"));
-            hack = ImageIO.read(getClass().getResourceAsStream("/res/player/sprite_3.png"));
-            shoot = ImageIO.read(getClass().getResourceAsStream("/res/player/sprite_4.png"));
+            idleCombat = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/sprite_0.png")));
+            shoot = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/sprite_4.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -274,8 +270,6 @@ public class Player extends Entity{
                 if (spriteNum == 1) {image = right1;}
                 if (spriteNum == 2) {image = right2;}
                 break;
-            case "idle":
-                image = idle;
         }
         graphics2D.drawImage(image, x, y, gamePanel.tileSize * 2, gamePanel.tileSize * 2, null);
     }

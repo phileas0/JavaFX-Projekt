@@ -22,7 +22,7 @@ public class TextField {
     private long messageFrameCount;
     private final long messageDuration; // Duration to display each message (in frames)
 
-    public TextField(GamePanel gamePanel, KeyHandler keyHandler) {
+    public TextField(GamePanel gamePanel, KeyHandler keyHandler) {//Constructor for the textfield class to get the gamepanel and keyhandler and load the image
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
         this.width = 767; // Width of the textbox image
@@ -41,10 +41,10 @@ public class TextField {
 
     public boolean isDisplayingMessages() {
         return isVisible && !messages.isEmpty();
-    }
+    }// Method to check if the textbox is currently displaying messages
 
 
-    public void addMessage(String message) {
+    public void addMessage(String message) { // Add a message to the queue
         messages.add(message);
         if (!isVisible) {
             isVisible = true;
@@ -52,7 +52,7 @@ public class TextField {
         }
     }
 
-    public void update() {
+    public void update() { // Update the textbox while it is visible and not empty
         if (isVisible && !messages.isEmpty()) {
             messageFrameCount++;
             if (messageFrameCount >= messageDuration) {
@@ -65,7 +65,7 @@ public class TextField {
         }
     }
 
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2) {//draw method for the textbox which displays the textbox image and text
         if (isVisible && !messages.isEmpty()) {
             String currentMessage = messages.peek(); // Get the current message without removing it
 

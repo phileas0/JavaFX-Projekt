@@ -5,8 +5,8 @@ import com.javaprojekt.finalversionjavaproject.combat.TextField;
 import java.awt.*;
 
 public class ManagerDialogue {
-    GamePanel gamePanel;
-    TextField textField;
+    private GamePanel gamePanel;
+    private TextField textField;
     int dialogueCounter = 0;
     boolean ismonologue = false;
 

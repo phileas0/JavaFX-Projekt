@@ -36,12 +36,11 @@ public class Enemy extends Entity {
     }
     public void setInCombat(boolean inCombat) {
         this.isInCombat = inCombat;
-    }
-
+    }//
     public boolean isInCombat() {
         return isInCombat;
     }
-    public void takeDamage(int amount) {
+    public void takeDamage(int amount) {//damage taken
         health -= amount;
         if (health < 0) health = 0;
     }
@@ -55,8 +54,6 @@ public class Enemy extends Entity {
     }
     public void getEnemyImage() {
         try {
-            idle = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/player/playerTest_0.png")));
-
             enemy0 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/enemy0.png")));
             smallGuard = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/smallGuard.png")));
             bigGuard = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/enemies/bigGuard.png")));

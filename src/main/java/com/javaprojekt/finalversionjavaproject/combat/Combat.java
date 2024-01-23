@@ -29,7 +29,7 @@ public class Combat {
     private boolean eaglesEyeActivated = false;
     public boolean scanned = false;
     public boolean finalBossDead = false;
-    Random random = new Random();
+    private Random random = new Random();
 
     public Combat(Player player, Enemy enemy, KeyHandler keyHandler, TextField textField) {
         this.player = player;
@@ -44,7 +44,7 @@ public class Combat {
         isPlayerTurn = true;
     }
 
-    public void processTurn() {
+    public void processTurn() {//processes the turn
         //Debugging
         if (player == null) {
             System.out.println("player is null in processTurn()");
@@ -89,7 +89,7 @@ public class Combat {
         resetKeyHandlerFlags();
     }
 
-    private void handleEnemyTurn() {
+    private void handleEnemyTurn() {// Enemy's turn
         takeDamage(enemy.getDamage());
         currentEnergy += player.getEnergyRecovery();
         if (currentEnergy >= player.getEnergy()) {
@@ -98,7 +98,7 @@ public class Combat {
         isPlayerTurn = true; // Switch back to player's turn
     }
 
-    private void checkCombatEndConditions() {
+    private void checkCombatEndConditions() {//checks the ending conditions of the combat
         if (currentPlayerHealth <= 0) {
             GameUtils.sleep(240);
             playerDead = true;
@@ -121,9 +121,9 @@ public class Combat {
 
 
 
-    private void shoot(int damage) {
-        player.setAlternateImage(player.shoot, 60);
-        if (attackHits() || eaglesEyeActivated) {
+    private void shoot(int damage) {//handle shooting
+        player.setAlternateImage(player.shoot, 60);//shoot animation
+        if (attackHits() || eaglesEyeActivated) {//if the attack hits or the eagles eye is activated the enemy takes damage
             int finalDamage = damage;
             if (trojanSent) {
                 finalDamage *= 1.5;
@@ -149,7 +149,7 @@ public class Combat {
         } else textField.addMessage("Already shielded up");
     }
 
-    private void repair() {
+    private void repair() {//repair with stimpaks variable
         if (currentStimpaks > 0) {
             currentPlayerHealth += player.getHealing(); //  Healing
             if(currentPlayerHealth > player.getMaxHealth()) {
@@ -179,7 +179,7 @@ public class Combat {
             } else textField.addMessage("Not enough energy");
         } else textField.addMessage("Trojan already sent");
     }
-    private void scan(int energyCost) {
+    private void scan(int energyCost) {//method for scanning the enemy
         if (!scanned) {
             if (energyCost <= currentEnergy) {
                 currentEnergy -= energyCost;
@@ -210,12 +210,12 @@ public class Combat {
         }
     }
 
-    private boolean attackHits() {
+    private boolean attackHits() {//attack hits with a 75% chance
         double hitProbability = 0.75; // 75% chance to hit
         return random.nextDouble() < hitProbability;
     }
 
-    private boolean isCriticalHit() {
+    private boolean isCriticalHit() {//critical hit with a 20% chance
         double critChance = 0.20; // 20% chance for a critical hit
         return random.nextDouble() < critChance;
     }
@@ -225,7 +225,7 @@ public class Combat {
         return random.nextDouble() < hitProbability;
     }
 
-    private void resetKeyHandlerFlags() {
+    private void resetKeyHandlerFlags() {//reset the keyhandler flags
         keyHandler.pressed1 = false;
         keyHandler.pressed2 = false;
         keyHandler.pressed3 = false;

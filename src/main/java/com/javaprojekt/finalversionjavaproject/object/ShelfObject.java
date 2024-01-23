@@ -5,6 +5,7 @@ import com.javaprojekt.finalversionjavaproject.main.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.util.Objects;
 
 public class ShelfObject extends SuperClassObject {
     public ShelfObject() {
@@ -13,7 +14,7 @@ public class ShelfObject extends SuperClassObject {
         super.solid = new Rectangle(0,0,128,64);
 
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/Regalv2.png"));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/objects/Regalv2.png")));
 
         } catch (Exception e) {
             e.printStackTrace();

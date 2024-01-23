@@ -4,6 +4,7 @@ import com.javaprojekt.finalversionjavaproject.main.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.util.Objects;
 
 public class ExitObject extends SuperClassObject{
     public ExitObject() {
@@ -12,7 +13,7 @@ public class ExitObject extends SuperClassObject{
         super.solid = new Rectangle(0,0,32, 11);
 
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/exitSign.png"));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/objects/exitSign.png")));
 
         } catch (Exception e) {
             e.printStackTrace();

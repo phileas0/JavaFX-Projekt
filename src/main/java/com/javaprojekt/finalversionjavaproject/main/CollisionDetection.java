@@ -8,13 +8,11 @@ import org.w3c.dom.Text;
 import java.awt.*;
 
 public class CollisionDetection {
-    GamePanel gamePanel;
-    KeyHandler keyHandler;
-    EnemySetter enemySetter;
-    TextField textField;
+    private GamePanel gamePanel;
+    private KeyHandler keyHandler;
+    private EnemySetter enemySetter;
+    private TextField textField;
     private Map8Switcher map8Switcher;
-    Rectangle rect;
-    Player player;
 
     public CollisionDetection(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -24,12 +22,14 @@ public class CollisionDetection {
         this.textField = gamePanel.textField;
     }
 
-    public void checkTile(Entity entity) {
+    public void checkTile(Entity entity) {//check if player "will be" on a TILE which has collision set to true
+        //get entitys solid area position
         int entityLeftWorldX = entity.x + entity.solid.x;
         int entityRightWorldX = entity.x + entity.solid.x + entity.solid.width;
         int entityTopWorldY = entity.y + entity.solid.y;
         int entityBottomWorldY = entity.y + entity.solid.y + entity.solid.height;
 
+        //get tile position
         int entityLeftCol = entityLeftWorldX / gamePanel.tileSize;
         int entityRightCol = entityRightWorldX / gamePanel.tileSize;
         int entityTopRow = entityTopWorldY / gamePanel.tileSize;
@@ -37,7 +37,7 @@ public class CollisionDetection {
 
         int tileNum1, tileNum2;
 
-        switch (entity.direction) {
+        switch (entity.direction) { // Check for collision in the direction the entity is moving
             case "up":
                 entity.collision = false; // Reset collision flag
                 entityTopRow = (entityTopWorldY - entity.speed) / gamePanel.tileSize;
@@ -46,14 +46,14 @@ public class CollisionDetection {
                 if (gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
                     entity.collision = true;
                 }
-                //if(enemySetter.areAllEnemiesOffMap()){
+                if(enemySetter.areAllEnemiesOffMap()){//check if all enemies are off the map
                     checkTile3(entity);
-                //}
-                //else if(tileNum1 == 3 || tileNum2 == 3 && enemySetter.areAllEnemiesOffMap()){
-                //    if (!textField.isDisplayingMessages()){
-                //        textField.addMessage("You can't leave the map while enemies are still on it!");
-                //    }
-                //}
+                }
+                else if(tileNum1 == 3 || tileNum2 == 3 && enemySetter.areAllEnemiesOffMap()){//check if player is on a tile[3] (red tile)
+                    if (!textField.isDisplayingMessages()){
+                        textField.addMessage("You can't leave the map while enemies are still on it!");
+                    }
+                }
                 break;
             case "down":
                 entity.collision = false; // Reset collision flag
@@ -63,13 +63,13 @@ public class CollisionDetection {
                 if (gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
                     entity.collision = true;
                 }
-                //if(enemySetter.areAllEnemiesOffMap()){
+                if(enemySetter.areAllEnemiesOffMap()){
                   checkTile3(entity);
-                //}
-                //else if(tileNum1 == 3 || tileNum2 == 3&& enemySetter.areAllEnemiesOffMap()){
-                //    if (!textField.isDisplayingMessages()){
-                //        textField.addMessage("You can't leave the map while enemies are still on it!");
-                //    }                }
+                }
+                else if(tileNum1 == 3 || tileNum2 == 3&& enemySetter.areAllEnemiesOffMap()){
+                    if (!textField.isDisplayingMessages()){
+                        textField.addMessage("You can't leave the map while enemies are still on it!");
+                    }                }
                 break;
             case "left":
                 entity.collision = false; // Reset collision flag
@@ -79,13 +79,13 @@ public class CollisionDetection {
                 if (gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
                     entity.collision = true;
                 }
-                // if(enemySetter.areAllEnemiesOffMap()){
+                if(enemySetter.areAllEnemiesOffMap()){
                     checkTile3(entity);
-                //}
-                //else if(tileNum1 == 3 || tileNum2 == 3&& enemySetter.areAllEnemiesOffMap()){
-                //if (!textField.isDisplayingMessages()){
-                //   textField.addMessage("You can't leave the map while enemies are still on it!");
-                //}                }
+                }
+                else if(tileNum1 == 3 || tileNum2 == 3&& enemySetter.areAllEnemiesOffMap()){
+                if (!textField.isDisplayingMessages()){
+                   textField.addMessage("You can't leave the map while enemies are still on it!");
+                }                }
                 break;
             case "right":
                 entity.collision = false; // Reset collision flag
@@ -95,14 +95,14 @@ public class CollisionDetection {
                 if (gamePanel.tileManager.tile[tileNum1].collision || gamePanel.tileManager.tile[tileNum2].collision) {
                     entity.collision = true;
                 }
-                //if(enemySetter.areAllEnemiesOffMap()){
+                if(enemySetter.areAllEnemiesOffMap()){
                     checkTile3(entity);
-                //}
-                //else if(tileNum1 == 3 || tileNum2 == 3 && enemySetter.areAllEnemiesOffMap()){
-                // if (!textField.isDisplayingMessages()){
-                // textField.addMessage("You can't leave the map while enemies are still on it!");
-                //}                }
-
+                }
+                else if(tileNum1 == 3 || tileNum2 == 3 && enemySetter.areAllEnemiesOffMap()){
+                if (!textField.isDisplayingMessages()){
+                    textField.addMessage("You can't leave the map while enemies are still on it!");
+                }
+            }
                 break;
         }
 
@@ -115,7 +115,6 @@ public class CollisionDetection {
             int playerTopRow = (entity.y + entity.solidAreaDefaultY) / gamePanel.tileSize;
             int playerLeftCol = (entity.x + entity.solidAreaDefaultX) / gamePanel.tileSize;
             int tileNum = gamePanel.tileManager.mapTileNumber[gamePanel.currentMap][playerLeftCol][playerTopRow];
-            int playerRightCol = (entity.x + entity.solidAreaDefaultX + entity.solid.width) / gamePanel.tileSize;
 
 
             // make a switch with argument gamepanel.currentmap, and in each case check if the player is in a tile[3] (red tile)
@@ -219,7 +218,7 @@ public class CollisionDetection {
 
     }
 
-    public int checkObject(Entity entity, boolean p) {
+    public int checkObject(Entity entity, boolean p) {//check if player "will be" on a OBJECT which has collision set to true
         int index = 999;
 
         for (int i = 0; i < gamePanel.obj[1].length; i++) {
@@ -231,7 +230,7 @@ public class CollisionDetection {
                 gamePanel.obj[gamePanel.currentMap][i].solid.x = gamePanel.obj[gamePanel.currentMap][i].worldX + gamePanel.obj[gamePanel.currentMap][i].solid.x;
                 gamePanel.obj[gamePanel.currentMap][i].solid.y = gamePanel.obj[gamePanel.currentMap][i].worldY + gamePanel.obj[gamePanel.currentMap][i].solid.y;
 
-                switch (entity.direction) {
+                switch (entity.direction) {// Check for collision in the direction the entity is moving
                     case "up":
                         entity.solid.y -= entity.speed;
                         if (entity.solid.intersects(gamePanel.obj[gamePanel.currentMap][i].solid)) {

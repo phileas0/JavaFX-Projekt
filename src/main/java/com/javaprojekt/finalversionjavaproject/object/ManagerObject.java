@@ -4,6 +4,7 @@ import com.javaprojekt.finalversionjavaproject.main.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.util.Objects;
 
 
 public class ManagerObject extends SuperClassObject {
@@ -14,7 +15,7 @@ public class ManagerObject extends SuperClassObject {
         name = "manager";
 
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/Conversation/manager.png"));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/Conversation/manager.png")));
 
         } catch (Exception e) {
             e.printStackTrace();

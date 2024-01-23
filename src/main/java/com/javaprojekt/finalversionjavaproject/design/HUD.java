@@ -8,21 +8,19 @@ import com.javaprojekt.finalversionjavaproject.object.KeyObject2;
 import java.awt.*;
 
 public class HUD {
-    GamePanel gamePanel;
-    Tutorial tutorial;
-    com.javaprojekt.finalversionjavaproject.combat.TextField textField;
-    Font arial40;
-    Image keyImage1;
-    Image keyImage2;
+    private GamePanel gamePanel;
+    private Tutorial tutorial;
+    private Font arial40;
+    private Image keyImage1;
+    private Image keyImage2;
     public boolean messageBoolean = false;
     public String messageString = "";
-    String messageStringBefore = "";
+    public String messageStringBefore = "";
     int messageTimer = 0;
 
     public HUD(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         this.tutorial = gamePanel.tutorial;
-        this.textField = gamePanel.textField;
 
         arial40 = new Font("Arial", Font.BOLD, 40);
         KeyObject key = new KeyObject();

@@ -4,6 +4,7 @@ import com.javaprojekt.finalversionjavaproject.main.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.util.Objects;
 
 public class TrashbagObject extends SuperClassObject {
     public TrashbagObject() {
@@ -13,7 +14,7 @@ public class TrashbagObject extends SuperClassObject {
 
 
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/objects/trashbag.png"));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/objects/trashbag.png")));
 
         } catch (Exception e) {
             e.printStackTrace();

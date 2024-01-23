@@ -4,22 +4,23 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Tutorial {
     public int pauseGameCounter = 1;//Tutorial class
-    GamePanel gamePanel;
-    KeyHandler keyHandler;
-    Font arial40;//Initialize font
-    BufferedImage KeyW;
-    BufferedImage KeyA;
-    BufferedImage KeyS;
-    BufferedImage KeyD;
-    BufferedImage KeyE;
-    BufferedImage KeyEsc;
-    BufferedImage KeyQ;
-    BufferedImage Key1;
-    BufferedImage Key2;
-    BufferedImage Key3;
+    private GamePanel gamePanel;
+    private KeyHandler keyHandler;
+    private Font arial40;//Initialize font
+    public BufferedImage KeyW;
+    public BufferedImage KeyA;
+    public BufferedImage KeyS;
+    public BufferedImage KeyD;
+    public BufferedImage KeyE;
+    public BufferedImage KeyEsc;
+    public BufferedImage KeyQ;
+    public BufferedImage Key1;
+    public BufferedImage Key2;
+    public BufferedImage Key3;
     public BufferedImage Textfield;//Initialize images
     public boolean isTutorialActive = true;//Initialize boolean for tutorial display
     boolean isTutorialActive1 = false;
@@ -31,17 +32,17 @@ public class Tutorial {
         this.keyHandler = gamePanel.keyHandler;
         this.gamePanel = gamePanel;
         try {
-            KeyW = ImageIO.read(getClass().getResourceAsStream("/res/keys/WKey.png"));
-            KeyA = ImageIO.read(getClass().getResourceAsStream("/res/keys/AKey.png"));
-            KeyS = ImageIO.read(getClass().getResourceAsStream("/res/keys/SKey.png"));
-            KeyD = ImageIO.read(getClass().getResourceAsStream("/res/keys/DKey.png"));
-            KeyE = ImageIO.read(getClass().getResourceAsStream("/res/keys/EKey.png"));
-            KeyQ = ImageIO.read(getClass().getResourceAsStream("/res/keys/QKey.png"));
-            Key1 = ImageIO.read(getClass().getResourceAsStream("/res/keys/1Key.png"));
-            Key2 = ImageIO.read(getClass().getResourceAsStream("/res/keys/2Key.png"));
-            Key3 = ImageIO.read(getClass().getResourceAsStream("/res/keys/3Key.png"));
-            KeyEsc = ImageIO.read(getClass().getResourceAsStream("/res/keys/EscKey.png"));
-            Textfield = ImageIO.read(getClass().getResourceAsStream("/res/Conversation/textfield.png"));
+            KeyW = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/keys/WKey.png")));
+            KeyA = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/keys/AKey.png")));
+            KeyS = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/keys/SKey.png")));
+            KeyD = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/keys/DKey.png")));
+            KeyE = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/keys/EKey.png")));
+            KeyQ = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/keys/QKey.png")));
+            Key1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/keys/1Key.png")));
+            Key2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/keys/2Key.png")));
+            Key3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/keys/3Key.png")));
+            KeyEsc = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/keys/EscKey.png")));
+            Textfield = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/Conversation/textfield.png")));
 
             arial40 = new Font("Arial", Font.BOLD, 40);
 

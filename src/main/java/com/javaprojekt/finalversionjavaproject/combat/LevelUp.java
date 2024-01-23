@@ -11,7 +11,7 @@ public class LevelUp {
         this.player = player;
     }
 
-    public void applyLevelUp() {
+    public void applyLevelUp() {// Apply level up
         // Standard stat increase
         player.setMaxHealth();
         player.setDamage();

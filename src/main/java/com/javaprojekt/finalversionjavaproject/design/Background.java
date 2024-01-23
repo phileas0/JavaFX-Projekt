@@ -2,10 +2,7 @@ package com.javaprojekt.finalversionjavaproject.design;
 
 import com.javaprojekt.finalversionjavaproject.combat.TextField;
 import com.javaprojekt.finalversionjavaproject.entity.Player;
-import com.javaprojekt.finalversionjavaproject.main.EnemySetter;
-import com.javaprojekt.finalversionjavaproject.main.GamePanel;
-import com.javaprojekt.finalversionjavaproject.main.ObjectSetter;
-import com.javaprojekt.finalversionjavaproject.main.Tutorial;
+import com.javaprojekt.finalversionjavaproject.main.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -18,18 +15,22 @@ public class Background {
     public GamePanel gamePanel;
     public EnemySetter enemySetter;
     public BufferedImage map, map2, map3, map4, map5, map6, map7, map8, map9, map10, map11, map12, map13;
-    public BufferedImage gameover, pauseScreen, expMenu, textField, credits;
+    public BufferedImage gameover, pauseScreen, expMenu, textField, credits, startImage;
     public BufferedImage streetFights, streetFights2, factoryFront, theFactory, meetingRoom, kitchenRoom, finalBoss;
     public Player player;
-    Tutorial tutorial;
+    public KeyHandler keyhandler;
+    private Tutorial tutorial;
     public int lobbycounter = 0;
     public int meetingcounter = 0;
     public int kitchencounter = 0;
+    public int startcounter = 0;
     private int creditcounter;
+    public boolean startScreen = true;
 
 
     public Background(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
+        this.keyhandler = gamePanel.keyHandler;
         this.enemySetter = new EnemySetter(gamePanel);
         this.objectSetter = new ObjectSetter(gamePanel);
         this.player = new Player(gamePanel, gamePanel.keyHandler);
@@ -60,6 +61,7 @@ public class Background {
             map11 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/Lobby2.png")));
             map12 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/FinalBossRoom.png")));
             map13 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/maps/waffenlager2.png")));
+            startImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("/res/maps/startscreen.png")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -138,7 +140,21 @@ public class Background {
         g2.drawImage(map, 0, 0, 1280, 768, null);
     }
     public void drawGameover(Graphics2D g2) {
+        Font arial40 = new Font("Arial", Font.BOLD, 40);
+        g2.setFont(arial40);
+        g2.setColor(Color.PINK);
+        String message = "You lost. Press \"esc\" to restart the game";
+        int centerX = gamePanel.getWidth() / 2;
+        int variableY = 620;
         g2.drawImage(gameover, 0, 0, 1280, 768, null);
+        int textWidth = g2.getFontMetrics().stringWidth(message);
+        int textHeight = g2.getFontMetrics().getHeight();
+
+        creditcounter++;
+        if(creditcounter>300){
+            g2.drawImage(tutorial.Textfield, centerX-(textWidth/2)-150, variableY-30, textWidth+300, 80 + textHeight, null);
+            g2.drawString("You won. Press \"esc\" to restart the game", centerX - textWidth / 2, variableY + textHeight);
+        }
     }
     public void drawPauseScreen(Graphics2D g2) {
         g2.drawImage(pauseScreen, 0, 0, 1280, 768, null);
@@ -164,6 +180,13 @@ public class Background {
         }
 
     }
+    public void drawStartScreen(Graphics2D g2) {
+        g2.drawImage(startImage, 0, 0, 1280, 768, null);
+        if(keyhandler.interacted){
+            startScreen = false;
+        }
+    }
+
     public void drawStreetFights(Graphics2D g2) {
         g2.drawImage(streetFights, 0, 0, 1280, 768, null);
     }
