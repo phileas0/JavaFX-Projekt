@@ -47,6 +47,7 @@ We still have to code many important features, so there is still a lot missing!
 - **Other important things to know::**
   - You can use as many abilities as you want (if you have the resources)
   - Shooting passes the turn to the enemy. NO TURNING BACK!
+  - Leveling up replenishes health and stimpaks.
 
 
 ## Important Functions:

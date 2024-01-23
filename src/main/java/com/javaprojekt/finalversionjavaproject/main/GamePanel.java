@@ -31,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * maxScreenRow; // 720
     private int messageCounter = 0;
     int FPS = 120;
+    private boolean gameRestarted = false;
 
 
 
@@ -230,9 +231,6 @@ public class GamePanel extends JPanel implements Runnable {
                 }
                 break;
             case GAMEOVER:
-                if (keyHandler.escPressed) {
-                    restartGame();
-                }
                 break;
         }
     }
@@ -379,8 +377,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
         if (combat.finalBossDead) {//if final boss is dead then the credits are displayed
             background.drawCredits(g2);
-            if (keyHandler.escPressed) {
+            if (keyHandler.escPressed && !gameRestarted) {
                     restartGame();
+                    gameRestarted = true;
             }
         }
     }
@@ -404,11 +403,11 @@ public class GamePanel extends JPanel implements Runnable {
         // Display player stats
         String levelText = "Level: " + player.getCurrentLevel();
         String expText = "EXP: " + player.getExp() + " / " + player.getExpToNextLevel();
-        String healthText = "Health: " + player.getMaxHealth();
+        String healthText = "Health: " + player.currentHealth + " / " + player.getMaxHealth();
         String energy = "Energy: " + player.getEnergy() + "%";
         String damage = "Damage: " + player.getDamage();
         String energyRecovery = "Speed: " + player.getEnergyRecovery();
-        String stimpaks = "Stimpaks: " + player.getMaxStimpaks();
+        String stimpaks = "Stimpaks: " + player.currentStimpaks + " / " + player.getMaxStimpaks();
         String healing = "Arcane: " + player.getHealing();
 
         // Calculate positions and draw the stats

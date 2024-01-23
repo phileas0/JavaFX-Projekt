@@ -43,7 +43,7 @@ public class EnemySetter {
     }
 
     private void setEnemiesForFinal() {//setter for boss
-        Enemy newEnemy1Map11 = new Enemy(100, 15, 0.99, 0, 7, 6);
+        Enemy newEnemy1Map11 = new Enemy(150, 15, 0.99, 1, 7, 6);
         newEnemy1Map11.x = 12 * gamePanel.tileSize;
         newEnemy1Map11.y = 8 * gamePanel.tileSize;
         addEnemyToCurrentMap(newEnemy1Map11);
@@ -51,12 +51,12 @@ public class EnemySetter {
 
     private void setEnemiesForMap9() {//setter for kitchen
         if(gamePanel.background.kitchencounter<2){
-            Enemy newEnemy1Map9 = new Enemy(60, 10, 1, 55, 6, 5);
+            Enemy newEnemy1Map9 = new Enemy(60, 12, 1, 55, 6, 5);
             newEnemy1Map9.x = 14 * gamePanel.tileSize;
             newEnemy1Map9.y = 6 * gamePanel.tileSize;
             addEnemyToCurrentMap(newEnemy1Map9);
 
-            Enemy newEnemy2Map9 = new Enemy(40, 4, 1, 45, 5, 5);
+            Enemy newEnemy2Map9 = new Enemy(40, 9, 1, 45, 5, 5);
             newEnemy2Map9.x = 4 * gamePanel.tileSize;
             newEnemy2Map9.y = 8 * gamePanel.tileSize;
             addEnemyToCurrentMap(newEnemy2Map9);
@@ -79,12 +79,12 @@ public class EnemySetter {
 
     }
     private void setEnemiesForMap6() {//setter for lobby entrance
-        Enemy newEnemy1Map6 = new Enemy(50, 12, 0.75, 35, 3, 1);
+        Enemy newEnemy1Map6 = new Enemy(50, 13, 0.75, 35, 3, 1);
         newEnemy1Map6.x = 12 * gamePanel.tileSize;
         newEnemy1Map6.y = 6 * gamePanel.tileSize;
         addEnemyToCurrentMap(newEnemy1Map6);
 
-        Enemy newEnemy2Map6 = new Enemy(55, 12, 0.75, 40, 3, 1);
+        Enemy newEnemy2Map6 = new Enemy(55, 15, 0.75, 40, 3, 1);
         newEnemy2Map6.x = 7 * gamePanel.tileSize;
         newEnemy2Map6.y = 6 * gamePanel.tileSize;
         addEnemyToCurrentMap(newEnemy2Map6);
@@ -113,7 +113,7 @@ public class EnemySetter {
 
         // Füge hier weitere Enemies für Map 3 hinzu
 
-        Enemy newEnemy2Map3 = new Enemy(24, 15, 0.4, 22, 4, 3);
+        Enemy newEnemy2Map3 = new Enemy(24, 15, 0.4, 13, 4, 3);
         newEnemy2Map3.x = 5 * gamePanel.tileSize;
         newEnemy2Map3.y = 10 * gamePanel.tileSize;
         addEnemyToCurrentMap(newEnemy2Map3);
@@ -129,7 +129,7 @@ public class EnemySetter {
 
             // Füge hier weitere Enemies für Map 2 hinzu
 
-            Enemy newEnemy2Map2 = new Enemy(20, 5, 0.85, 12, 2, 2);
+            Enemy newEnemy2Map2 = new Enemy(25, 5, 0.85, 12, 2, 2);
             newEnemy2Map2.x = 7 * gamePanel.tileSize;
             newEnemy2Map2.y = 6 * gamePanel.tileSize;
             addEnemyToCurrentMap(newEnemy2Map2);
@@ -140,13 +140,13 @@ public class EnemySetter {
 
     private void setEnemiesForMap1() {//setter for crossroad
         // Spezieller Enemy1 nur auf Map 1
-            Enemy specialEnemy1Map1 = new Enemy(20, 5, 0.85, 12, 2, 1);
+            Enemy specialEnemy1Map1 = new Enemy(20, 6, 0.85, 11, 2, 1);
             specialEnemy1Map1.x = 11 * gamePanel.tileSize;
             specialEnemy1Map1.y = 4 * gamePanel.tileSize;
             addEnemyToCurrentMap(specialEnemy1Map1);
 
             // Spezieller Enemy2 nur auf Map 1
-            Enemy specialEnemy2Map1 = new Enemy(15, 3, 0.85, 8, 1, 1);
+            Enemy specialEnemy2Map1 = new Enemy(15, 5, 0.95, 8, 1, 1);
             specialEnemy2Map1.x = 7 * gamePanel.tileSize;
             specialEnemy2Map1.y = 4 * gamePanel.tileSize;
             addEnemyToCurrentMap(specialEnemy2Map1);
@@ -155,7 +155,7 @@ public class EnemySetter {
 
     private void setEnemiesForMap0() {//setter für starting map
         // Beispiel: Enemy1 auf Map 0
-        Enemy enemy1Map0 = new Enemy(10, 2, 0.85, 6, 0, 0);
+        Enemy enemy1Map0 = new Enemy(10, 4, 0.85, 6, 0, 0);
         enemy1Map0.x = 10 * gamePanel.tileSize -32;
         enemy1Map0.y = 3 * gamePanel.tileSize;
         addEnemyToCurrentMap(enemy1Map0);

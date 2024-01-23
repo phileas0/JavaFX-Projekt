@@ -139,23 +139,7 @@ public class Background {
     public void drawMap(Graphics2D g2) {
         g2.drawImage(map, 0, 0, 1280, 768, null);
     }
-    public void drawGameover(Graphics2D g2) {
-        Font arial40 = new Font("Arial", Font.BOLD, 40);
-        g2.setFont(arial40);
-        g2.setColor(Color.PINK);
-        String message = "You lost. Press \"esc\" to restart the game";
-        int centerX = gamePanel.getWidth() / 2;
-        int variableY = 620;
-        g2.drawImage(gameover, 0, 0, 1280, 768, null);
-        int textWidth = g2.getFontMetrics().stringWidth(message);
-        int textHeight = g2.getFontMetrics().getHeight();
-
-        creditcounter++;
-        if(creditcounter>300){
-            g2.drawImage(tutorial.Textfield, centerX-(textWidth/2)-150, variableY-30, textWidth+300, 80 + textHeight, null);
-            g2.drawString("You won. Press \"esc\" to restart the game", centerX - textWidth / 2, variableY + textHeight);
-        }
-    }
+    public void drawGameover(Graphics2D g2) {g2.drawImage(gameover, 0, 0, 1280, 768, null);}
     public void drawPauseScreen(Graphics2D g2) {
         g2.drawImage(pauseScreen, 0, 0, 1280, 768, null);
     }

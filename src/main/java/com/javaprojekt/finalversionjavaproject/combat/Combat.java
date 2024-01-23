@@ -39,7 +39,7 @@ public class Combat {
         if (player != null) {
             currentPlayerHealth = player.currentHealth;
             currentEnergy = player.getEnergy();
-            currentStimpaks = player.getMaxStimpaks();
+            currentStimpaks = player.currentStimpaks;
         }
         isPlayerTurn = true;
     }
@@ -91,6 +91,7 @@ public class Combat {
 
     private void handleEnemyTurn() {// Enemy's turn
         takeDamage(enemy.getDamage());
+        shieldUp = false;
         currentEnergy += player.getEnergyRecovery();
         if (currentEnergy >= player.getEnergy()) {
             currentEnergy = player.getEnergy();
@@ -201,13 +202,15 @@ public class Combat {
         }
         if (shieldUp && hit) {
             textField.addMessage("Shield deflected " + damage + " damage.");
-            shieldUp = false;
         } else if (hit) {
             currentPlayerHealth -= damage;
             textField.addMessage("Enemy damaged you! Lost " + damage + " HP.");
         } else {
             textField.addMessage("Enemy attack missed!");
         }
+        eaglesEyeActivated = false;
+        trojanSent = false;
+        shieldUp = false;
     }
 
     private boolean attackHits() {//attack hits with a 75% chance
